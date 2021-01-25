@@ -1,0 +1,13 @@
+syntax = "proto2";
+import "common.proto";
+
+message ttt {
+    required string msg = 1;
+}
+
+message rpc {
+    required string from = 1;
+    required string to = 2;
+    required string route = 3;
+    optional ttt ttt = 4;
+}

@@ -1,0 +1,42 @@
+{
+    "Master": {
+        "login-server": [
+            {
+                "url": "127.0.0.1",
+                "port": 300
+            }
+        ],
+        "center-server": [
+            {
+                "url": "127.0.0.1",
+                "port": 300
+            }
+        ],
+        "game-server": [
+            {
+                "url": "127.0.0.1",
+                "port": 800
+            }
+        ]
+    },
+    "Dev": {
+        "login-server": [
+            {
+                "url": "127.0.0.1",
+                "port": 300
+            }
+        ],
+        "center-server": [
+            {
+                "url": "127.0.0.1",
+                "port": 500
+            }
+        ],
+        "game-server": [
+            {
+                "url": "127.0.0.1",
+                "port": 800
+            }
+        ]
+    }
+}
