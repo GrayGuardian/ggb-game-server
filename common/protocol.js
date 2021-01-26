@@ -4,7 +4,7 @@ const protobuf = require('protobufjs');
 const config = {
     'server': {
         'file': './protocol/server.proto',
-        'types': ['rpc']
+        'types': ['rpc', 'rpcRet']
     },
 };
 module.exports = function () {

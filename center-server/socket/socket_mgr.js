@@ -22,17 +22,30 @@ SocketMgr.prototype.conn = function (socket) {
 
     });
 
-    socket.on('send', (rpc) => {
-        this.receive(rpc);
+    socket.on('rpc', (body) => {
+        this.rpc(body);
+    });
+    socket.on('rpcRet', (body) => {
+        this.rpcRet(body);
     });
 }
-SocketMgr.prototype.receive = function (rpc) {
-    let body = protocol.decode('server.rpc', rpc);
-    console.log('消息中转', body);
-    let socket = this.socketMap.get(body.to);
+SocketMgr.prototype.rpc = function (body) {
+    let rpc = protocol.decode('server.rpc', body);
+    console.log('消息中转', rpc);
+    let socket = this.socketMap.get(rpc.to);
     if (socket == null) {
         console.error(`未找到有效的Socket连接 Server:${server}`)
         return;
     }
-    socket.emit('send', rpc);
+    socket.emit('rpc', body);
+}
+SocketMgr.prototype.rpcRet = function (body) {
+    let rpc = protocol.decode('server.rpcRet', body);
+    console.log('消息回调中转', rpc);
+    let socket = this.socketMap.get(rpc.to);
+    if (socket == null) {
+        console.error(`未找到有效的Socket连接 Server:${server}`)
+        return;
+    }
+    socket.emit('rpcRet', body);
 }

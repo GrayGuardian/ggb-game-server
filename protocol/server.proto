@@ -4,10 +4,22 @@ import "common.proto";
 message ttt {
     required string msg = 1;
 }
-
+message tttRet{ 
+    required string msg = 1;
+}
 message rpc {
-    required string from = 1;
-    required string to = 2;
-    required string route = 3;
-    optional ttt ttt = 4;
+    required int32 code = 1;
+    required string from = 2;
+    required string to = 3;
+    required string route = 4;
+
+    optional ttt ttt = 100;
+}
+message rpcRet {
+    required int32 code = 1;
+    required string from = 2;
+    required string to = 3;
+    required string route = 4;
+
+    optional tttRet tttRet = 100;
 }
