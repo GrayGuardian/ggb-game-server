@@ -1,7 +1,5 @@
-console.log('login-server rpc');
-
 var Rpc = function () { };
 
-require('./test_rpc')(Rpc.prototype);
+require('./test')(Rpc.prototype);
 
-module.exports = Rpc;
+module.exports = function () { return new Rpc(); };

@@ -1,3 +1,5 @@
+const util = require('./util/util');
+
 //生产环境 Master or Dev
 global.PRO_ENV = 'Dev';
 
@@ -12,3 +14,5 @@ global.SERVER_URL = server_config.config.url;
 global.SERVER_PORT = server_config.config.port;
 
 global.protocol = require('./protocol')();
+
+global.util = require('./util/util');

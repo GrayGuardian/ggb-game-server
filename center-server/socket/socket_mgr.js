@@ -35,6 +35,7 @@ SocketMgr.prototype.rpc = function (body) {
     let socket = this.socketMap.get(rpc.to);
     if (socket == null) {
         console.error(`未找到有效的Socket连接 Server:${server}`)
+        //暂定做法为单Center服务器转发 后期扩展可在此处二次转发
         return;
     }
     socket.emit('rpc', body);
@@ -45,6 +46,7 @@ SocketMgr.prototype.rpcRet = function (body) {
     let socket = this.socketMap.get(rpc.to);
     if (socket == null) {
         console.error(`未找到有效的Socket连接 Server:${server}`)
+        //暂定做法为单Center服务器转发 后期扩展可在此处二次转发
         return;
     }
     socket.emit('rpcRet', body);

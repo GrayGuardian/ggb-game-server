@@ -26,7 +26,7 @@ CenterMgr.prototype.receive = function (rpc) {
     console.log('收到来自Center-Server的消息', rpc);
     let callback = (data) => { this.rpcRet(rpc.code, rpc.from, `${rpc.route}Ret`, data) };
 
-    let action = rpc_mgr.prototype[rpc.route];
+    let action = rpc_mgr[rpc.route];
     if (action == null) {
         console.error('未找到rpc Action', rpc);
         return;
