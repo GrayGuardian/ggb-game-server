@@ -6,6 +6,10 @@ const config = {
         'file': './protocol/server.proto',
         'types': ['rpc', 'rpcRet']
     },
+    'user': {
+        'file': './protocol/web.proto',
+        'types': ['register'],
+    },
 };
 module.exports = function () {
     return new Protocol();
@@ -28,15 +32,32 @@ Protocol.prototype.encode = function (key, data) {
     let type = this.typeMap.get(key);
     if (type == null) {
         console.error(`Protocol Type不存在 Key:${key}`);
-        return;
+        return null;
     }
-    return type.encode(data).finish();
+    try {
+        return type.encode(data).finish();
+    } catch {
+        return null;
+    }
+
 }
 Protocol.prototype.decode = function (key, data) {
     let type = this.typeMap.get(key);
     if (type == null) {
         console.error(`Protocol Type不存在 Key:${key}`);
-        return;
+        return null;
     }
-    return type.decode(data);
+    try {
+        return type.decode(data);
+    } catch {
+        return null;
+    }
 }
+Protocol.prototype.format = function (key, data) {
+    try {
+        return this.decode(key, this.encode(key, data));
+    } catch {
+        return null;
+    }
+}
+

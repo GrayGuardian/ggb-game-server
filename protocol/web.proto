@@ -1,0 +1,6 @@
+syntax = "proto2";
+message register {
+    required string username = 1;
+    required string password = 2;
+    required string password1 = 3;
+}

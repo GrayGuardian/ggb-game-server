@@ -6,10 +6,15 @@ const app = new Koa();
 console.log('Server Start>>>', `Type:${SERVER_TYPE} Name:${SERVER_NAME} Url:${SERVER_URL} Port:${SERVER_PORT}`);
 
 //http
-const token = require('./filter/token');
-const user = require('./routes/user');
+
 app.use(bodyParser());
+//拦截器
+const param = require('./filter/param');
+const token = require('./filter/token');
+app.use(param);
 app.use(token);
+//路由
+const user = require('./routes/user');
 app.use(user.routes(), user.allowedMethods());
 
 app.listen(SERVER_PORT, () => {

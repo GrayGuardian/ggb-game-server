@@ -1,5 +1,4 @@
 syntax = "proto2";
-import "common.proto";
 
 message ttt {
     required string msg = 1;
