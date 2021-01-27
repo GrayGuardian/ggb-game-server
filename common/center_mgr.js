@@ -14,7 +14,7 @@ var CenterMgr = function () {
     this.socket.emit('init', { name: SERVER_NAME });
 
     this.socket.on('rpc', (body) => {
-        let rpc = protocol.decode('server.rpc', body);
+        let rpc = protocol.decode('s2s.rpc', body);
         if (rpc.to != SERVER_NAME) {
             return;
         }
@@ -45,10 +45,10 @@ CenterMgr.prototype.rpc = function (to, route, data, cb) {
     let code = this.code++;
     let rpc = { code: code, from: SERVER_NAME, to: to, route: route };
     rpc[route] = data;
-    let body = protocol.encode('server.rpc', rpc);
+    let body = protocol.encode('s2s.rpc', rpc);
     this.socket.emit('rpc', body);
     let retCb = (body) => {
-        let rpc = protocol.decode('server.rpcRet', body);
+        let rpc = protocol.decode('s2s.rpcRet', body);
         if (rpc.to != SERVER_NAME) {
             return;
         }
@@ -60,6 +60,6 @@ CenterMgr.prototype.rpc = function (to, route, data, cb) {
 CenterMgr.prototype.rpcRet = function (code, to, route, data) {
     let rpc = { code: code, from: SERVER_NAME, to: to, route: route };
     rpc[route] = data;
-    let body = protocol.encode('server.rpcRet', rpc);
+    let body = protocol.encode('s2s.rpcRet', rpc);
     this.socket.emit('rpcRet', body);
 }

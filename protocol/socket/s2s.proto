@@ -1,11 +1,13 @@
 syntax = "proto2";
 
+package s2s;
 message ttt {
     required string msg = 1;
 }
 message tttRet{ 
     required string msg = 1;
 }
+
 message rpc {
     required int32 code = 1;
     required string from = 2;

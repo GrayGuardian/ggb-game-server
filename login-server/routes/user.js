@@ -8,11 +8,13 @@ router.post('/login', async (ctx, next) => {
     console.log('登录情况:', result);
     ctx.body = result;
 
+
+});
+router.post('/register', async (ctx, next) => {
     // center_mgr.rpc('game-server0', 'ttt', { msg: '我是login-server传来的ttt的msg值1' }, (data) => { console.log('tttRet>>>', data); })
     // let data = await center_mgr.rpcAsync('game-server0', 'ttt', { msg: '我是login-server传来的ttt的msg值2' });
     // console.log(data);
-});
-router.post('/register', async (ctx, next) => {
+
     let param = ctx.param;
     let username = param.username;
     let password = param.password;

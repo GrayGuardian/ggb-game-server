@@ -1,0 +1,3 @@
+syntax = "proto2";
+import "socket/s2s.proto";
+import "web/user.proto";
