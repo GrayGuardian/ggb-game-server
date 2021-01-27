@@ -15,6 +15,13 @@ router.post('/register', async (ctx, next) => {
     // let data = await center_mgr.rpcAsync('game-server0', 'ttt', { msg: '我是login-server传来的ttt的msg值2' });
     // console.log(data);
 
+    let rows = await mysql.queryAsync('SELECT * FROM user_info where uid = ? and username=?', [1, 'AAA'])
+    console.log('mysql>>>>', rows, rows[0]);
+    mysql.query('UPDATE user_info SET password=? WHERE uid=?;', ['123', 4], (data) => {
+        console.log('mysql>>>>', data);
+    })
+
+
     let param = ctx.param;
     let username = param.username;
     let password = param.password;

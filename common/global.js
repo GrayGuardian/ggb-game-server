@@ -17,4 +17,5 @@ global.protocol = require('./protocol')();
 
 global.util = require('./util/util');
 
+global.mysql = require('./db/mysql')();
 
