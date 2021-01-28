@@ -1,0 +1,15 @@
+syntax = "proto2";
+package user;
+message login {
+    required string username = 1;
+    required string password = 2;
+}
+message register {
+    required string username = 1;
+    required string password = 2;
+    required string password1 = 3;
+}
+message registerRet {
+    required int32 code = 1;
+    required string msg = 2;
+}

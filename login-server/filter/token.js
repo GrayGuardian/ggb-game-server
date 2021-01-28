@@ -6,5 +6,5 @@ module.exports = async (ctx, next) => {
     //     return;
     // }
     // console.log('token检测', url);
-    next();
+    await next();
 };

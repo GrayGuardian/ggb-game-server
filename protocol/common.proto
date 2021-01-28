@@ -1,0 +1,8 @@
+syntax = "proto2";
+
+package common;
+
+message Error {
+    required int32 code = 1;
+    required string msg = 2;
+}

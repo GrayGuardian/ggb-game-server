@@ -1,36 +1,38 @@
+
 const router = require('koa-router')();
 router.prefix('/user');
 router.post('/login', async (ctx, next) => {
-    let param = ctx.param;
+    let param = ctx.state.param;
     let username = param.username;
     let password = param.password;
     let result = logic_mgr.login(username, password);
     console.log('登录情况:', result);
     ctx.body = result;
-
-
-});
-router.post('/register', async (ctx, next) => {
     // center_mgr.rpc('game-server0', 'ttt', { msg: '我是login-server传来的ttt的msg值1' }, (data) => { console.log('tttRet>>>', data); })
     // let data = await center_mgr.rpcAsync('game-server0', 'ttt', { msg: '我是login-server传来的ttt的msg值2' });
     // console.log(data);
 
-    let rows = await mysql.queryAsync('SELECT * FROM user_info where uid = ? and username=?', [1, 'AAA'])
-    console.log('mysql>>>>', rows, rows[0]);
-    mysql.query('UPDATE user_info SET password=? WHERE uid=?;', ['123', 4], (data) => {
-        console.log('mysql>>>>', data);
-    })
 
-
-    let param = ctx.param;
+});
+router.post('/register', async (ctx, next) => {
+    let param = ctx.state.param;
     let username = param.username;
     let password = param.password;
     let password1 = param.password1;
     if (password != password1) {
-        ctx.body = { code: 500, msg: '二次密码不一致' };
+        ctx.genError(ERROR_CODE.PASSWORD_NOTSAME);
         return;
     }
-    ctx.body = { code: 200, msg: '注册成功' };
+    if (await logic_mgr.isExist(username)) {
+        ctx.genError(ERROR_CODE.USERNAME_EXIST);
+        return;
+    }
+    let info = await logic_mgr.register(username, password);
+    if (info == null) {
+        ctx.genError(ERROR_CODE.UNKNOWN_ERROR);
+        return;
+    }
+    ctx.callback({ code: 200, msg: '注册成功' });
 });
 
 module.exports = router;

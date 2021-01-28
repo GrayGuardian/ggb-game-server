@@ -19,3 +19,6 @@ global.util = require('./util/util');
 
 global.mysql = require('./db/mysql')();
 
+let error_info = require('./error_info');
+global.ERROR_CODE = error_info.ERROR_CODE;
+global.genCodeMessage = error_info.genCodeMessage;

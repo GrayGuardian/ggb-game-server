@@ -12,6 +12,7 @@ var Protocol = function () {
 Protocol.prototype.init = function () {
     this.root = protobuf.loadSync(FILEPATH);
     this.typeMap = this.getTypeMap(this.root);
+    //console.log(this.typeMap)
 }
 
 Protocol.prototype.getTypeMap = function (root, nested, namespace, map) {

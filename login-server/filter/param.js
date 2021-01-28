@@ -1,20 +1,18 @@
 
 module.exports = async (ctx, next) => {
-    let param;
+    let data = {};
     if (ctx.request.method == 'POST') {
-        param = ctx.request.body;
+        data[ctx.state.protoName] = ctx.request.body;
     }
     else {
-        param = ctx.request.query;
+        data[ctx.state.protoName] = ctx.request.query;
     }
-    let protoTypeName = ctx.originalUrl.substr(1).replace('/', '.');
-    let new_param = protocol.format(protoTypeName, param);
-    if (!new_param) {
-        ctx.body = { code: '403', tip: "参数缺省或错误" };
+    data = protocol.format('http.rpc', data);
+    if (!data) {
+        ctx.genError(ERROR_CODE.PARAM_ERROR);
+        return;
     }
-    else {
-        ctx.param = new_param;
-        next();
-    }
+    ctx.state.param = data[ctx.state.protoName];
+    await next();
 
 };

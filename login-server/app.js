@@ -9,8 +9,10 @@ console.log('Server Start>>>', `Type:${SERVER_TYPE} Name:${SERVER_NAME} Url:${SE
 
 app.use(bodyParser());
 //拦截器
+const init = require('./filter/init');
 const param = require('./filter/param');
 const token = require('./filter/token');
+app.use(init);
 app.use(param);
 app.use(token);
 //路由

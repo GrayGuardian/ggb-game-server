@@ -12,5 +12,12 @@ Util.md5 = function (content) {
     md5.update(content);
     return md5.digest('hex');
 }
+Util.toUpperCase = function (str, sep) {
+    let arr = str.split(sep);
+    arr.forEach((str, index) => {
+        arr[index] = str[0].toUpperCase() + str.substr(1);
+    });
+    return arr.join(sep);
+}
 
 module.exports = Util;

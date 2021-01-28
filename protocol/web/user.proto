@@ -1,8 +1,0 @@
-syntax = "proto2";
-package user;
-
-message register {
-    required string username = 1;
-    required string password = 2;
-    required string password1 = 3;
-}
