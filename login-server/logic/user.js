@@ -7,20 +7,19 @@ module.exports = function (prototype) {
         }
         return false;
     }
-    prototype.login = function (username, password) {
-        if (username == 123 && password == 123) {
-            return true;
+    prototype.login = async function (username, password) {
+        let rows = await mysql.queryAsync('SELECT * FROM user_info WHERE username = ? AND password = ?', [username, password]);
+        if (rows.length > 0) {
+            return rows[0];
         }
-        else {
-            return false;
-        }
+        return genErrorMsg(ERROR_CODE.PASSWORD_ERROR);
     }
     prototype.register = async function (username, password) {
         if (!REGULAR_CODE.USERNAME_VALID.test(username)) {
-            return genErrorMsg(ERROR_CODE.USERNAME_ERROR);
+            return genErrorMsg(ERROR_CODE.USERNAME_NOTVALID);
         }
         if (!REGULAR_CODE.PASSWORD_VALID.test(password)) {
-            return genErrorMsg(ERROR_CODE.PASSWORD_ERROR);
+            return genErrorMsg(ERROR_CODE.PASSWORD_NOTVALID);
         }
         if (await this.isExist(username)) {
             return genErrorMsg(ERROR_CODE.USERNAME_EXIST);

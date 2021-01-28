@@ -18,7 +18,8 @@ const ERROR_CODE = {
 
     PASSWORD_NOTSAME: genLogicCode(),
     USERNAME_EXIST: genLogicCode(),
-    USERNAME_ERROR: genLogicCode(),
+    USERNAME_NOTVALID: genLogicCode(),
+    PASSWORD_NOTVALID: genLogicCode(),
     PASSWORD_ERROR: genLogicCode(),
 }
 
@@ -30,8 +31,10 @@ const ERROR_MSG = {
 
     [ERROR_CODE.PASSWORD_NOTSAME]: '两次密码不相同',
     [ERROR_CODE.USERNAME_EXIST]: '用户名已存在',
-    [ERROR_CODE.USERNAME_ERROR]: '用户名格式错误：6-15位的大小写字母、数字、下划线、星号',
-    [ERROR_CODE.PASSWORD_ERROR]: '密码格式错误：6-15位的大小写字母、数字、下划线、星号',
+    [ERROR_CODE.USERNAME_NOTVALID]: '用户名格式错误：6-15位的大小写字母、数字、下划线、星号',
+    [ERROR_CODE.PASSWORD_NOTVALID]: '密码格式错误：6-15位的大小写字母、数字、下划线、星号',
+    [ERROR_CODE.PASSWORD_ERROR]: '密码错误',
+
 }
 exports.SUCCESS_CODE = SUCCESS_CODE;
 exports.ERROR_CODE = ERROR_CODE;

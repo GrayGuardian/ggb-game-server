@@ -11,5 +11,6 @@ message rpc {
 message rpcRet {
     optional common.Error Error = 1;
 
+    optional user.loginRet User_LoginRet = 100;
     optional user.registerRet User_RegisterRet = 101;
 }

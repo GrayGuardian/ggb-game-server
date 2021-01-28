@@ -24,6 +24,7 @@ module.exports = async (ctx, next) => {
             ctx.genError(ERROR_CODE.RPCRET_ERROR);
             return;
         }
+
         console.log(`http rpcRet >> url:${ctx.originalUrl} data:${JSON.stringify(data[protoName])}`);
         ctx.body = data[protoName];
     }

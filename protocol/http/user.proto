@@ -4,6 +4,12 @@ message login {
     required string username = 1;
     required string password = 2;
 }
+message loginRet {
+    required int32 code = 1;
+    required string msg = 2;
+    required common.UserInfo info = 3;
+    required string token = 4;
+}
 message register {
     required string username = 1;
     required string password = 2;
