@@ -12,4 +12,6 @@ message register {
 message registerRet {
     required int32 code = 1;
     required string msg = 2;
+    required common.UserInfo info = 3;
+    required string token = 4;
 }

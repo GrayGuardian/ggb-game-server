@@ -28,7 +28,8 @@ router.post('/register', async (ctx, next) => {
         ctx.genError(result.code);
     }
     else {
-        ctx.callback({ code: SUCCESS_CODE, msg: '注册成功' });
+        let token = util.token.encrypt({ uid: result.uid });
+        ctx.callback({ code: SUCCESS_CODE, msg: '注册成功', info: result, token: token });
     }
 });
 
