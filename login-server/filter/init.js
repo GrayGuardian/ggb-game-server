@@ -1,9 +1,9 @@
 
 module.exports = async (ctx, next) => {
-    ctx.state.code = 200;
+    ctx.state.code = SUCCESS_CODE;
     ctx.state.protoName = util.toUpperCase(ctx.originalUrl.substr(1), '/').replace('/', '_');
     ctx.genError = function (code) {
-        if (code == 200) {
+        if (code == SUCCESS_CODE) {
             console.error(`不可设置的错误码 code:${code}`);
             return;
         }
@@ -12,10 +12,10 @@ module.exports = async (ctx, next) => {
     }
     ctx.callback = function (data) {
         let protoName = `${ctx.state.protoName}Ret`;
-        if (ctx.state.code != 200) {
+        if (ctx.state.code != SUCCESS_CODE) {
             //错误
             protoName = 'Error';
-            data = genCodeMessage(ctx.state.code);
+            data = genErrorMsg(ctx.state.code);
         }
         let body = {};
         body[protoName] = data;

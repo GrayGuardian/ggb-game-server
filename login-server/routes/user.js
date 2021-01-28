@@ -23,24 +23,13 @@ router.post('/register', async (ctx, next) => {
         ctx.genError(ERROR_CODE.PASSWORD_NOTSAME);
         return;
     }
-    if (!REGULAR_CODE.USERNAME_VALID.test(username)) {
-        ctx.genError(ERROR_CODE.USERNAME_ERROR);
-        return;
+    let result = await logic_mgr.register(username, password);
+    if (result.code > SUCCESS_CODE) {
+        ctx.genError(result.code);
     }
-    if (!REGULAR_CODE.PASSWORD_VALID.test(password)) {
-        ctx.genError(ERROR_CODE.PASSWORD_ERROR);
-        return;
+    else {
+        ctx.callback({ code: SUCCESS_CODE, msg: '注册成功' });
     }
-    if (await logic_mgr.isExist(username)) {
-        ctx.genError(ERROR_CODE.USERNAME_EXIST);
-        return;
-    }
-    let info = await logic_mgr.register(username, password);
-    if (info == null) {
-        ctx.genError(ERROR_CODE.UNKNOWN_ERROR);
-        return;
-    }
-    ctx.callback({ code: 200, msg: '注册成功' });
 });
 
 module.exports = router;

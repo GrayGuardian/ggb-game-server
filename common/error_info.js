@@ -1,18 +1,25 @@
-var code = 500;
-const genCode = function () {
-    code++;
-    return code;
+var SUCCESS_CODE = 200;
+var systemCode = SUCCESS_CODE;
+var logicCode = 500;
+
+const genSystemCode = function () {
+    systemCode++;
+    return systemCode;
+}
+const genLogicCode = function () {
+    logicCode++;
+    return logicCode;
 }
 const ERROR_CODE = {
-    SUCCESS: 200,
-    UNKNOWN_ERROR: 201,
-    PARAM_ERROR: 202,
-    RPCRET_ERROR: 203,
+    SUCCESS: SUCCESS_CODE,
+    UNKNOWN_ERROR: genSystemCode(),
+    PARAM_ERROR: genSystemCode(),
+    RPCRET_ERROR: genSystemCode(),
 
-    PASSWORD_NOTSAME: genCode(),
-    USERNAME_EXIST: genCode(),
-    USERNAME_ERROR: genCode(),
-    PASSWORD_ERROR: genCode(),
+    PASSWORD_NOTSAME: genLogicCode(),
+    USERNAME_EXIST: genLogicCode(),
+    USERNAME_ERROR: genLogicCode(),
+    PASSWORD_ERROR: genLogicCode(),
 }
 
 const ERROR_MSG = {
@@ -26,9 +33,9 @@ const ERROR_MSG = {
     [ERROR_CODE.USERNAME_ERROR]: '用户名格式错误：6-15位的大小写字母、数字、下划线、星号',
     [ERROR_CODE.PASSWORD_ERROR]: '密码格式错误：6-15位的大小写字母、数字、下划线、星号',
 }
-
+exports.SUCCESS_CODE = SUCCESS_CODE;
 exports.ERROR_CODE = ERROR_CODE;
-exports.genCodeMessage = function (code) {
+exports.genErrorMsg = function (code) {
     let data = {};
     let msg = ERROR_MSG[code + ''];
     data.code = code;
