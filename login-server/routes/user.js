@@ -23,6 +23,14 @@ router.post('/register', async (ctx, next) => {
         ctx.genError(ERROR_CODE.PASSWORD_NOTSAME);
         return;
     }
+    if (!REGULAR_CODE.USERNAME_VALID.test(username)) {
+        ctx.genError(ERROR_CODE.USERNAME_ERROR);
+        return;
+    }
+    if (!REGULAR_CODE.PASSWORD_VALID.test(password)) {
+        ctx.genError(ERROR_CODE.PASSWORD_ERROR);
+        return;
+    }
     if (await logic_mgr.isExist(username)) {
         ctx.genError(ERROR_CODE.USERNAME_EXIST);
         return;

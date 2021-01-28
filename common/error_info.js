@@ -11,6 +11,8 @@ const ERROR_CODE = {
 
     PASSWORD_NOTSAME: genCode(),
     USERNAME_EXIST: genCode(),
+    USERNAME_ERROR: genCode(),
+    PASSWORD_ERROR: genCode(),
 }
 
 const ERROR_MSG = {
@@ -21,6 +23,8 @@ const ERROR_MSG = {
 
     [ERROR_CODE.PASSWORD_NOTSAME]: '两次密码不相同',
     [ERROR_CODE.USERNAME_EXIST]: '用户名已存在',
+    [ERROR_CODE.USERNAME_ERROR]: '用户名格式错误：6-15位的大小写字母、数字、下划线、星号',
+    [ERROR_CODE.PASSWORD_ERROR]: '密码格式错误：6-15位的大小写字母、数字、下划线、星号',
 }
 
 exports.ERROR_CODE = ERROR_CODE;
