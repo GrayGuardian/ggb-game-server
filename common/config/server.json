@@ -1,5 +1,11 @@
 {
     "Master": {
+        "web-server": [
+            {
+                "url": "127.0.0.1",
+                "port": 80
+            }
+        ],
         "login-server": [
             {
                 "url": "127.0.0.1",
@@ -20,6 +26,12 @@
         ]
     },
     "Dev": {
+        "web-server": [
+            {
+                "url": "127.0.0.1",
+                "port": 80
+            }
+        ],
         "login-server": [
             {
                 "url": "127.0.0.1",
