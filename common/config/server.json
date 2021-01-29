@@ -15,7 +15,7 @@
         "center-server": [
             {
                 "url": "127.0.0.1",
-                "port": 300
+                "port": 500
             }
         ],
         "game-server": [
