@@ -1,10 +1,17 @@
-let server = require('./server');
-
+const configs = require('./server');
+const crc = require('crc');
 module.exports = function (type, order) {
     return new ServerConfig(type, order);
 }
 var ServerConfig = function (type, order) {
-    this.config_list = server[PRO_ENV];
+    this.config_list = configs[PRO_ENV];
+    for (const key in this.config_list) {
+        let list = this.config_list[key];
+        list.forEach((config, index) => {
+            config.name = `${key}${index}`
+        });
+    }
+
     this.config = this.getServerConfig(type, order);
 }
 ServerConfig.prototype.getServerConfig = function (type, order) {
@@ -25,4 +32,10 @@ ServerConfig.prototype.getServerList = function (type) {
     }
     return list;
 }
-
+//根据服务器名字获取对应的center-server配置
+ServerConfig.prototype.getCenterServerConfigByName = function (name) {
+    let center_list = this.getServerList('center-server');
+    let order = Math.abs(crc.crc32(name)) % center_list.length;
+    let config = center_list[order];
+    return config;
+}

@@ -14,9 +14,3 @@ server.listen(SERVER_PORT, () => {
 });
 
 
-
-// const protobuf = require('protobufjs');
-// let root = protobuf.loadSync("./protocol/server.proto");
-// let Account = root.lookupType("aaa");
-// console.log('root>>>', Account.create());
-

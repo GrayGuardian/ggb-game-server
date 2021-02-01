@@ -1,14 +1,14 @@
 
 const io = require('socket.io-client');
-var crc = require('crc');
+
 module.exports = function () {
     return new CenterMgr();
 }
 var CenterMgr = function () {
     this.code = 0;
-    this.center_list = server_config.getServerList('center-server');
-    let order = Math.abs(crc.crc32(SERVER_NAME)) % this.center_list.length;
-    this.config = this.center_list[order];
+
+    this.config = server_config.getCenterServerConfigByName(SERVER_NAME);
+    console.log(`${SERVER_NAME}>>>${this.config.name}`);
 
     this.socket = io(`ws://${this.config.url}:${this.config.port}/`);
     this.socket.emit('init', { name: SERVER_NAME });
@@ -32,9 +32,7 @@ CenterMgr.prototype.receive = function (rpc) {
         return;
     }
     action(rpc, callback);
-    // //test
-    // console.log(rpc.ttt.msg);
-    // callback({ msg: rpc.ttt.msg })
+
 }
 CenterMgr.prototype.rpcAsync = function (to, route, data) {
     return new Promise((resolve, reject) => {

@@ -2,6 +2,9 @@
 const router = require('koa-router')();
 router.prefix('/user');
 router.post('/login', async (ctx, next) => {
+
+    console.log(await center_mgr.rpcAsync('game-server0', 'ttt', { msg: `我是${SERVER_NAME}发来的ttt数据` }));
+
     let param = ctx.state.param;
     let username = param.username;
     let password = param.password;

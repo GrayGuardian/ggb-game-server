@@ -27,3 +27,4 @@ app.listen(SERVER_PORT, () => {
 global.center_mgr = require('../common/center_mgr')();
 global.rpc_mgr = require('./rpc/rpc_mgr')();
 global.logic_mgr = require('./logic/logic_mgr')();
+
