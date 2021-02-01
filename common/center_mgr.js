@@ -7,10 +7,10 @@ module.exports = function () {
 var CenterMgr = function () {
     this.code = 0;
 
-    this.config = server_config.getCenterServerConfigByName(SERVER_NAME);
-    console.log(`${SERVER_NAME}>>>${this.config.name}`);
+    let config = server_config.getCenterServerConfigByName(SERVER_NAME);
+    console.log(`${SERVER_NAME}>>>${config.name}`);
 
-    this.socket = io(`ws://${this.config.url}:${this.config.port}/`);
+    this.socket = io(`ws://${config.url}:${config.port}/`);
     this.socket.emit('init', { name: SERVER_NAME });
 
     this.socket.on('rpc', (body) => {
