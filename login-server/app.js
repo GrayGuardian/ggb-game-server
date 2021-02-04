@@ -1,12 +1,13 @@
 require('../common/global');
 const Koa = require('koa');
+const cors = require('koa-cors');
 const bodyParser = require('koa-bodyparser');
 const app = new Koa();
 
 console.log('Server Start>>>', `Type:${SERVER_TYPE} Name:${SERVER_NAME} Url:${SERVER_URL} Port:${SERVER_PORT}`);
 
 //http
-
+app.use(cors());
 app.use(bodyParser());
 //拦截器
 const init = require('./filter/init');

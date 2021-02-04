@@ -3,69 +3,18 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>
-    Pomelo
-  </title>
-  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-  <meta http-equiv="content-style-type" content="text/css" />
-  <meta http-equiv="content-scripte-type" content="text/javascript" />
-  <meta name="author" content="netease" />
-  <meta name="version" content="1.0" />
-  <meta name="keywords" content="pomelo" />
-  <script src="js/lib/build/build.js" type="text/javascript"></script>
+  <title>Test</title>
+  <script typet="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+  <script src="//cdn.rawgit.com/dcodeIO/protobuf.js/6.8.8/dist/protobuf.js"></script>
   <script type="text/javascript">
-    require('boot');
-  </script>
-  <script type="text/javascript">
-    var pomelo = window.pomelo;
-    console.log(pomelo)
-    pomelo.on("OOO", (rrr) => {
-      console.log(">>推送的内容：", rrr);
-    });
-    pomelo.on("upUserData", (data) => {
-      console.log(">>User Model Updata  BaseInfo：", data);
-    });
-    var connect = function (host, port, cb) {
-      pomelo.init({
-        host: host,
-        port: port,
-      }, function () {
-        pomelo.request("gate.gateHandler.entry", (data) => {
-          pomelo.disconnect();
-          pomelo.init({
-            host: data.host,
-            port: data.port,
-          }, () => {
-            pomelo.request("connector.connectorHandler.connection", (result) => {
-              console.log(result);
-              cb();
-            });
-          });
-        });
-      });
-    };
 
     function con() {
-      connect('127.0.0.1', '5010', function () {
-        console.log('服务器连接成功');
+      $.post("http://localhost:300/user/register", { username: 123, password: 123, password1: 123 }, (result) => {
+        console.log(result);
       });
+
     }
 
-    function dis() {
-      pomelo.disconnect();
-      console.log('服务器断开');
-    }
-
-    function login() {
-      pomelo.request("user.userHandler.login", { username: "a", password: "123" }, function (data) {
-        console.log(data);
-      });
-    }
-    function forceLogin() {
-      pomelo.request("user.userHandler.login", { username: "a", password: "123", isforce: true }, function (data) {
-        console.log(data);
-      });
-    }
   </script>
 </head>
 
@@ -74,9 +23,6 @@
 
     <div class="g-button">
       <input id="test" type="button" value="连接" onclick="con()" />
-      <input id="test" type="button" value="登录" onclick="login()" />
-      <input id="test" type="button" value="强制登录" onclick="forceLogin()" />
-      <input id="test" type="button" value="断开" onclick="dis()" />
     </div>
   </div>
 </body>
