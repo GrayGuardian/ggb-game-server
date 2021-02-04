@@ -7,8 +7,8 @@ module.exports = async (ctx, next) => {
     else {
         data[ctx.state.protoName] = ctx.request.query;
     }
-    console.log(`http rpc >> url:${ctx.originalUrl} data:${JSON.stringify(data[ctx.state.protoName])}`);
-    data = protocol.format('http.rpc', data);
+    console.log(`http c2s >> url:${ctx.originalUrl} data:${JSON.stringify(data[ctx.state.protoName])}`);
+    data = protocol.format('http.c2s', data);
     if (!data) {
         ctx.genError(ERROR_CODE.PARAM_ERROR);
         return;

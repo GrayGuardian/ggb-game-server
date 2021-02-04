@@ -19,13 +19,13 @@ module.exports = async (ctx, next) => {
         }
         let body = {};
         body[protoName] = data;
-        data = protocol.format('http.rpcRet', body);
+        data = protocol.format('http.s2c', body);
         if (data == null || data[protoName] == null) {
             ctx.genError(ERROR_CODE.RPCRET_ERROR);
             return;
         }
 
-        console.log(`http rpcRet >> url:${ctx.originalUrl} data:${JSON.stringify(data[protoName])}`);
+        console.log(`http s2c >> url:${ctx.originalUrl} data:${JSON.stringify(data[protoName])}`);
         ctx.body = data[protoName];
     }
 

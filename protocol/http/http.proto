@@ -3,12 +3,12 @@ package http;
 
 import "user.proto";
 
-message rpc {
+message c2s {
     optional user.login User_Login = 100;
     optional user.register User_Register =101;
 }
 
-message rpcRet {
+message s2c {
     optional common.Error Error = 1;
 
     optional user.loginRet User_LoginRet = 100;
