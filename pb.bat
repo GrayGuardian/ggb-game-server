@@ -1,7 +1,7 @@
 @echo off
 set exedir=%cd%\tool\protoc-gen-lua\protobuf-lua\
 set prodir=%cd%\protocol
-set builddir=D:\Demo\Unity\Game\koa-game-client\Assets\Resources\AB\lua\pb
+set builddir=F:\Git\ggame\koa-game-client\Assets\Resources\AB\lua\pb
 
 
 ::生成语句

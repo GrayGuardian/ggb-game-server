@@ -42,6 +42,9 @@ Protocol.prototype.encode = function (key, data) {
         return null;
     }
     try {
+        console.log(type)
+        console.log(data);
+        
         return type.encode(data).finish();
     } catch {
         return null;
