@@ -1,5 +1,8 @@
 syntax = "proto2";
 package user;
+
+import "common.proto";
+
 message login {
     required string username = 1;
     required string password = 2;

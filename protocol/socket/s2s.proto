@@ -1,6 +1,7 @@
 syntax = "proto2";
 
 package s2s;
+
 message ttt {
     required string msg = 1;
 }

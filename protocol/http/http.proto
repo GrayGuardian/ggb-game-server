@@ -1,6 +1,7 @@
 syntax = "proto2";
 package http;
 
+import "common.proto";
 import "user.proto";
 
 message c2s {
