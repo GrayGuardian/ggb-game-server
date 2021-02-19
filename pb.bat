@@ -5,7 +5,7 @@ set builddir=F:\Git\ggame\koa-game-client\Assets\Resources\AB\lua\pb
 
 
 ::生成语句
-set code=--plugin=protoc-gen-lua="%exedir%\plugin\protoc-gen-lua.bat" --lua_out=%builddir% -I %prodir% 
+set code=--plugin=protoc-gen-lua="%exedir%\plugin\protoc-gen-lua5_3.bat" --lua_out=%builddir% -I %prodir% 
 
 ::遍历procotol所在子文件夹
 for /f "delims=" %%i in ('dir /ad/b/s "%prodir%"') do (

@@ -10,3 +10,20 @@ message UserInfo {
     required int32 uid = 1;
     required string username = 2;
 }
+
+message cbc{
+    repeated int32 NumArr = 1;
+}
+
+message cac {
+    repeated Error errorArr = 2;
+}
+
+
+message test {
+    required string str = 1;
+    repeated int32 numArr = 2;
+    optional Error error = 3;
+    optional cbc ccccc = 4;
+    required cac aaaaa = 5;
+}

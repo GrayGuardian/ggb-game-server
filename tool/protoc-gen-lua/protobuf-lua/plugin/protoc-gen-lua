@@ -131,6 +131,7 @@ class Env(object):
     extend = None
     descriptor = None
     message = None
+    enum = None
     context = None
     register = None
     def __init__(self):
@@ -143,15 +144,16 @@ class Env(object):
     def get_local_name(self):
         return self.scope.get_local_name()
 
+    # return (ref_name, isImportFromOtherProto)
     def get_ref_name(self, type_name):
         try:
             node = self.lookup_name(type_name)
         except:
             # if the child doesn't be founded, it must be in this file
-            return type_name[len('.'.join(self.package)) + 1:]
+            return (type_name[len('.'.join(self.package)) + 2:], False)
         if node.filename != self.filename:
-            return node.filename + '_pb.' + node.get_local_name()
-        return node.get_local_name()
+            return (node.filename + '_pb.' + node.get_local_name(), True)
+        return (node.get_local_name(), False)
 
     def lookup_name(self, name):
         names = name.split('.')
@@ -196,6 +198,7 @@ class Env(object):
         self.descriptor = []
         self.context = []
         self.message = []
+        self.enum = []
         self.register = []
 
     def _build_nodes(self, node, names):
@@ -249,8 +252,9 @@ DEFAULT_VALUE = {
 def code_gen_enum_item(index, enum_value, env):
     full_name = env.get_local_name() + '.' + enum_value.name
     obj_name = full_name.upper().replace('.', '_') + '_ENUM'
+    obj_name = "localTable." + obj_name
     env.descriptor.append(
-        "local %s = protobuf.EnumValueDescriptor();\n"% obj_name
+        "%s = protobuf.EnumValueDescriptor()\n"% obj_name
     )
 
     context = Writer(obj_name)
@@ -265,8 +269,9 @@ def code_gen_enum(enum_desc, env):
     env.enter(enum_desc.name)
     full_name = env.get_local_name()
     obj_name = full_name.upper().replace('.', '_')
+    obj_name = "localTable." + obj_name
     env.descriptor.append(
-        "local %s = protobuf.EnumDescriptor();\n"% obj_name
+        "%s = protobuf.EnumDescriptor()\n"% obj_name
     )
 
     context = Writer(obj_name)
@@ -285,8 +290,9 @@ def code_gen_enum(enum_desc, env):
 def code_gen_field(index, field_desc, env):
     full_name = env.get_local_name() + '.' + field_desc.name
     obj_name = full_name.upper().replace('.', '_') + '_FIELD'
+    obj_name = "localTable." + obj_name
     env.descriptor.append(
-        "local %s = protobuf.FieldDescriptor();\n"% obj_name
+        "%s = protobuf.FieldDescriptor()\n"% obj_name
     )
 
     context = Writer(obj_name)
@@ -316,21 +322,23 @@ def code_gen_field(index, field_desc, env):
         context('.default_value = %s\n' % default_value)
 
     if field_desc.HasField('type_name'):
-        # type_name = env.get_ref_name(field_desc.type_name).upper().replace('.', '_')
-        if field_desc.type == FDP.TYPE_MESSAGE and len(env.get_ref_name(field_desc.type_name).split(".")) > 1:
-            # 修改 引用其他文件夹下的message 时，把左边的文件名截取出来，再把右边的字段名大写处理 如： TestInfo_pb.TESTINFOPROTO
-            typeNameL = env.get_ref_name(field_desc.type_name).split(".")[0]
-            typeNameR = env.get_ref_name(field_desc.type_name).split(".")[1]
-            
-            typeNameLL = typeNameL.split("/")
-            typeNameL = typeNameLL[len(typeNameLL) - 1]
-            type_name = typeNameL +"."+ (typeNameR.upper())
+        # case 1: type import from other file, should use ABC_PB.XXX_XXX
+        # case 2: local enum_type had been moved in localTable, should use localTable.XXX_XXX
+        # case 3: local message_type should use XXX_XXX
+        (type_name, isImport) = env.get_ref_name(field_desc.type_name)
+        type_name = type_name.upper()
+        if not isImport:
+            type_name = type_name.replace('.', '_')
+            if field_desc.type == FDP.TYPE_ENUM:
+                type_name = "localTable." + type_name
+
+        if field_desc.type == FDP.TYPE_MESSAGE:
             context('.message_type = %s\n' % type_name)
         else:
-            type_name = env.get_ref_name(field_desc.type_name).upper().replace('.', '_')
             context('.enum_type = %s\n' % type_name)
+
     if field_desc.HasField('extendee'):
-        type_name = env.get_ref_name(field_desc.extendee)
+        (type_name, isImport) = env.get_ref_name(field_desc.extendee)
         env.register.append(
             "%s.RegisterExtension(%s)\n" % (type_name, obj_name)
         )
@@ -344,11 +352,9 @@ def code_gen_message(message_descriptor, env, containing_type = None):
     env.enter(message_descriptor.name)
     full_name = env.get_local_name()
     obj_name = full_name.upper().replace('.', '_')
-    # 修改 把local 去掉了，方便 TestInfo_pb.TESTINFOPROTO 能否直接访问到
     env.descriptor.append(
-        "%s = protobuf.Descriptor();\n"% obj_name
+        "%s = protobuf.Descriptor()\n"% obj_name
     )
-    # "local %s = protobuf.Descriptor();\n"% obj_name
 
     context = Writer(obj_name)
     context('.name = "%s"\n' % message_descriptor.name)
@@ -363,6 +369,8 @@ def code_gen_message(message_descriptor, env, containing_type = None):
     enums = []
     for enum_desc in message_descriptor.enum_type:
         enums.append(code_gen_enum(enum_desc, env))
+        for enum_value in enum_desc.value:
+            env.enum.append('%s = %d\n' % (enum_value.name, enum_value.number))
     context('.enum_types = {%s}\n' % ', '.join(enums))
 
     fields = []
@@ -395,6 +403,7 @@ def write_header(writer):
 """)
 
 def code_gen_file(proto_file, env, is_gen):
+
     filename = path.splitext(proto_file.name)[0]
     env.enter_file(filename, proto_file.package)
 
@@ -409,8 +418,7 @@ def code_gen_file(proto_file, env, is_gen):
     for enum_desc in proto_file.enum_type:
         code_gen_enum(enum_desc, env)
         for enum_value in enum_desc.value:
-            env.message.append('%s = %d\n' % (enum_value.name,
-                                              enum_value.number))
+            env.enum.append('%s = %d\n' % (enum_value.name, enum_value.number))
 
     for msg_desc in proto_file.message_type:
         code_gen_message(msg_desc, env)
@@ -420,17 +428,14 @@ def code_gen_file(proto_file, env, is_gen):
         write_header(lua)
         lua('local protobuf = require "protobuf"\n')
         for i in includes:
-            # 修改 将前面的local xx_pb 去掉 了，因为 这个require 返回的是 一个 true or false 
-            lua('require("%s_pb")\n' % (i))
-            # lua('local %s_pb = require("%s_pb")\n' % (i, i))
-        # 修改 修改文件名，将文件名中的路径去掉
-        typeNameLL = env.filename.split("/")
-        typeNameL = typeNameLL[len(typeNameLL) - 1]
-        # 修改 增加了",package.seeall" 多传入一个package.seeall的参数，相当于 setmetatable(M, {__index = _G}) .
-        lua("module('%s_pb',package.seeall)\n" % typeNameL)
+            lua('local %s_PB = require("%s_pb")\n' % (i.upper(), i))
+        lua("module('%s_pb')\n" % env.filename)
 
         lua('\n\n')
+        lua("local localTable = {}\n")
         map(lua, env.descriptor)
+        lua('\n')
+        map(lua, env.enum)
         lua('\n')
         map(lua, env.context)
         lua('\n')
@@ -439,7 +444,7 @@ def code_gen_file(proto_file, env, is_gen):
         lua('\n')
         map(lua, env.register)
 
-        _files[env.filename+ '_pb.lua.txt'] = lua.getvalue()
+        _files[env.filename+ '_pb.lua'] = lua.getvalue()
     env.exit_file()
 
 def main():
