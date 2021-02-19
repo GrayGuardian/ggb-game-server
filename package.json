@@ -1,26 +1,25 @@
 {
-  "name": "game-server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "dependencies": {
-    "crc": "^3.8.0",
-    "jsonwebtoken": "^8.5.1",
-    "koa": "^2.13.1",
-    "koa-bodyparser": "^4.3.0",
-    "koa-cors": "0.0.16",
-    "koa-range": "^0.3.0",
-    "koa-router": "^10.0.0",
-    "koa-static": "^5.0.0",
-    "mysql": "^2.18.1",
-    "protobufjs": "^6.10.2",
-    "socket.io": "^3.1.0",
-    "socket.io-client": "^3.1.0"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC"
+	"name": "game-server",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"dependencies": {
+		"crc": "^3.8.0",
+		"jsonwebtoken": "^8.5.1",
+		"koa": "^2.13.1",
+		"koa-bodyparser": "^4.3.0",
+		"koa-range": "^0.3.0",
+		"koa-router": "^10.0.0",
+		"koa-static": "^5.0.0",
+		"mysql": "^2.18.1",
+		"protobufjs": "^6.10.2",
+		"socket.io": "^3.1.0",
+		"socket.io-client": "^3.1.0"
+	},
+	"devDependencies": {},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC"
 }

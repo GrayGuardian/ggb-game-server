@@ -1,0 +1,82 @@
+{
+  "nested": {
+    "s2s": {
+      "nested": {
+        "ttt": {
+          "fields": {
+            "msg": {
+              "rule": "required",
+              "type": "string",
+              "id": 1
+            }
+          }
+        },
+        "tttRet": {
+          "fields": {
+            "msg": {
+              "rule": "required",
+              "type": "string",
+              "id": 1
+            }
+          }
+        },
+        "rpc": {
+          "fields": {
+            "code": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "from": {
+              "rule": "required",
+              "type": "string",
+              "id": 2
+            },
+            "to": {
+              "rule": "required",
+              "type": "string",
+              "id": 3
+            },
+            "route": {
+              "rule": "required",
+              "type": "string",
+              "id": 4
+            },
+            "ttt": {
+              "type": "ttt",
+              "id": 100
+            }
+          }
+        },
+        "rpcRet": {
+          "fields": {
+            "code": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "from": {
+              "rule": "required",
+              "type": "string",
+              "id": 2
+            },
+            "to": {
+              "rule": "required",
+              "type": "string",
+              "id": 3
+            },
+            "route": {
+              "rule": "required",
+              "type": "string",
+              "id": 4
+            },
+            "tttRet": {
+              "type": "tttRet",
+              "id": 100
+            }
+          }
+        }
+      }
+    }
+  }
+}

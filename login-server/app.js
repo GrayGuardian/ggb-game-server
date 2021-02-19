@@ -1,13 +1,27 @@
 require('../common/global');
 const Koa = require('koa');
-const cors = require('koa-cors');
 const bodyParser = require('koa-bodyparser');
 const app = new Koa();
 
 console.log('Server Start>>>', `Type:${SERVER_TYPE} Name:${SERVER_NAME} Url:${SERVER_URL} Port:${SERVER_PORT}`);
 
+
+
+let pbroot = require("protobufjs").Root;
+let json = require("../pb/common.json");
+let root = pbroot.fromJSON(json);
+
+let Message = root.lookupType("common.Error");
+
+let data = {code:1,msg:"error"}
+let bytes = Message.encode(Message.create(data)).finish();
+console.log(bytes);
+console.log(Message.decode(bytes));
 //http
-app.use(cors());
+app.use(async (ctx, next) => {
+    ctx.set('Access-Control-Allow-Origin', '*');
+    await next();
+});
 app.use(bodyParser());
 //拦截器
 const init = require('./filter/init');

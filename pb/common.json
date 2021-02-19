@@ -1,0 +1,87 @@
+{
+  "nested": {
+    "common": {
+      "nested": {
+        "Error": {
+          "fields": {
+            "code": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "msg": {
+              "rule": "required",
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "UserInfo": {
+          "fields": {
+            "uid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "username": {
+              "rule": "required",
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "cbc": {
+          "fields": {
+            "NumArr": {
+              "rule": "repeated",
+              "type": "int32",
+              "id": 1,
+              "options": {
+                "packed": false
+              }
+            }
+          }
+        },
+        "cac": {
+          "fields": {
+            "errorArr": {
+              "rule": "repeated",
+              "type": "Error",
+              "id": 2
+            }
+          }
+        },
+        "test": {
+          "fields": {
+            "str": {
+              "rule": "required",
+              "type": "string",
+              "id": 1
+            },
+            "numArr": {
+              "rule": "repeated",
+              "type": "int32",
+              "id": 2,
+              "options": {
+                "packed": false
+              }
+            },
+            "error": {
+              "type": "Error",
+              "id": 3
+            },
+            "ccccc": {
+              "type": "cbc",
+              "id": 4
+            },
+            "aaaaa": {
+              "rule": "required",
+              "type": "cac",
+              "id": 5
+            }
+          }
+        }
+      }
+    }
+  }
+}
