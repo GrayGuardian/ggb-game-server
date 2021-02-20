@@ -5,7 +5,7 @@ module.exports = function (prototype) {
         let param = ctx.request.body;
         let username = param.username;
         let password = param.password;
-        let result = await logic_mgr.login(username, password);
+        let result = await logic_mgr.login(username, util.md5(password));
         if (result.code > SUCCESS_CODE) {
             ctx.method.genError(result.code);
             return;
