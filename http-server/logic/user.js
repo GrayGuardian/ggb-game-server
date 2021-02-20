@@ -10,6 +10,7 @@ module.exports = function (prototype) {
     prototype.login = async function (username, password) {
         let rows = await mysql.queryAsync('SELECT * FROM user_info WHERE username = ? AND password = ?', [username, password]);
         if (rows.length > 0) {
+            await mysql.queryAsync('UPDATE user_info SET login_time = ? WHERE uid = ?', [Date.unix(), rows[0].uid]);
             return rows[0];
         }
         return genErrorMsg(ERROR_CODE.PASSWORD_ERROR);
