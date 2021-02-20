@@ -44,15 +44,14 @@ module.exports = async (ctx, next) => {
             ctx.method.genError(ERROR_CODE.RPCRET_ERROR);
             return;
         }
-        console.log(`http.s2c router:${router} data:`, pb.decode("http_pb.s2c", bytes))
+        console.log(`http.s2c router:${router} body:`, pb.decode("http_pb.s2c", bytes))
         ctx.body = bytes;
     }
-
     //路由判断
-    if (ctx.originalUrl != '/api' || ctx.request.method != 'POST') {
-        ctx.method.genError(ERROR_CODE.ROUTE_ERROR);
-        return;
-    }
+    // if (toString(ctx.originalUrl) != '/api' || ctx.request.method != 'POST') {
+    //     ctx.method.genError(ERROR_CODE.ROUTE_ERROR);
+    //     return;
+    // }
 
     //获取内容
     let body = pb.decode("http_pb.c2s", await getPostData(ctx));
@@ -62,6 +61,6 @@ module.exports = async (ctx, next) => {
     }
     ctx.state.router = body.router
     ctx.request.body = body[body.router];
-    console.log(`http.c2s router:${ctx.state.router} data:`, body)
+    console.log(`http.c2s router:${ctx.state.router} body:`, body)
     await next();
 }

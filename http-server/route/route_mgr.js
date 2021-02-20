@@ -1,6 +1,6 @@
 
 var Route = function () { };
 
-require('./api')(Route.prototype);
+require('./user')(Route.prototype);
 
 module.exports = function () { return new Route(); };
