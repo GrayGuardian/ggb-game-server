@@ -1,0 +1,200 @@
+{
+  "nested": {
+    "http": {
+      "nested": {
+        "login": {
+          "fields": {
+            "username": {
+              "rule": "required",
+              "type": "string",
+              "id": 1
+            },
+            "password": {
+              "rule": "required",
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "loginRet": {
+          "fields": {
+            "code": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "msg": {
+              "rule": "required",
+              "type": "string",
+              "id": 2
+            },
+            "info": {
+              "rule": "required",
+              "type": "common.UserInfo",
+              "id": 3
+            },
+            "token": {
+              "rule": "required",
+              "type": "string",
+              "id": 4
+            }
+          }
+        },
+        "register": {
+          "fields": {
+            "username": {
+              "rule": "required",
+              "type": "string",
+              "id": 1
+            },
+            "password": {
+              "rule": "required",
+              "type": "string",
+              "id": 2
+            },
+            "password1": {
+              "rule": "required",
+              "type": "string",
+              "id": 3
+            }
+          }
+        },
+        "registerRet": {
+          "fields": {
+            "code": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "msg": {
+              "rule": "required",
+              "type": "string",
+              "id": 2
+            },
+            "info": {
+              "rule": "required",
+              "type": "common.UserInfo",
+              "id": 3
+            },
+            "token": {
+              "rule": "required",
+              "type": "string",
+              "id": 4
+            }
+          }
+        },
+        "c2s": {
+          "fields": {
+            "User_Login": {
+              "type": "login",
+              "id": 100
+            },
+            "User_Register": {
+              "type": "register",
+              "id": 101
+            }
+          }
+        },
+        "s2c": {
+          "fields": {
+            "Error": {
+              "type": "common.Error",
+              "id": 1
+            },
+            "User_LoginRet": {
+              "type": "loginRet",
+              "id": 100
+            },
+            "User_RegisterRet": {
+              "type": "register",
+              "id": 101
+            }
+          }
+        }
+      }
+    },
+    "common": {
+      "nested": {
+        "Error": {
+          "fields": {
+            "code": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "msg": {
+              "rule": "required",
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "UserInfo": {
+          "fields": {
+            "uid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "username": {
+              "rule": "required",
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "cbc": {
+          "fields": {
+            "NumArr": {
+              "rule": "repeated",
+              "type": "int32",
+              "id": 1,
+              "options": {
+                "packed": false
+              }
+            }
+          }
+        },
+        "cac": {
+          "fields": {
+            "errorArr": {
+              "rule": "repeated",
+              "type": "Error",
+              "id": 2
+            }
+          }
+        },
+        "test": {
+          "fields": {
+            "str": {
+              "rule": "required",
+              "type": "string",
+              "id": 1
+            },
+            "numArr": {
+              "rule": "repeated",
+              "type": "int32",
+              "id": 2,
+              "options": {
+                "packed": false
+              }
+            },
+            "error": {
+              "type": "Error",
+              "id": 3
+            },
+            "ccccc": {
+              "type": "cbc",
+              "id": 4
+            },
+            "aaaaa": {
+              "rule": "required",
+              "type": "cac",
+              "id": 5
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 syntax = "proto2";
-package user;
+package http;
 
 import "common.proto";
 
@@ -23,4 +23,17 @@ message registerRet {
     required string msg = 2;
     required common.UserInfo info = 3;
     required string token = 4;
+}
+
+
+message c2s {
+    optional login User_Login = 100;
+    optional register User_Register =101;
+}
+
+message s2c {
+    optional common.Error Error = 1;
+
+    optional loginRet User_LoginRet = 100;
+    optional register User_RegisterRet = 101;
 }

@@ -1,6 +1,6 @@
 {
   "nested": {
-    "s2s": {
+    "server": {
       "nested": {
         "ttt": {
           "fields": {

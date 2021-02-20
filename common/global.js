@@ -13,7 +13,7 @@ global.server_config = require('./config/server_config')(SERVER_TYPE, SERVER_ORD
 global.SERVER_URL = server_config.config.url;
 global.SERVER_PORT = server_config.config.port;
 
-global.protocol = require('./protocol')();
+global.pb = require('./pb');
 
 global.util = require('./util/util');
 

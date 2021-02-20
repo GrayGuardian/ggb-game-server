@@ -1,4 +1,0 @@
-syntax = "proto2";
-import "common.proto";
-import "socket/s2s.proto";
-import "http/http.proto";

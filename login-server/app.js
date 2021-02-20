@@ -7,16 +7,26 @@ console.log('Server Start>>>', `Type:${SERVER_TYPE} Name:${SERVER_NAME} Url:${SE
 
 
 
-let pbroot = require("protobufjs").Root;
-let json = require("../pb/common.json");
-let root = pbroot.fromJSON(json);
+app.use(async (ctx, next) => {
+    let getPostData = function (ctx) {
+        return new Promise(function (resolve, reject) {
+            try {
+                ctx.req.on('data', function (data) {
+                    resolve(data);
+                })
+            } catch (e) {
+                reject(e)
+            }
 
-let Message = root.lookupType("common.Error");
+        })
+    }
+    let data = await getPostData(ctx);
+    console.log("data>>>>>", data)
+    console.log(pb.decode("common_pb.test", data));
+    console.log(data.length, data.toString().length)
+    ctx.body = data
+});
 
-let data = {code:1,msg:"error"}
-let bytes = Message.encode(Message.create(data)).finish();
-console.log(bytes);
-console.log(Message.decode(bytes));
 //http
 app.use(async (ctx, next) => {
     ctx.set('Access-Control-Allow-Origin', '*');
