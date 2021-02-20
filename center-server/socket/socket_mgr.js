@@ -34,7 +34,7 @@ SocketMgr.prototype.conn = function (socket) {
     });
 }
 SocketMgr.prototype.rpc = function (body) {
-    let rpc = protocol.decode('s2s.rpc', body);
+    let rpc = pb.decode('server_pb.rpc', body);
     console.log('消息中转', rpc);
     let socket = this.socketMap.get(rpc.to);
 
@@ -51,7 +51,7 @@ SocketMgr.prototype.rpc = function (body) {
     socket.emit('rpc', body);
 }
 SocketMgr.prototype.rpcRet = function (body) {
-    let rpc = protocol.decode('s2s.rpcRet', body);
+    let rpc = pb.decode('server_pb.rpcRet', body);
     console.log('消息回调中转', rpc);
     let socket = this.socketMap.get(rpc.to);
 

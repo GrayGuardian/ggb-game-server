@@ -26,4 +26,3 @@ global.rpc_mgr = require('./rpc/rpc_mgr')();
 global.logic_mgr = require('./logic/logic_mgr')();
 
 global.route_mgr = require('./route/route_mgr')();
-

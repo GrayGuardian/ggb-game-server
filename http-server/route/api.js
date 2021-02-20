@@ -2,6 +2,8 @@
 module.exports = function (prototype) {
 
     prototype.login = async function (ctx, next) {
+        console.log(await center_mgr.rpcAsync("game-server0", "ttt", { msg: `我是${SERVER_NAME}传过去的tttRet数据` }));
+
         let param = ctx.request.body;
         let username = param.username;
         let password = param.password;
