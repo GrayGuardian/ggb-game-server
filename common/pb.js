@@ -12,16 +12,25 @@ PB.prototype.getMessage = function (key) {
 }
 
 PB.prototype.encode = function (key, data) {
-    let Message = this.getMessage(key);
-    return Message.encode(Message.create(data)).finish();
+    try {
+        let Message = this.getMessage(key);
+        return Message.encode(Message.create(data)).finish();
+    } catch (error) {
+        return null;
+    }
+    
 }
 PB.prototype.decode = function (key, data) {
-    let Message = this.getMessage(key);
+    try {
+        let Message = this.getMessage(key);
 
-    if (typeof (data) == 'string') {
-        data = typeof (data) == 'object' ? data : Buffer.from(data);
+        if (typeof (data) == 'string') {
+            data = typeof (data) == 'object' ? data : Buffer.from(data);
+        }
+        return Message.decode(data);
+    } catch (error) {
+        return null;
     }
-    return Message.decode(data);
 }
 
 

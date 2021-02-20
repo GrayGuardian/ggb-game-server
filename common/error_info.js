@@ -15,6 +15,7 @@ const ERROR_CODE = {
     UNKNOWN_ERROR: genSystemCode(),
     PARAM_ERROR: genSystemCode(),
     RPCRET_ERROR: genSystemCode(),
+    ROUTE_ERROR: genSystemCode(),
 
     PASSWORD_NOTSAME: genLogicCode(),
     USERNAME_EXIST: genLogicCode(),
@@ -28,6 +29,7 @@ const ERROR_MSG = {
     [ERROR_CODE.UNKNOWN_ERROR]: '未知错误',
     [ERROR_CODE.PARAM_ERROR]: '参数缺省或格式错误',
     [ERROR_CODE.RPCRET_ERROR]: '返回参数错误',
+    [ERROR_CODE.ROUTE_ERROR]: '访问路由出错',
 
     [ERROR_CODE.PASSWORD_NOTSAME]: '两次密码不相同',
     [ERROR_CODE.USERNAME_EXIST]: '用户名已存在',

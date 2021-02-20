@@ -18,10 +18,6 @@ module.exports = async (ctx, next) => {
     //防止跨域问题
     ctx.set('Access-Control-Allow-Origin', '*');
 
-    if (ctx.originalUrl != '/api' || ctx.request.method != 'POST') {
-        return;
-    }
-
     ctx.method = {};
     //错误码相关
     ctx.state.code = SUCCESS_CODE;
@@ -48,8 +44,14 @@ module.exports = async (ctx, next) => {
             ctx.method.genError(ERROR_CODE.RPCRET_ERROR);
             return;
         }
-        console.log(`http.s2c router:${router} data:`, pb.decode("http_pb.s2c",bytes))
+        console.log(`http.s2c router:${router} data:`, pb.decode("http_pb.s2c", bytes))
         ctx.body = bytes;
+    }
+
+    //路由判断
+    if (ctx.originalUrl != '/api' || ctx.request.method != 'POST') {
+        ctx.method.genError(ERROR_CODE.ROUTE_ERROR);
+        return;
     }
 
     //获取内容
