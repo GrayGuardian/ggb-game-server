@@ -2,7 +2,7 @@
 set prodir=%cd%\protocol
 set luadir=%cd%\tool\protobuf\protobuf-lua\
 set jsonpbbuilddir=%cd%\pb\
-set luapbbuilddir=D:\Demo\Unity\Game\koa-game-client\Assets\Resources\AB\lua\pb\
+set luapbbuilddir=..\koa-game-client\Assets\Resources\AB\lua\pb\
 
 cd %cd%
 for /R %prodir% %%f in (*.proto) do ( 

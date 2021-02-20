@@ -43,12 +43,12 @@ module.exports = async (ctx, next) => {
         let body = {};
         body.router = router;
         body[router] = data;
-        let bytes = pb.encode("http_pb.s2c", body);
+        let bytes = pb.encode(`http_pb.s2c`, body);
         if (bytes == null) {
             ctx.method.genError(ERROR_CODE.RPCRET_ERROR);
             return;
         }
-        console.log(`http s2c:${body}`)
+        console.log(`http.s2c router:${router} data:`, pb.decode("http_pb.s2c",bytes))
         ctx.body = bytes;
     }
 
@@ -58,15 +58,8 @@ module.exports = async (ctx, next) => {
         ctx.method.genError(ERROR_CODE.PARAM_ERROR);
         return;
     }
-    console.log(`http c2s:${body}`)
     ctx.state.router = body.router
-    ctx.request.body = body
-
-    ctx.method.callback({ code: 100, msg: "sdfsad", info: { uid: 1, username: "sdfasdf" }, token: "dsfa" });
-    //ctx.method.genError(ERROR_CODE.RPCRET_ERROR);
-
-
-
-
+    ctx.request.body = body[body.router];
+    console.log(`http.c2s router:${ctx.state.router} data:`, body)
     await next();
 }
