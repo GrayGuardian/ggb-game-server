@@ -25,15 +25,18 @@ message registerRet {
     required string token = 4;
 }
 
-
 message c2s {
-    optional login User_Login = 100;
-    optional register User_Register =101;
+    required string router = 1;
+
+    optional login login = 100;
+    optional register register =101;
 }
 
 message s2c {
-    optional common.Error Error = 1;
+    required string router = 1;
 
-    optional loginRet User_LoginRet = 100;
-    optional register User_RegisterRet = 101;
+    optional common.Error error = 50;
+
+    optional loginRet loginRet = 100;
+    optional registerRet registerRet = 101;
 }

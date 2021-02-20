@@ -85,11 +85,16 @@
         },
         "c2s": {
           "fields": {
-            "User_Login": {
+            "router": {
+              "rule": "required",
+              "type": "string",
+              "id": 1
+            },
+            "login": {
               "type": "login",
               "id": 100
             },
-            "User_Register": {
+            "register": {
               "type": "register",
               "id": 101
             }
@@ -97,16 +102,21 @@
         },
         "s2c": {
           "fields": {
-            "Error": {
-              "type": "common.Error",
+            "router": {
+              "rule": "required",
+              "type": "string",
               "id": 1
             },
-            "User_LoginRet": {
+            "error": {
+              "type": "common.Error",
+              "id": 50
+            },
+            "loginRet": {
               "type": "loginRet",
               "id": 100
             },
-            "User_RegisterRet": {
-              "type": "register",
+            "registerRet": {
+              "type": "registerRet",
               "id": 101
             }
           }
