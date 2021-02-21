@@ -10,8 +10,10 @@ message login {
 message loginRet {
     required int32 code = 1;
     required string msg = 2;
-    required common.UserInfo info = 3;
-    required string token = 4;
+    required string token = 3;
+    required common.UserInfo info = 4;
+    required common.AreaInfo area = 5;
+    repeated common.AreaInfo areas = 6;
 }
 message register {
     required string username = 1;

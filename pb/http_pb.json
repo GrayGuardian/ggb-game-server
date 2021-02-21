@@ -28,15 +28,25 @@
               "type": "string",
               "id": 2
             },
-            "info": {
-              "rule": "required",
-              "type": "common.UserInfo",
-              "id": 3
-            },
             "token": {
               "rule": "required",
               "type": "string",
+              "id": 3
+            },
+            "info": {
+              "rule": "required",
+              "type": "common.UserInfo",
               "id": 4
+            },
+            "area": {
+              "rule": "required",
+              "type": "common.AreaInfo",
+              "id": 5
+            },
+            "areas": {
+              "rule": "repeated",
+              "type": "common.AreaInfo",
+              "id": 6
             }
           }
         },
@@ -153,54 +163,22 @@
             }
           }
         },
-        "cbc": {
+        "AreaInfo": {
           "fields": {
-            "NumArr": {
-              "rule": "repeated",
-              "type": "int32",
-              "id": 1,
-              "options": {
-                "packed": false
-              }
-            }
-          }
-        },
-        "cac": {
-          "fields": {
-            "errorArr": {
-              "rule": "repeated",
-              "type": "Error",
-              "id": 2
-            }
-          }
-        },
-        "test": {
-          "fields": {
-            "str": {
+            "aid": {
               "rule": "required",
-              "type": "string",
+              "type": "int32",
               "id": 1
             },
-            "numArr": {
-              "rule": "repeated",
-              "type": "int32",
-              "id": 2,
-              "options": {
-                "packed": false
-              }
-            },
-            "error": {
-              "type": "Error",
-              "id": 3
-            },
-            "ccccc": {
-              "type": "cbc",
-              "id": 4
-            },
-            "aaaaa": {
+            "name": {
               "rule": "required",
-              "type": "cac",
-              "id": 5
+              "type": "string",
+              "id": 2
+            },
+            "ismaintenance": {
+              "rule": "required",
+              "type": "int32",
+              "id": 3
             }
           }
         }

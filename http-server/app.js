@@ -10,6 +10,7 @@ const init = require('./filter/init');
 const token = require('./filter/token');
 const route = require('./filter/route');
 const s2c = require('./filter/s2c');
+const logic_mgr = require('./logic/logic_mgr');
 
 app.use(init);
 app.use(token);
