@@ -18,6 +18,7 @@ module.exports = async (ctx, next) => {
     //防止跨域问题
     ctx.set('Access-Control-Allow-Origin', '*');
 
+    ctx.user = {};
     ctx.method = {};
     //错误码相关
     ctx.state.code = SUCCESS_CODE;

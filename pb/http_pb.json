@@ -18,35 +18,25 @@
         },
         "loginRet": {
           "fields": {
-            "code": {
-              "rule": "required",
-              "type": "int32",
-              "id": 1
-            },
-            "msg": {
-              "rule": "required",
-              "type": "string",
-              "id": 2
-            },
             "token": {
               "rule": "required",
               "type": "string",
-              "id": 3
+              "id": 1
             },
             "info": {
               "rule": "required",
               "type": "common.UserInfo",
-              "id": 4
+              "id": 2
             },
             "area": {
               "rule": "required",
               "type": "common.AreaInfo",
-              "id": 5
+              "id": 3
             },
             "areas": {
               "rule": "repeated",
               "type": "common.AreaInfo",
-              "id": 6
+              "id": 4
             }
           }
         },
@@ -71,27 +61,29 @@
         },
         "registerRet": {
           "fields": {
-            "code": {
-              "rule": "required",
-              "type": "int32",
-              "id": 1
-            },
-            "msg": {
-              "rule": "required",
-              "type": "string",
-              "id": 2
-            },
             "info": {
               "rule": "required",
               "type": "common.UserInfo",
-              "id": 3
+              "id": 1
             },
             "token": {
               "rule": "required",
               "type": "string",
-              "id": 4
+              "id": 2
             }
           }
+        },
+        "nextArea": {
+          "fields": {
+            "aid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            }
+          }
+        },
+        "nextAreaRet": {
+          "fields": {}
         },
         "c2s": {
           "fields": {
@@ -107,6 +99,10 @@
             "register": {
               "type": "register",
               "id": 101
+            },
+            "nextArea": {
+              "type": "nextArea",
+              "id": 102
             }
           }
         },
@@ -128,6 +124,10 @@
             "registerRet": {
               "type": "registerRet",
               "id": 101
+            },
+            "nextAreaRet": {
+              "type": "nextAreaRet",
+              "id": 102
             }
           }
         }

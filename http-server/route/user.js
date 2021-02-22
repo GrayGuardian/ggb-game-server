@@ -1,6 +1,5 @@
 
 module.exports = function (prototype) {
-
     prototype.login = async function (ctx, next) {
         let param = ctx.request.body;
         let username = param.username;
@@ -12,16 +11,16 @@ module.exports = function (prototype) {
         }
         let areas = await logic_mgr.getAreaInfoList();
         let area = areas[0];
-        if (user.aid!=null){
+        if (user.aid != null) {
             areas.forEach(element => {
-                if(user.aid == element.aid)
-                    area = element; 
+                if (user.aid == element.aid)
+                    area = element;
             });
         }
-        let data = { code: SUCCESS_CODE, msg: '登录成功', info: user};
+        let data = { info: user };
         data.token = util.token.encrypt({ uid: user.uid });
         data.areas = areas;
-        data.area = area;       
+        data.area = area;
         ctx.response.body = data;
         await next();
     }
@@ -41,7 +40,7 @@ module.exports = function (prototype) {
             return;
         }
         let token = util.token.encrypt({ uid: result.uid });
-        ctx.response.body = { code: SUCCESS_CODE, msg: '注册成功', info: result, token: token }
+        ctx.response.body = { info: result, token: token }
         await next();
     }
 
