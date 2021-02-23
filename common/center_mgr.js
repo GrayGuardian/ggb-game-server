@@ -11,7 +11,13 @@ var CenterMgr = function () {
     console.log(`${SERVER_NAME}>>>${config.name}`);
 
     this.socket = io(`ws://${config.ip}:${config.port}/`);
-    this.socket.emit('init', { name: SERVER_NAME, type: SERVER_TYPE, order: SERVER_ORDER });
+    this.socket.on('connect', () => {
+        console.log('[succeed]conn center-server', '>>>', "config:", config);
+        this.socket.emit('init', { name: SERVER_NAME, type: SERVER_TYPE, order: SERVER_ORDER });
+    })
+    this.socket.on('disconnect', function () {
+        console.log('[error]disconn center-server', '>>>', "config:", config);
+    })
 
     this.socket.on('rpc', (body) => {
         let rpc = pb.decode('server_pb.rpc', body);

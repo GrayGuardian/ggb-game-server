@@ -17,11 +17,11 @@ SocketMgr.prototype.conn = function (socket) {
         let config = server_config.getServerConfig(data.type, data.order)
         if (config == null || config.name != data.name || config.ip != ip) {
             //无效连接
-            console.log('无效连接>>>', data);
+            console.log('[error]conn server client', '>>>', 'data:', data, "config:", config);
             socket.disconnect();
         }
         else {
-            console.log('Server连接>>>', data);
+            console.log('conn server client', '>>>', 'data:', data, "config:", config);
             this.socketMap.set(data.name, socket);
         }
     });
@@ -29,7 +29,7 @@ SocketMgr.prototype.conn = function (socket) {
         this.socketMap.forEach((value, key) => {
             if (socket == value) {
                 this.socketMap.delete(key);
-                console.log('Server断开', key);
+                console.log('disconn server client', '>>>', 'key:', key);
             }
         });
 
