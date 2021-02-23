@@ -10,8 +10,8 @@ var CenterMgr = function () {
     let config = server_config.getCenterServerConfigByName(SERVER_NAME);
     console.log(`${SERVER_NAME}>>>${config.name}`);
 
-    this.socket = io(`ws://${config.url}:${config.port}/`);
-    this.socket.emit('init', { name: SERVER_NAME });
+    this.socket = io(`ws://${config.ip}:${config.port}/`);
+    this.socket.emit('init', { name: SERVER_NAME, type: SERVER_TYPE, order: SERVER_ORDER });
 
     this.socket.on('rpc', (body) => {
         let rpc = pb.decode('server_pb.rpc', body);

@@ -13,8 +13,17 @@ var SocketMgr = function (server) {
 }
 SocketMgr.prototype.conn = function (socket) {
     socket.on('init', (data) => {
-        console.log('Server连接', data);
-        this.socketMap.set(data.name, socket);
+        let ip = socket.request.connection.remoteAddress.replace('::ffff:', '');
+        let config = server_config.getServerConfig(data.type, data.order)
+        if (config == null || config.name != data.name || config.ip != ip) {
+            //无效连接
+            console.log('无效连接>>>', data);
+            socket.disconnect();
+        }
+        else {
+            console.log('Server连接>>>', data);
+            this.socketMap.set(data.name, socket);
+        }
     });
     socket.on('disconnect', () => {
         this.socketMap.forEach((value, key) => {
@@ -41,7 +50,7 @@ SocketMgr.prototype.rpc = function (body) {
     let config = server_config.getCenterServerConfigByName(rpc.to);
     if (SERVER_NAME != config.name) {
         console.log(`不在当前center-server转发 消息中转>>> ${rpc.to}==>${config.name}`)
-        socket = io(`ws://${config.url}:${config.port}/`);
+        socket = io(`ws://${config.ip}:${config.port}/`);
     }
 
     if (socket == null) {
@@ -58,7 +67,7 @@ SocketMgr.prototype.rpcRet = function (body) {
     let config = server_config.getCenterServerConfigByName(rpc.to);
     if (SERVER_NAME != config.name) {
         console.log(`不在当前center-server转发 消息中转>>> ${rpc.to}==>${config.name}`)
-        socket = io(`ws://${config.url}:${config.port}/`);
+        socket = io(`ws://${config.ip}:${config.port}/`);
     }
 
     if (socket == null) {
