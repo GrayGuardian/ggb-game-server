@@ -45,12 +45,11 @@ const ERROR_MSG = {
     [ERROR_CODE.AREA_NOTEXIST]: '区服不存在',
     [ERROR_CODE.AREA_MAINTENANCE]: '区服正在维护',
 }
-exports.SUCCESS_CODE = SUCCESS_CODE;
-exports.ERROR_CODE = ERROR_CODE;
-exports.genErrorMsg = function (code) {
+const genErrorMsg = function (code) {
     let data = {};
-    let msg = ERROR_MSG[code + ''];
+    let msg = ERROR_MSG[code];
     data.code = code;
     data.msg = msg == null ? ERROR_MSG[ERROR_CODE.UNKNOWN_ERROR] : msg;
     return data;
 }
+module.exports = { SUCCESS_CODE: SUCCESS_CODE, ERROR_CODE: ERROR_CODE, genErrorMsg: genErrorMsg }

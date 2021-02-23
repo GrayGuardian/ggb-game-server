@@ -19,9 +19,9 @@ global.util = require('./util/util');
 
 global.mysql = require('./db/mysql')();
 
-let error_info = require('./error_info');
-global.SUCCESS_CODE = error_info.SUCCESS_CODE;
-global.ERROR_CODE = error_info.ERROR_CODE;
-global.genErrorMsg = error_info.genErrorMsg;
+const ERROR_INFO = require('./const/ERROR_INFO');
+global.SUCCESS_CODE = ERROR_INFO.SUCCESS_CODE;
+global.ERROR_CODE = ERROR_INFO.ERROR_CODE;
+global.genErrorMsg = ERROR_INFO.genErrorMsg;
 
-global.REGULAR_CODE = require('./regular_code');
+global.REGULAR_CODE = require('./const/REGULAR_CODE');
