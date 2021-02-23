@@ -7,7 +7,7 @@ const app = new Koa();
 
 console.log('Server Start>>>', `Type:${SERVER_TYPE} Name:${SERVER_NAME} IP:${SERVER_IP} Port:${SERVER_PORT}`);
 
-global.center_mgr = require('../common/center_mgr')();
+global.center_mgr = require('../common/socket/center_mgr')();
 
 
 //http

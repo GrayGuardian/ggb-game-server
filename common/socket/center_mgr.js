@@ -21,25 +21,24 @@ var CenterMgr = function () {
 
     this.socket.on('rpc', (body) => {
         let rpc = pb.decode('server_pb.rpc', body);
+        
         if (rpc.to != SERVER_NAME) {
             return;
         }
-        this.receive(rpc);
+        console.log('收到来自Center-Server的消息', rpc);
+    
+        let callback = (data) => { this.rpcRet(rpc.code, rpc.from, `${rpc.route}Ret`, data) };
+
+        let action = rpc_mgr[rpc.route];
+        if (action == null) {
+            console.error('未找到rpc Action', rpc);
+            return;
+        }
+        action(rpc, callback);
     });
 
 }
-CenterMgr.prototype.receive = function (rpc) {
-    console.log('收到来自Center-Server的消息', rpc);
-    let callback = (data) => { this.rpcRet(rpc.code, rpc.from, `${rpc.route}Ret`, data) };
 
-    let action = rpc_mgr[rpc.route];
-    if (action == null) {
-        console.error('未找到rpc Action', rpc);
-        return;
-    }
-    action(rpc, callback);
-
-}
 CenterMgr.prototype.rpcAsync = function (to, route, data) {
     return new Promise((resolve, reject) => {
         this.rpc(to, route, data, resolve);
@@ -47,17 +46,23 @@ CenterMgr.prototype.rpcAsync = function (to, route, data) {
 }
 CenterMgr.prototype.rpc = function (to, route, data, cb) {
     let code = this.code++;
+    console.log("发送 rpc code:",code)
     let rpc = { code: code, from: SERVER_NAME, to: to, route: route };
     rpc[route] = data;
     let body = pb.encode('server_pb.rpc', rpc);
     this.socket.emit('rpc', body);
-    let retCb = (body) => {
+    let retCb;
+    retCb = (body) => {
         let rpc = pb.decode('server_pb.rpcRet', body);
+        
         if (rpc.to != SERVER_NAME) {
             return;
         }
         if (rpc.code != code) return;
+        console.log('收到来自Center-Server的回调消息', rpc);
+
         if (cb != null) cb(rpc[rpc.route]);
+        this.socket.off('rpcRet', retCb);
     }
     this.socket.on('rpcRet', retCb);
 }
