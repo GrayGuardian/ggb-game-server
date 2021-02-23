@@ -1,0 +1,26 @@
+syntax = "proto2";
+package socket;
+
+import "common.proto";
+
+message conn {
+    required string token = 1;
+    required int32 pid = 2;
+    required int32 aid = 3;
+}
+message connRet { }
+
+message c2s {
+    required string router = 1;
+
+    optional conn conn = 100;
+}
+
+message s2c {
+    required string router = 1;
+
+    optional common.Error error = 50;
+
+    optional connRet connRet = 100;
+}
+

@@ -1,0 +1,111 @@
+{
+  "nested": {
+    "socket": {
+      "nested": {
+        "conn": {
+          "fields": {
+            "token": {
+              "rule": "required",
+              "type": "string",
+              "id": 1
+            },
+            "pid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 2
+            },
+            "aid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 3
+            }
+          }
+        },
+        "connRet": {
+          "fields": {}
+        },
+        "c2s": {
+          "fields": {
+            "router": {
+              "rule": "required",
+              "type": "string",
+              "id": 1
+            },
+            "conn": {
+              "type": "conn",
+              "id": 100
+            }
+          }
+        },
+        "s2c": {
+          "fields": {
+            "router": {
+              "rule": "required",
+              "type": "string",
+              "id": 1
+            },
+            "error": {
+              "type": "common.Error",
+              "id": 50
+            },
+            "connRet": {
+              "type": "connRet",
+              "id": 100
+            }
+          }
+        }
+      }
+    },
+    "common": {
+      "nested": {
+        "Error": {
+          "fields": {
+            "code": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "msg": {
+              "rule": "required",
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "UserInfo": {
+          "fields": {
+            "uid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "username": {
+              "rule": "required",
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "AreaInfo": {
+          "fields": {
+            "aid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "name": {
+              "rule": "required",
+              "type": "string",
+              "id": 2
+            },
+            "ismaintenance": {
+              "rule": "required",
+              "type": "int32",
+              "id": 3
+            }
+          }
+        }
+      }
+    }
+  }
+}
