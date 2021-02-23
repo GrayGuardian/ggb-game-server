@@ -22,6 +22,7 @@ SocketMgr.prototype.conn = function (socket) {
         }
         else {
             console.log('conn server client', '>>>', 'data:', data, "config:", config);
+            socket.name = data.name;
             this.socketMap.set(data.name, socket);
         }
     });
@@ -36,43 +37,51 @@ SocketMgr.prototype.conn = function (socket) {
     });
 
     socket.on('rpc', (body) => {
-        this.rpc(body);
+        this.rpc(socket, body);
     });
     socket.on('rpcRet', (body) => {
-        this.rpcRet(body);
+        this.rpcRet(socket, body);
     });
 }
-SocketMgr.prototype.rpc = function (body) {
+SocketMgr.prototype.rpc = function (socket, body) {
     let rpc = pb.decode('server_pb.rpc', body);
+    if (rpc == null) {
+        console.log('错误的转发消息格式>>', socket.name);
+        return;
+    }
     console.log('消息中转', rpc);
-    let socket = this.socketMap.get(rpc.to);
+    let t_socket = this.socketMap.get(rpc.to);
 
     let config = server_config.getCenterServerConfigByName(rpc.to);
     if (SERVER_NAME != config.name) {
         console.log(`不在当前center-server转发 消息中转>>> ${rpc.to}==>${config.name}`)
-        socket = io(`ws://${config.ip}:${config.port}/`);
+        t_socket = io(`ws://${config.ip}:${config.port}/`);
     }
 
-    if (socket == null) {
-        console.error(`未找到有效的Socket连接 Server: ${server} `)
+    if (t_socket == null) {
+        console.error(`未找到有效的Socket连接 Server:`, rpc.to)
         return;
     }
-    socket.emit('rpc', body);
+    t_socket.emit('rpc', body);
 }
-SocketMgr.prototype.rpcRet = function (body) {
+SocketMgr.prototype.rpcRet = function (socket, body) {
     let rpc = pb.decode('server_pb.rpcRet', body);
+    if (rpc == null) {
+        console.error('错误的转发消息格式>>', socket.name);
+        return;
+    }
     console.log('消息回调中转', rpc);
-    let socket = this.socketMap.get(rpc.to);
+    let t_socket = this.socketMap.get(rpc.to);
 
     let config = server_config.getCenterServerConfigByName(rpc.to);
     if (SERVER_NAME != config.name) {
         console.log(`不在当前center-server转发 消息中转>>> ${rpc.to}==>${config.name}`)
-        socket = io(`ws://${config.ip}:${config.port}/`);
+        t_socket = io(`ws://${config.ip}:${config.port}/`);
     }
 
-    if (socket == null) {
-        console.error(`未找到有效的Socket连接 Server: ${server} `)
+    if (t_socket == null) {
+        console.error(`未找到有效的Socket连接 Server:`, rpc.to)
         return;
     }
-    socket.emit('rpcRet', body);
+    t_socket.emit('rpcRet', body);
 }

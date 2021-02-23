@@ -18,10 +18,16 @@
                 "port": 500
             }
         ],
+        "connect-server": [
+            {
+                "ip": "127.0.0.1",
+                "port": 600
+            }
+        ],
         "game-server": [
             {
                 "ip": "127.0.0.1",
-                "port": 800
+                "port": 700
             }
         ]
     },
@@ -44,10 +50,16 @@
                 "port": 500
             }
         ],
+        "connect-server": [
+            {
+                "ip": "127.0.0.1",
+                "port": 600
+            }
+        ],
         "game-server": [
             {
                 "ip": "127.0.0.1",
-                "port": 800
+                "port": 700
             }
         ]
     }
