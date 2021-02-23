@@ -12,7 +12,7 @@ var SocketMgr = function (server) {
 
 }
 SocketMgr.prototype.conn = function (socket) {
-    socket.on('init', (data) => {
+    socket.on('conn', (data) => {
         let ip = socket.request.connection.remoteAddress.replace('::ffff:', '');
         let config = server_config.getServerConfig(data.type, data.order)
         if (config == null || config.name != data.name || config.ip != ip) {
