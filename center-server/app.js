@@ -12,6 +12,6 @@ app.listen(SERVER_PORT, () => {
     console.log(`WebSocket Server Start >>> ws://${SERVER_IP}:${SERVER_PORT}`);
 })
 
-global.rpc_mgr = require("./rpc/rpc_mgr")();
-global.socket_mgr = require("../common/socket/socket_mgr")(io, { type: "server", validEvent: ['rpc', 'rpcRet'] });
+global.socket_mgr = require("./socket/socket_mgr")();
+require("../common/socket/socket")(io, { type: "server", validEvent: ['rpc', 'rpcRet'] });
 

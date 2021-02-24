@@ -46,7 +46,7 @@ var SocketMgr = function (io, opts) {
 }
 
 SocketMgr.prototype.rpc = async function (key, ctx) {
-    let action = rpc_mgr[key];
+    let action = socket_mgr[key];
     if (action == null) {
         console.error('未找到rpc Action>>', key);
         return false;

@@ -6,8 +6,8 @@ module.exports = function (prototype) {
         //是否本地处理无需转发，二次本地转发处理
         if (data.to == SERVER_NAME) {
             //二次转发
-            if (rpc_mgr[data.route] != null) {
-                rpc_mgr[data.route](ctx)
+            if (socket_mgr[data.route] != null) {
+                socket_mgr[data.route](ctx)
             }
             return;
         }

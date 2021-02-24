@@ -1,7 +1,7 @@
 require('../common/global');
 const Koa = require('koa');
 const static = require('koa-static');
-const range = require('koa-range')
+const range = require('koa-range');
 
 const app = new Koa();
 
@@ -17,3 +17,5 @@ app.use(static(__dirname + '/public'));
 app.listen(SERVER_PORT, () => {
     console.log(`Http Server Start >>> http://${SERVER_IP}:${SERVER_PORT}`);
 });
+
+center_mgr.rpc("game-server0", "ttt", { msg: "dfabasdfasdf" })
