@@ -26,7 +26,7 @@
         },
         "c2s": {
           "fields": {
-            "router": {
+            "route": {
               "rule": "required",
               "type": "string",
               "id": 1
@@ -39,7 +39,7 @@
         },
         "s2c": {
           "fields": {
-            "router": {
+            "route": {
               "rule": "required",
               "type": "string",
               "id": 1

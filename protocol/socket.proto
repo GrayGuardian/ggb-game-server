@@ -11,13 +11,13 @@ message conn {
 message connRet { }
 
 message c2s {
-    required string router = 1;
+    required string route = 1;
 
     optional conn conn = 100;
 }
 
 message s2c {
-    required string router = 1;
+    required string route = 1;
 
     optional common.Error error = 50;
 

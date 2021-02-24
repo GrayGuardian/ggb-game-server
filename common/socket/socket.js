@@ -19,8 +19,14 @@ var SocketMgr = function (io, opts) {
         io.on(e, async (ctx) => { });
     });
     io.use(async (ctx, next) => {
-        console.log(pb.encode("common_pb.Error", { code: 324, msg: "fdsafasd" }))
-        ctx.socket.emit("aaa", pb.encode("common_pb.Error", { code: 324, msg: "fdsafasd" }));
+        let route = "error";
+        let data = { code: 1432, msg:"fdsagasdf"};
+
+        let body = { route: route };
+        body[route] = data
+        console.log(pb.decode("socket_pb.s2c", pb.encode("socket_pb.s2c", body)))
+
+        ctx.socket.emit("s2c", pb.encode("socket_pb.s2c", body));
         //类型 影响pb文件选择
         ctx.type = opts.type;
         //错误回调
