@@ -17,5 +17,3 @@ app.use(static(__dirname + '/public'));
 app.listen(SERVER_PORT, () => {
     console.log(`Http Server Start >>> http://${SERVER_IP}:${SERVER_PORT}`);
 });
-
-center_mgr.rpc("game-server0", "ttt", { msg: "dfabasdfasdf" })

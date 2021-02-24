@@ -15,7 +15,7 @@ module.exports = function (prototype) {
         if (config == null || config.name != data.name || config.ip != ip) {
             //无效连接
             console.log('[error]conn server client', '>>>', 'data:', data, "config:", config);
-            dataRet.connRet = { code: ERROR_CODE.UNKNOWN_ERROR };
+            dataRet.connRet = { code: ERROR_CODE.CONNECT_ERROR_KICK };
             socket_channel.emit(data.name, "rpcRet", pb.encode("server_pb.rpcRet", dataRet));
             socket.disconnect();
         }

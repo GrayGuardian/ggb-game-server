@@ -4,8 +4,7 @@ module.exports = function (io, opts) {
 }
 var SocketMgr = function (io, opts) {
     this.io = io;
-    this.opts = opts;
-    this.type = opts.type;
+
     global.socket_channel = require("./socket_channel")(io);
 
     //影响pb文件解析
@@ -19,17 +18,16 @@ var SocketMgr = function (io, opts) {
     validEvent.forEach(e => {
         io.on(e, async (ctx) => { });
     });
-
     io.use(async (ctx, next) => {
-        if (validEvent.indexOf(ctx.event) == -1) {
-            //不被允许通过的event
-            return;
-        }
+        //类型 影响pb文件选择
+        ctx.type = opts.type;
+        //错误回调
+        ctx.errorEvent = opts.errorEvent;
         if (Buffer.isBuffer(ctx.data)) {
             //需要协议解析数据
-            let data = pb.decode(`${this.type}_pb.${ctx.event}`, ctx.data);
+            let data = pb.decode(`${ctx.type}_pb.${ctx.event}`, ctx.data);
             if (data == null) {
-                console.log('错误的消息格式>>', data);
+                if (ctx.errorEvent != null) ctx.errorEvent(ctx, ERROR_CODE.CONNECT_ERROR_DATA);
                 return;
             }
             ctx.body = ctx.data;
@@ -48,7 +46,7 @@ var SocketMgr = function (io, opts) {
 SocketMgr.prototype.rpc = async function (key, ctx) {
     let action = socket_mgr[key];
     if (action == null) {
-        console.error('未找到rpc Action>>', key);
+        if (ctx.errorEvent != null) ctx.errorEvent(ctx, ERROR_CODE.CONNECT_ERROR_ROUTE);
         return false;
     }
     await action(ctx);

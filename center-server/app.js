@@ -13,5 +13,11 @@ app.listen(SERVER_PORT, () => {
 })
 
 global.socket_mgr = require("./socket/socket_mgr")();
-require("../common/socket/socket")(io, { type: "server", validEvent: ['rpc', 'rpcRet'] });
 
+require("../common/socket/socket")(io, {
+    type: "server",
+    validEvent: ['rpc', 'rpcRet'],
+    errorEvent: (ctx, code) => {
+        console.log('出现错误:', genErrorMsg(code));
+    }
+});

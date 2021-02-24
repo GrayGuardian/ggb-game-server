@@ -18,7 +18,7 @@ PB.prototype.encode = function (key, data) {
     } catch (error) {
         return null;
     }
-    
+
 }
 PB.prototype.decode = function (key, data) {
     try {
