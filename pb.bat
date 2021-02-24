@@ -13,4 +13,4 @@ for /R %prodir% %%f in (*.proto) do (
 )
 
 
-pause
+::paused
