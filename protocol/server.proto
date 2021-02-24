@@ -22,7 +22,7 @@ message rpc {
     required int32 code = 1;
     required string from = 2;
     required string to = 3;
-    required string route = 4;
+    required string router = 4;
 
     optional conn conn = 50;
 
@@ -32,7 +32,7 @@ message rpcRet {
     required int32 code = 1;
     required string from = 2;
     required string to = 3;
-    required string route = 4;
+    required string router = 4;
 
     optional connRet connRet = 50;
 

@@ -88,13 +88,13 @@ SocketChannel.prototype.delAllSocket = function (socket) {
     return true;
 }
 
-SocketChannel.prototype.emit = function (key, route, data) {
+SocketChannel.prototype.emit = function (key, router, data) {
     let result = 0;
     if (typeof (key) == "string") {
-        result += this._emitOneChannel(key, route, data);
+        result += this._emitOneChannel(key, router, data);
     } else if (Array.isArray(key)) {
         key.forEach(k => {
-            result += this._emitOneChannel(k, route, data);
+            result += this._emitOneChannel(k, router, data);
         });
     }
     return result;
@@ -133,11 +133,11 @@ SocketChannel.prototype._delOneSocket = function (key, socket) {
     if (socketMap.size == 0) this.channel.delete(key);
     return true
 }
-SocketChannel.prototype._emitOneChannel = function (key, route, data) {
+SocketChannel.prototype._emitOneChannel = function (key, router, data) {
     let result = 0;
     if (!this.channel.get(key)) return result;
     this.channel.get(key).forEach((socket, id) => {
-        socket.emit(route, data);
+        socket.emit(router, data);
         result += 1;
     });
     return result;

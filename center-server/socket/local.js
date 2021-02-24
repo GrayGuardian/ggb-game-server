@@ -8,7 +8,7 @@ module.exports = function (prototype) {
         dataRet.code = ctx.data.code;
         dataRet.from = SERVER_NAME
         dataRet.to = data.name;
-        dataRet.route = "connRet";
+        dataRet.router = "connRet";
 
         let ip = socket.request.connection.remoteAddress.replace('::ffff:', '');
         let config = server_config.getServerConfig(data.type, data.order)

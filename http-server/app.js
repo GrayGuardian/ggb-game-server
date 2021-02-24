@@ -9,19 +9,17 @@ global.center_mgr = require('../common/socket/center_mgr')();
 global.rpc_mgr = require('./rpc/rpc_mgr')();
 global.logic_mgr = require('./logic/logic_mgr')();
 
-global.route_mgr = require('./route/route_mgr')();
+global.router_mgr = require('./router/router_mgr')();
 
 //http
 const init = require('./filter/init');
 const token = require('./filter/token');
-const route = require('./filter/route');
+const router = require('./filter/router');
 const s2c = require('./filter/s2c');
-const logic_mgr = require('./logic/logic_mgr');
-const rpc_mgr = require('./rpc/rpc_mgr');
 
 app.use(init);
 app.use(token);
-app.use(route);
+app.use(router);
 app.use(s2c);
 
 app.listen(SERVER_PORT, () => {

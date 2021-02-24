@@ -19,14 +19,6 @@ var SocketMgr = function (io, opts) {
         io.on(e, async (ctx) => { });
     });
     io.use(async (ctx, next) => {
-        let route = "error";
-        let data = { code: 1432, msg:"fdsagasdf"};
-
-        let body = { route: route };
-        body[route] = data
-        console.log(pb.decode("socket_pb.s2c", pb.encode("socket_pb.s2c", body)))
-
-        ctx.socket.emit("s2c", pb.encode("socket_pb.s2c", body));
         //类型 影响pb文件选择
         ctx.type = opts.type;
         //错误回调
@@ -54,7 +46,7 @@ var SocketMgr = function (io, opts) {
 SocketMgr.prototype.rpc = async function (key, ctx) {
     let action = socket_mgr[key];
     if (action == null) {
-        if (ctx.errorEvent != null) ctx.errorEvent(ctx, ERROR_CODE.CONNECT_ERROR_ROUTE);
+        if (ctx.errorEvent != null) ctx.errorEvent(ctx, ERROR_CODE.CONNECT_ERROR_ROUTER);
         return false;
     }
     await action(ctx);

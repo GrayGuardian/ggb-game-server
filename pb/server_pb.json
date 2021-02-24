@@ -65,7 +65,7 @@
               "type": "string",
               "id": 3
             },
-            "route": {
+            "router": {
               "rule": "required",
               "type": "string",
               "id": 4
@@ -97,7 +97,7 @@
               "type": "string",
               "id": 3
             },
-            "route": {
+            "router": {
               "rule": "required",
               "type": "string",
               "id": 4
