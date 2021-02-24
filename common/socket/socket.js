@@ -19,6 +19,8 @@ var SocketMgr = function (io, opts) {
         io.on(e, async (ctx) => { });
     });
     io.use(async (ctx, next) => {
+        console.log(pb.encode("common_pb.Error", { code: 324, msg: "fdsafasd" }))
+        ctx.socket.emit("aaa", pb.encode("common_pb.Error", { code: 324, msg: "fdsafasd" }));
         //类型 影响pb文件选择
         ctx.type = opts.type;
         //错误回调
