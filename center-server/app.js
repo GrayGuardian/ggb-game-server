@@ -15,8 +15,3 @@ app.listen(SERVER_PORT, () => {
 global.rpc_mgr = require("./rpc/rpc_mgr")();
 global.socket_mgr = require("../common/socket/socket_mgr")(io, { type: "server", validEvent: ['rpc', 'rpcRet'] });
 
-
-io.use(async (ctx, next) => {
-    console.log("io user0")
-    await next();
-});

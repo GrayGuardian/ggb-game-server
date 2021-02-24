@@ -21,7 +21,6 @@ var SocketMgr = function (io, opts) {
     });
 
     io.use(async (ctx, next) => {
-        console.log("io user1")
         if (validEvent.indexOf(ctx.event) == -1) {
             //不被允许通过的event
             return;
