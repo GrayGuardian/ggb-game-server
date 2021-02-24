@@ -21,11 +21,7 @@ var SocketMgr = function (io, opts) {
     });
 
     io.use(async (ctx, next) => {
-        if (ctx.event == "conn") {
-            await next()
-            return;
-        }
-
+        console.log("io user1")
         if (validEvent.indexOf(ctx.event) == -1) {
             //不被允许通过的event
             return;
@@ -42,11 +38,12 @@ var SocketMgr = function (io, opts) {
         }
         //console.log('socket.io', "event:", ctx.event, "data:", ctx.data);
         await this.rpc(ctx.event, ctx);
+
+        await next();
     });
     io.on('connection', (ctx) => {
         this.rpc("connection", ctx);
     })
-
 }
 
 SocketMgr.prototype.rpc = async function (key, ctx) {
