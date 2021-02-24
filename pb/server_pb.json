@@ -2,6 +2,34 @@
   "nested": {
     "server": {
       "nested": {
+        "conn": {
+          "fields": {
+            "name": {
+              "rule": "required",
+              "type": "string",
+              "id": 1
+            },
+            "type": {
+              "rule": "required",
+              "type": "string",
+              "id": 2
+            },
+            "order": {
+              "rule": "required",
+              "type": "int32",
+              "id": 3
+            }
+          }
+        },
+        "connRet": {
+          "fields": {
+            "code": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            }
+          }
+        },
         "ttt": {
           "fields": {
             "msg": {
@@ -42,6 +70,10 @@
               "type": "string",
               "id": 4
             },
+            "conn": {
+              "type": "conn",
+              "id": 50
+            },
             "ttt": {
               "type": "ttt",
               "id": 100
@@ -69,6 +101,10 @@
               "rule": "required",
               "type": "string",
               "id": 4
+            },
+            "connRet": {
+              "type": "connRet",
+              "id": 50
             },
             "tttRet": {
               "type": "tttRet",

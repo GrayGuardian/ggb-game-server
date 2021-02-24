@@ -17,10 +17,10 @@ SocketChannel.prototype.visitSocket = function (socket) {
     if (socket == null) return null;
     return socket;
 }
-SocketChannel.prototype.get = function (key,socket) {
+SocketChannel.prototype.get = function (key, socket) {
     socket = this.visitSocket(socket);
     if (socket == null) return null;
-    if(!this.channel.get(key)) return null;
+    if (!this.channel.get(key)) return null;
     return this.channel.get(key).get(socket.id);
 }
 SocketChannel.prototype.add = function (key, socket) {
@@ -30,7 +30,7 @@ SocketChannel.prototype.add = function (key, socket) {
                 this._addOneSocket(key, s);
             });
         }
-        else{
+        else {
             this._addOneSocket(key, socket);
         }
     } else if (Array.isArray(key)) {
@@ -40,7 +40,7 @@ SocketChannel.prototype.add = function (key, socket) {
                     this._addOneSocket(k, s);
                 });
             }
-            else{
+            else {
                 this._addOneSocket(k, socket);
             }
         });
@@ -62,7 +62,7 @@ SocketChannel.prototype.del = function (key, socket) {
                 socket.forEach(s => {
                     this._delOneSocket(k, s);
                 });
-            }else{
+            } else {
                 this._delOneSocket(k, socket);
             }
         });
@@ -71,8 +71,7 @@ SocketChannel.prototype.del = function (key, socket) {
 SocketChannel.prototype.exist = function (key, socket) {
 
     if (!this.channel.get(key)) return false;
-    if(socket!=null)
-    {
+    if (socket != null) {
         socket = this.visitSocket(socket);
         if (socket == null) return false;
         return this.channel.get(key).get(socket.id) != null;
@@ -112,7 +111,7 @@ SocketChannel.prototype.clearChannel = function (key) {
 
 
 SocketChannel.prototype._addOneSocket = function (key, socket) {
-    
+
     socket = this.visitSocket(socket);
     if (socket == null) return false;
 
@@ -138,7 +137,7 @@ SocketChannel.prototype._emitOneChannel = function (key, route, data) {
     let result = 0;
     if (!this.channel.get(key)) return result;
     this.channel.get(key).forEach((socket, id) => {
-        socket.emit(route,data);
+        socket.emit(route, data);
         result += 1;
     });
     return result;

@@ -2,6 +2,15 @@ syntax = "proto2";
 
 package server;
 
+message conn {
+    required string name = 1;
+    required string type = 2;
+    required int32 order = 3;
+}
+message connRet {
+    required int32 code = 1;
+}
+
 message ttt {
     required string msg = 1;
 }
@@ -15,6 +24,8 @@ message rpc {
     required string to = 3;
     required string route = 4;
 
+    optional conn conn = 50;
+
     optional ttt ttt = 100;
 }
 message rpcRet {
@@ -22,6 +33,8 @@ message rpcRet {
     required string from = 2;
     required string to = 3;
     required string route = 4;
+
+    optional connRet connRet = 50;
 
     optional tttRet tttRet = 100;
 }

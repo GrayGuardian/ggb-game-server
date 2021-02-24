@@ -5,11 +5,11 @@ SET SERVER_CONFIG[0].Type=center-server
 SET SERVER_CONFIG[0].Count=1
 SET SERVER_CONFIG[1].Type=http-server
 SET SERVER_CONFIG[1].Count=1
-SET SERVER_CONFIG[2].Type=web-server
+SET SERVER_CONFIG[2].Type=connect-server
 SET SERVER_CONFIG[2].Count=1
-SET SERVER_CONFIG[3].Type=connect-server
+SET SERVER_CONFIG[3].Type=game-server
 SET SERVER_CONFIG[3].Count=1
-SET SERVER_CONFIG[4].Type=game-server
+SET SERVER_CONFIG[4].Type=web-server
 SET SERVER_CONFIG[4].Count=1
 cd %cd%
 call:startAllServer

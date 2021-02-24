@@ -1,4 +1,4 @@
-var Rpc = function () { };
-require('./test')(Rpc.prototype);
+var RpcMgr = function () { };
+require('./test')(RpcMgr.prototype);
 
-module.exports = function () { return new Rpc(); };
+module.exports = function () { return new RpcMgr(); };

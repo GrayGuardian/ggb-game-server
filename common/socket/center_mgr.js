@@ -12,8 +12,14 @@ var CenterMgr = function () {
 
     this.socket = io(`ws://${config.ip}:${config.port}/`);
     this.socket.on('connect', () => {
-        console.log('[succeed]conn center-server', '>>>', "config:", config);
-        this.socket.emit('conn', { name: SERVER_NAME, type: SERVER_TYPE, order: SERVER_ORDER });
+        this.rpc(config.name, "conn", { name: SERVER_NAME, type: SERVER_TYPE, order: SERVER_ORDER }, (data) => {
+            if (data.code == ERROR_CODE.SUCCESS) {
+                console.log('[succeed]conn center-server', '>>>', "config:", config);
+            }
+            else {
+                console.log('[error]conn center-server', '>>>', "config:", config);
+            }
+        });
     })
     this.socket.on('disconnect', function () {
         console.log('[error]disconn center-server', '>>>', "config:", config);
@@ -21,17 +27,19 @@ var CenterMgr = function () {
 
     this.socket.on('rpc', (body) => {
         let rpc = pb.decode('server_pb.rpc', body);
-        
         if (rpc.to != SERVER_NAME) {
             return;
         }
-        console.log('收到来自Center-Server的消息', rpc);
-    
+
+        if (rpc.route != "conn") {
+            console.log('收到来自Center-Server的消息', rpc);
+        }
+
         let callback = (data) => { this.rpcRet(rpc.code, rpc.from, `${rpc.route}Ret`, data) };
 
         let action = rpc_mgr[rpc.route];
         if (action == null) {
-            console.error('未找到rpc Action', rpc);
+            console.error('未找到rpc Action>>', rpc.route);
             return;
         }
         action(rpc, callback);
@@ -46,7 +54,6 @@ CenterMgr.prototype.rpcAsync = function (to, route, data) {
 }
 CenterMgr.prototype.rpc = function (to, route, data, cb) {
     let code = this.code++;
-    console.log("发送 rpc code:",code)
     let rpc = { code: code, from: SERVER_NAME, to: to, route: route };
     rpc[route] = data;
     let body = pb.encode('server_pb.rpc', rpc);
@@ -54,12 +61,15 @@ CenterMgr.prototype.rpc = function (to, route, data, cb) {
     let retCb;
     retCb = (body) => {
         let rpc = pb.decode('server_pb.rpcRet', body);
-        
+
         if (rpc.to != SERVER_NAME) {
             return;
         }
         if (rpc.code != code) return;
-        console.log('收到来自Center-Server的回调消息', rpc);
+
+        if (rpc.route != "connRet") {
+            console.log('收到来自Center-Server的回调消息', rpc);
+        }
 
         if (cb != null) cb(rpc[rpc.route]);
         this.socket.off('rpcRet', retCb);

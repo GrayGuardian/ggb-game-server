@@ -17,6 +17,7 @@ const ERROR_CODE = {
     RPCRET_ERROR: genSystemCode(),
     ROUTE_ERROR: genSystemCode(),
     TOKEN_ERROR: genSystemCode(),
+    CONNECT_KICK: genSystemCode(),
 
     PASSWORD_NOTSAME: genLogicCode(),
     USERNAME_EXIST: genLogicCode(),
@@ -35,6 +36,7 @@ const ERROR_MSG = {
     [ERROR_CODE.RPCRET_ERROR]: '返回参数错误',
     [ERROR_CODE.ROUTE_ERROR]: '访问路由出错',
     [ERROR_CODE.TOKEN_ERROR]: '非法访问', //Token值错误
+    [ERROR_CODE.CONNECT_KICK]: '连接被断开',
 
     [ERROR_CODE.PASSWORD_NOTSAME]: '两次密码不相同',
     [ERROR_CODE.USERNAME_EXIST]: '用户名已存在',

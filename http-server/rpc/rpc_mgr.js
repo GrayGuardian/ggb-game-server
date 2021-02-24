@@ -1,3 +1,3 @@
-var Rpc = function () { };
+var RpcMgr = function () { };
 
-module.exports = function () { return new Rpc(); };
+module.exports = function () { return new RpcMgr(); };
