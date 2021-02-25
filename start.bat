@@ -11,7 +11,9 @@ SET SERVER_CONFIG[3].Type=game-server
 SET SERVER_CONFIG[3].Count=1
 SET SERVER_CONFIG[4].Type=web-server
 SET SERVER_CONFIG[4].Count=1
+
 cd %cd%
+
 call:startAllServer
 pause
 exit
