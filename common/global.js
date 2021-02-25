@@ -26,3 +26,7 @@ global.ERROR_CODE = ERROR_INFO.ERROR_CODE;
 global.genErrorMsg = ERROR_INFO.genErrorMsg;
 
 global.REGULAR_CODE = require('./const/REGULAR_CODE');
+
+//Model
+global.Player = require('./model/player');
+global.PlayerCurrency = require('./model/player_currency');

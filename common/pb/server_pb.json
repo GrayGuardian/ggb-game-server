@@ -36,6 +36,10 @@
               "rule": "required",
               "type": "string",
               "id": 1
+            },
+            "json": {
+              "type": "bytes",
+              "id": 2
             }
           }
         },

@@ -38,12 +38,11 @@ const ERROR_MSG = {
     [ERROR_CODE.HTTP_ERROR_DATA]: '参数缺省或格式错误',
     [ERROR_CODE.HTTP_ERROR_ROUTER]: '访问路由出错',
     [ERROR_CODE.HTTP_ERROR_RETURN]: '未知错误',  //返回数据错误
-    [ERROR_CODE.TOKEN_ERROR]: '非法访问', //Token值错误
+    [ERROR_CODE.TOKEN_ERROR]: '非法访问，请重新登录！', //Token值错误
     [ERROR_CODE.CONNECT_ERROR_KICK]: '连接被断开',  //暂时只用于服务器之间的发放
     [ERROR_CODE.CONNECT_ERROR_ROUTER]: '非法路径',
     [ERROR_CODE.CONNECT_ERROR_DATA]: '非法数据',
     [ERROR_CODE.CONNECT_ERROR_RETURN]: '未知错误', //返回数据出错
-
 
     [ERROR_CODE.PASSWORD_NOTSAME]: '两次密码不相同',
     [ERROR_CODE.USERNAME_EXIST]: '用户名已存在',

@@ -12,6 +12,7 @@ message connRet {
 
 message ttt {
     required string msg = 1;
+    optional bytes json = 2;
 }
 message tttRet{ 
     required string msg = 1;

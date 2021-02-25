@@ -8,10 +8,10 @@ module.exports = async (ctx, next) => {
         return;
     }
     let token = util.token.decrypt(ctx.request.header.token);
-    ctx.user.uid = token.uid;
     if (token == null) {
         ctx.method.genError(ERROR_CODE.TOKEN_ERROR);
         return;
     }
+    ctx.user.uid = token.uid;
     await next();
 };

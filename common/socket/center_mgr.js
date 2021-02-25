@@ -25,7 +25,7 @@ var CenterMgr = function () {
         console.log('[error]disconn center-server', '>>>', "config:", config);
     })
 
-    this.socket.on('rpc', (body) => {
+    this.socket.on('rpc', async (body) => {
         let rpc = pb.decode('server_pb.rpc', body);
         if (rpc.to != SERVER_NAME) {
             return;
@@ -42,7 +42,7 @@ var CenterMgr = function () {
             console.error('未找到rpc Action>>', rpc.router);
             return;
         }
-        action(rpc, callback);
+        action(rpc[rpc.router], callback);
     });
 
 }
@@ -70,7 +70,6 @@ CenterMgr.prototype.rpc = function (to, router, data, cb) {
         if (rpc.router != "connRet") {
             console.log('收到来自Center-Server的回调消息', rpc);
         }
-
         if (cb != null) cb(rpc[rpc.router]);
         this.socket.off('rpcRet', retCb);
     }
