@@ -14,6 +14,7 @@ global.SERVER_IP = server_config.config.ip;
 global.SERVER_PORT = server_config.config.port;
 
 global.pb = require('./pb')();
+global.tpl = require("./template/tpl");
 
 global.util = require('./util/util');
 

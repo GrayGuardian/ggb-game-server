@@ -78,4 +78,8 @@ def writeToFile( name,sheet ):
 
 for info in config:
 	sheet = book.sheet_by_name(info["sheet"]) # 通过sheet索引获得sheet对象
+	
+	jsTplContent = "const Template = {};\n"
+
+
 	writeToFile(info["name"],sheet)
