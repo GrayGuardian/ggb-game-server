@@ -88,13 +88,35 @@ SocketChannel.prototype.delAllSocket = function (socket) {
     return true;
 }
 
-SocketChannel.prototype.emit = function (key, router, data) {
+SocketChannel.prototype.emit = function (key, event, data) {
     let result = 0;
     if (typeof (key) == "string") {
-        result += this._emitOneChannel(key, router, data);
+        result += this._emitOneChannel(key, event, data);
     } else if (Array.isArray(key)) {
         key.forEach(k => {
-            result += this._emitOneChannel(k, router, data);
+            result += this._emitOneChannel(k, event, data);
+        });
+    }
+    return result;
+}
+SocketChannel.prototype.send = function (key, router, data) {
+    let result = 0;
+    if (typeof (key) == "string") {
+        result += this._sendOneChannel(key, router, data);
+    } else if (Array.isArray(key)) {
+        key.forEach(k => {
+            result += this._sendOneChannel(k, router, data);
+        });
+    }
+    return result;
+}
+SocketChannel.prototype.genError = function (key, code) {
+    let result = 0;
+    if (typeof (key) == "string") {
+        result += this._genErrorOneChannel(key, code);
+    } else if (Array.isArray(key)) {
+        key.forEach(k => {
+            result += this._genErrorOneChannel(k, code);
         });
     }
     return result;
@@ -133,11 +155,29 @@ SocketChannel.prototype._delOneSocket = function (key, socket) {
     if (socketMap.size == 0) this.channel.delete(key);
     return true
 }
-SocketChannel.prototype._emitOneChannel = function (key, router, data) {
+SocketChannel.prototype._emitOneChannel = function (key, event, data) {
     let result = 0;
     if (!this.channel.get(key)) return result;
     this.channel.get(key).forEach((socket, id) => {
-        socket.emit(router, data);
+        socket.emit(event, data);
+        result += 1;
+    });
+    return result;
+}
+SocketChannel.prototype._sendOneChannel = function (key, router, data) {
+    let result = 0;
+    if (!this.channel.get(key)) return result;
+    this.channel.get(key).forEach((socket, id) => {
+        socket.send(router, data);
+        result += 1;
+    });
+    return result;
+}
+SocketChannel.prototype._genErrorOneChannel = function (key, code) {
+    let result = 0;
+    if (!this.channel.get(key)) return result;
+    this.channel.get(key).forEach((socket, id) => {
+        socket.genError(code);
         result += 1;
     });
     return result;

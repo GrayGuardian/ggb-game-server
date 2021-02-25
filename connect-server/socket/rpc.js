@@ -8,7 +8,7 @@ module.exports = function (prototype) {
 
         //二次转发
         let action = socket_mgr[router];
-        if(action==null){
+        if (action == null) {
             if (ctx.errorEvent != null) ctx.errorEvent(ctx, ERROR_CODE.CONNECT_ERROR_ROUTER);
             return;
         }
