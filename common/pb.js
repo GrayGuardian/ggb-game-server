@@ -4,8 +4,7 @@ var PB = function () { }
 let pbroot = require("protobufjs").Root;
 PB.prototype.getMessage = function (key) {
     let keys = key.split('.')
-
-    let json = require(`../pb/${keys[0]}.json`);
+    let json = require(`./pb/${keys[0]}.json`);
     let root = pbroot.fromJSON(json);
     let Message = root.lookupType(keys[1]);
     return Message
