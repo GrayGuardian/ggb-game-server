@@ -42,7 +42,7 @@ module.exports = async (ctx, next) => {
         body[router] = data;
         let bytes = pb.encode(`http_pb.s2c`, body);
         if (bytes == null) {
-            ctx.method.genError(ERROR_CODE.RPCRET_ERROR);
+            ctx.method.genError(ERROR_CODE.HTTP_ERROR_RETURN);
             return;
         }
         console.log(`http.s2c router:${router} body:`, pb.decode("http_pb.s2c", bytes))
@@ -57,7 +57,7 @@ module.exports = async (ctx, next) => {
     //获取内容
     let body = pb.decode("http_pb.c2s", await getPostData(ctx));
     if (body == null) {
-        ctx.method.genError(ERROR_CODE.PARAM_ERROR);
+        ctx.method.genError(ERROR_CODE.HTTP_ERROR_DATA);
         return;
     }
     ctx.state.router = body.router

@@ -34,8 +34,15 @@ ServerConfig.prototype.getServerList = function (type) {
 }
 //根据服务器名字获取对应的center-server配置
 ServerConfig.prototype.getCenterServerConfigByName = function (name) {
-    let center_list = this.getServerList('center-server');
-    let order = Math.abs(crc.crc32(name)) % center_list.length;
-    let config = center_list[order];
+    let list = this.getServerList('center-server');
+    let order = Math.abs(crc.crc32(name)) % list.length;
+    let config = list[order];
+    return config;
+}
+//根据区服ID获取对应的game-server配置
+ServerConfig.prototype.getGameServerConfigByAID = function (aid) {
+    let list = this.getServerList('game-server');
+    let order = Math.abs(crc.crc32(aid.toString())) % list.length;
+    let config = list[order];
     return config;
 }

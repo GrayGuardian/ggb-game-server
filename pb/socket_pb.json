@@ -13,15 +13,22 @@
               "rule": "required",
               "type": "int32",
               "id": 2
-            },
-            "aid": {
-              "rule": "required",
-              "type": "int32",
-              "id": 3
             }
           }
         },
         "connRet": {
+          "fields": {}
+        },
+        "moveTo": {
+          "fields": {
+            "pos": {
+              "rule": "required",
+              "type": "common.Pos",
+              "id": 1
+            }
+          }
+        },
+        "moveToRet": {
           "fields": {}
         },
         "c2s": {
@@ -34,6 +41,10 @@
             "conn": {
               "type": "conn",
               "id": 100
+            },
+            "moveTo": {
+              "type": "moveTo",
+              "id": 101
             }
           }
         },
@@ -51,6 +62,10 @@
             "connRet": {
               "type": "connRet",
               "id": 100
+            },
+            "moveToRet": {
+              "type": "moveToRet",
+              "id": 101
             }
           }
         }
@@ -99,6 +114,25 @@
               "id": 2
             },
             "ismaintenance": {
+              "rule": "required",
+              "type": "int32",
+              "id": 3
+            }
+          }
+        },
+        "Pos": {
+          "fields": {
+            "mid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "x": {
+              "rule": "required",
+              "type": "int32",
+              "id": 2
+            },
+            "y": {
               "rule": "required",
               "type": "int32",
               "id": 3

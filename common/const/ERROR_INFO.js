@@ -13,13 +13,14 @@ const genLogicCode = function () {
 const ERROR_CODE = {
     SUCCESS: SUCCESS_CODE,
     UNKNOWN_ERROR: genSystemCode(),
-    PARAM_ERROR: genSystemCode(),
-    RPCRET_ERROR: genSystemCode(),
-    ROUTER_ERROR: genSystemCode(),
+    HTTP_ERROR_DATA: genSystemCode(),
+    HTTP_ERROR_ROUTER: genSystemCode(),
+    HTTP_ERROR_RETURN: genSystemCode(),
     TOKEN_ERROR: genSystemCode(),
     CONNECT_ERROR_KICK: genSystemCode(),
     CONNECT_ERROR_ROUTER: genSystemCode(),
     CONNECT_ERROR_DATA: genSystemCode(),
+    CONNECT_ERROR_RETURN: genSystemCode(),
 
     PASSWORD_NOTSAME: genLogicCode(),
     USERNAME_EXIST: genLogicCode(),
@@ -34,13 +35,14 @@ const ERROR_CODE = {
 const ERROR_MSG = {
     [ERROR_CODE.SUCCESS]: '成功',
     [ERROR_CODE.UNKNOWN_ERROR]: '未知错误',
-    [ERROR_CODE.PARAM_ERROR]: '参数缺省或格式错误',
-    [ERROR_CODE.RPCRET_ERROR]: '返回参数错误',
-    [ERROR_CODE.ROUTER_ERROR]: '访问路由出错',
+    [ERROR_CODE.HTTP_ERROR_DATA]: '参数缺省或格式错误',
+    [ERROR_CODE.HTTP_ERROR_ROUTER]: '访问路由出错',
+    [ERROR_CODE.HTTP_ERROR_RETURN]: '未知错误',  //返回数据错误
     [ERROR_CODE.TOKEN_ERROR]: '非法访问', //Token值错误
-    [ERROR_CODE.CONNECT_ERROR_KICK]: '连接被断开',
+    [ERROR_CODE.CONNECT_ERROR_KICK]: '连接被断开',  //暂时只用于服务器之间的发放
     [ERROR_CODE.CONNECT_ERROR_ROUTER]: '非法路径',
     [ERROR_CODE.CONNECT_ERROR_DATA]: '非法数据',
+    [ERROR_CODE.CONNECT_ERROR_RETURN]: '未知错误', //返回数据出错
 
 
     [ERROR_CODE.PASSWORD_NOTSAME]: '两次密码不相同',

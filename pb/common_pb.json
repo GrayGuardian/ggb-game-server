@@ -48,6 +48,25 @@
               "id": 3
             }
           }
+        },
+        "Pos": {
+          "fields": {
+            "mid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "x": {
+              "rule": "required",
+              "type": "int32",
+              "id": 2
+            },
+            "y": {
+              "rule": "required",
+              "type": "int32",
+              "id": 3
+            }
+          }
         }
       }
     }

@@ -15,16 +15,15 @@ module.exports = function (prototype) {
             body[router] = data;
             let bytes = pb.encode(`socket_pb.s2c`, body);
             if (bytes == null) {
-                s.genError(ERROR_CODE.RPCRET_ERROR);
+                s.genError(ERROR_CODE.CONNECT_ERROR_RETURN);
                 return;
             }
             s.emit("s2c", bytes);
         }
-
-        socket_channel.add('ssa', s)
     }
     prototype.disconnect = async function (ctx) {
         //console.log("disconnect");
+        socket_channel.delAllSocket(ctx.socket);
     }
 
 };

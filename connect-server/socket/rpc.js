@@ -6,14 +6,17 @@ module.exports = function (prototype) {
 
         console.log(`socket.c2s router:${router} body:`, data)
 
-        //二次转发
         let action = socket_mgr[router];
-        if (action == null) {
-            if (ctx.errorEvent != null) ctx.errorEvent(ctx, ERROR_CODE.CONNECT_ERROR_ROUTER);
-            return;
+        if (action != null) {
+            //本地转发
+            ctx.router = router;
+            ctx.data = data;
+            action(ctx);
         }
-        ctx.router = router;
-        ctx.data = data;
-        action(ctx);
+        else {
+            //转发至game-server
+            console.log("转发至game-server>>>", server_config.getGameServerConfigByAID(1), ctx.data);
+        }
+
     }
 };

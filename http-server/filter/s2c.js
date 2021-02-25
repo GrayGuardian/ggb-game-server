@@ -1,10 +1,9 @@
 module.exports = async (ctx, next) => {
 
-    if (ctx.response.body==null){
-        ctx.method.genError(ERROR_CODE.RPCRET_ERROR)
+    if (ctx.response.body == null) {
+        ctx.method.genError(ERROR_CODE.HTTP_ERROR_RETURN)
     }
-    else
-    {
+    else {
         ctx.method.callback(ctx.response.body);
     }
     await next();

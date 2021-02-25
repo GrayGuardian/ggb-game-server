@@ -36,5 +36,6 @@ global.socket = require("../common/socket/socket")(io, {
     validEvent: ['c2s'],
     errorEvent: (ctx, code) => {
         console.log('出现错误:', genErrorMsg(code));
+        ctx.method.genErrorMsg(code);
     }
 });

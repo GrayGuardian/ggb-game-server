@@ -15,3 +15,8 @@ message AreaInfo {
     required string name = 2; 
     required int32 ismaintenance = 3; 
 }
+message Pos {
+    required int32 mid = 1;
+    required int32 x = 2;
+    required int32 y = 3;
+}
