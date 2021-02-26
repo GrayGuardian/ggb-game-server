@@ -12,7 +12,6 @@ Base.inherits = function (self, ctor, superCtor) {
             ctor[key] = Base[key];
         }
     }
-    Base.clsName = ctor.name;
 }
 Base.jsonParse = async function (str) {
     eval(str);
@@ -25,14 +24,15 @@ Base.prototype.toJson = function () {
 }
 Base.prototype.init = async function (idx) {
     this.idx = idx;
-    console.log(`Base Init pid:${this.pid} idx:${this.idx}`)
+    console.log(`[Model]${this.clsName} Init pid:${this.pid} idx:${this.idx}`)
     await this.loadData();
+    await this.inited();
 }
 //从数据库更新缓存数据
 Base.prototype.upDBToData = async function (refresh) {
-    console.log(`${Base.clsName} 从数据库更新缓存数据`)
+    console.log(`[Model]${this.clsName} 从数据库更新缓存数据`)
     let sql = `SELECT ${this.db_fields.toString()} FROM ${this.db_table} WHERE ${this.db_idxField}=?;`
-    console.log(sql, this.idx)
+    //console.log(sql, this.idx)
     //操作数据库
     let rows = await mysql.queryAsync(sql, [this.idx]);
 
@@ -61,10 +61,14 @@ Base.prototype.upDBToData = async function (refresh) {
 }
 //从缓存更新数据库数据
 Base.prototype.upDataToDB = async function (refresh) {
-    console.log(`${Base.clsName} 从缓存更新数据库数据`)
+    console.log(`[Model]${this.clsName} 从缓存更新数据库数据`)
     let arr = [];
     this.db_fields.forEach(field => {
-        arr.push(`${field}='${this[`get_${field}`]()}'`);
+        let value = this[`get_${field}`]();
+        if (typeof (value) == "object") {
+            value = JSON.stringify(value);
+        }
+        arr.push(`${field}='${value}'`);
     });
     let sql = `UPDATE ${this.db_table} SET ${arr.toString()} WHERE ${this.db_idxField}=?;`;
     //操作数据库
@@ -82,7 +86,7 @@ Base.prototype.upDataToDB = async function (refresh) {
 //更新数据到客户端
 Base.prototype.upClientData = function () {
     let route = `up${Base.clsName}Data`;
-    console.log(Base.clsName, '更新数据到客户端 route:', route, "data:", this.baseInfo);
+    console.log(`[Model]${this.clsName} 更新数据到客户端 route:`, route, "data:", this.baseInfo);
     //向客户端发送数据
 
 }
@@ -104,13 +108,17 @@ Base.prototype.loadData = async function (data, flag) {
         };
     }
     if (!flag) {
-        this.loadDataed();
+        await this.loadDataed();
     }
 }
 
 //可继承
+
+Base.prototype.inited = async function () {
+
+}
 //跨进程传递后会造成的引用地址丢失 该函数用于扩展重新初始化动态函数等需要变量引用地址的代码
-Base.prototype.loadDataed = function () {
+Base.prototype.loadDataed = async function () {
 
 }
 

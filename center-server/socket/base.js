@@ -3,7 +3,7 @@ module.exports = function (prototype) {
 
     }
     prototype.disconnect = async function (ctx) {
-        console.log("disconnect");
+        //console.log("disconnect");
         let socket = ctx.socket;
         socket_channel.del(socket.name, socket);
     }
