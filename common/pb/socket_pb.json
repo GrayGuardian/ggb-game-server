@@ -2,6 +2,15 @@
   "nested": {
     "socket": {
       "nested": {
+        "kick": {
+          "fields": {
+            "error": {
+              "rule": "required",
+              "type": "common.Error",
+              "id": 1
+            }
+          }
+        },
         "conn": {
           "fields": {
             "token": {
@@ -37,6 +46,10 @@
             "error": {
               "type": "common.Error",
               "id": 50
+            },
+            "kick": {
+              "type": "kick",
+              "id": 51
             },
             "connRet": {
               "type": "connRet",

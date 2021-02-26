@@ -4,6 +4,12 @@ module.exports = function (prototype) {
         let id = ctx.socket.id;
         let s = socket.io.connections.get(id);
 
+        s.kick = function (code) {
+            let router = "kick";
+            let data = { error: genErrorMsg(code) };
+            s.send(router, data);
+            s.disconnect();
+        }
         s.genError = function (code) {
             let router = "error";
             let data = genErrorMsg(code);

@@ -3,7 +3,7 @@ module.exports = function (prototype) {
     prototype.conn = async function (ctx) {
         let token = util.token.decrypt(ctx.data.token);
         if (token == null || token.uid == null || token.aid == null || token.pid == null) {
-            ctx.method.genError(ERROR_CODE.TOKEN_ERROR);
+            ctx.method.kick(ERROR_CODE.TOKEN_ERROR);
             return;
         }
 

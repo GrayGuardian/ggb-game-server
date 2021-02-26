@@ -10,6 +10,10 @@ console.log('Server Start>>>', `Type:${SERVER_TYPE} Name:${SERVER_NAME} IP:${SER
 io.use(async (ctx, next) => {
     ctx.method = {};
     //错误码相关
+    ctx.method.kick = function (code) {
+        ctx.socket.kick(code);
+    }
+    //错误码相关
     ctx.method.genError = function (code) {
         ctx.socket.genError(code);
     }

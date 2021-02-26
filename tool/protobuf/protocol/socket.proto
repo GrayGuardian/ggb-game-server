@@ -2,7 +2,9 @@ syntax = "proto2";
 package socket;
 
 import "common.proto";
-
+message kick {
+    required common.Error error = 1;
+}
 message conn {
     required string token = 1;
 }
@@ -19,6 +21,7 @@ message s2c {
     required string router = 1;
 
     optional common.Error error = 50;
+    optional kick kick = 51;
 
     optional connRet connRet = 100;
 
