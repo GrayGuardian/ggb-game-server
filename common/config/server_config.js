@@ -46,3 +46,10 @@ ServerConfig.prototype.getConnectServerConfigByAID = function (aid) {
     let config = list[order];
     return config;
 }
+//根据区服ID获取对应的game-server配置
+ServerConfig.prototype.getGameServerConfigByAID = function (aid) {
+    let list = this.getServerList('game-server');
+    let order = Math.abs(crc.crc32(aid.toString())) % list.length;
+    let config = list[order];
+    return config;
+}

@@ -23,6 +23,12 @@
         "connRet": {
           "fields": {}
         },
+        "enterGame": {
+          "fields": {}
+        },
+        "enterGameRet": {
+          "fields": {}
+        },
         "c2s": {
           "fields": {
             "router": {
@@ -33,6 +39,10 @@
             "conn": {
               "type": "conn",
               "id": 100
+            },
+            "enterGame": {
+              "type": "enterGame",
+              "id": 101
             }
           }
         },
@@ -54,6 +64,10 @@
             "connRet": {
               "type": "connRet",
               "id": 100
+            },
+            "enterGameRet": {
+              "type": "enterGameRet",
+              "id": 101
             }
           }
         }

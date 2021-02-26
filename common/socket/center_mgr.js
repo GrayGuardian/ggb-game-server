@@ -37,7 +37,7 @@ var CenterMgr = function () {
 
         let callback = (data) => { this.rpcRet(rpc.code, rpc.from, `${rpc.router}Ret`, data) };
 
-        let action = rpc_mgr[rpc.router];
+        let action = rpc_router[rpc.router];
         if (action == null) {
             console.error('未找到rpc Action>>', rpc.router);
             return;

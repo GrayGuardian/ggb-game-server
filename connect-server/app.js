@@ -31,7 +31,7 @@ app.listen(SERVER_PORT, () => {
 })
 
 global.center_mgr = require('../common/socket/center_mgr')();
-global.rpc_mgr = require('./rpc/rpc_mgr')();
+global.rpc_router = require('./rpc/rpc_router')();
 global.logic_mgr = require('./logic/logic_mgr')();
 
 global.socket_mgr = require("./socket/socket_mgr")();
@@ -40,6 +40,6 @@ global.socket = require("../common/socket/socket")(io, {
     validEvent: ['c2s'],
     errorEvent: (ctx, code) => {
         console.log('出现错误:', genErrorMsg(code));
-        ctx.method.genErrorMsg(code);
+        ctx.method.genError(code);
     }
 });

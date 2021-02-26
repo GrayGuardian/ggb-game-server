@@ -30,24 +30,65 @@
             }
           }
         },
-        "ttt": {
+        "socketRpc": {
           "fields": {
-            "msg": {
+            "uid": {
               "rule": "required",
-              "type": "string",
+              "type": "int32",
               "id": 1
             },
-            "json": {
-              "type": "bytes",
+            "aid": {
+              "rule": "required",
+              "type": "int32",
               "id": 2
+            },
+            "pid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 3
+            },
+            "data": {
+              "rule": "required",
+              "type": "socket.c2s",
+              "id": 4
             }
           }
         },
-        "tttRet": {
+        "socketRpcRet": {
+          "fields": {}
+        },
+        "getPlayer": {
           "fields": {
-            "msg": {
+            "pid": {
               "rule": "required",
-              "type": "string",
+              "type": "int32",
+              "id": 1
+            }
+          }
+        },
+        "getPlayerRet": {
+          "fields": {
+            "json": {
+              "rule": "required",
+              "type": "bytes",
+              "id": 1
+            }
+          }
+        },
+        "setPlayer": {
+          "fields": {
+            "json": {
+              "rule": "required",
+              "type": "bytes",
+              "id": 1
+            }
+          }
+        },
+        "setPlayerRet": {
+          "fields": {
+            "code": {
+              "rule": "required",
+              "type": "int32",
               "id": 1
             }
           }
@@ -78,9 +119,17 @@
               "type": "conn",
               "id": 50
             },
-            "ttt": {
-              "type": "ttt",
+            "socketRpc": {
+              "type": "socketRpc",
               "id": 100
+            },
+            "getPlayer": {
+              "type": "getPlayer",
+              "id": 101
+            },
+            "setPlayer": {
+              "type": "setPlayer",
+              "id": 102
             }
           }
         },
@@ -110,9 +159,226 @@
               "type": "connRet",
               "id": 50
             },
-            "tttRet": {
-              "type": "tttRet",
+            "socketRpcRet": {
+              "type": "socketRpcRet",
               "id": 100
+            },
+            "getPlayerRet": {
+              "type": "getPlayerRet",
+              "id": 101
+            },
+            "setPlayerRet": {
+              "type": "setPlayerRet",
+              "id": 102
+            }
+          }
+        }
+      }
+    },
+    "socket": {
+      "nested": {
+        "kick": {
+          "fields": {
+            "error": {
+              "rule": "required",
+              "type": "common.Error",
+              "id": 1
+            }
+          }
+        },
+        "conn": {
+          "fields": {
+            "token": {
+              "rule": "required",
+              "type": "string",
+              "id": 1
+            }
+          }
+        },
+        "connRet": {
+          "fields": {}
+        },
+        "enterGame": {
+          "fields": {}
+        },
+        "enterGameRet": {
+          "fields": {}
+        },
+        "c2s": {
+          "fields": {
+            "router": {
+              "rule": "required",
+              "type": "string",
+              "id": 1
+            },
+            "conn": {
+              "type": "conn",
+              "id": 100
+            },
+            "enterGame": {
+              "type": "enterGame",
+              "id": 101
+            }
+          }
+        },
+        "s2c": {
+          "fields": {
+            "router": {
+              "rule": "required",
+              "type": "string",
+              "id": 1
+            },
+            "error": {
+              "type": "common.Error",
+              "id": 50
+            },
+            "kick": {
+              "type": "kick",
+              "id": 51
+            },
+            "connRet": {
+              "type": "connRet",
+              "id": 100
+            },
+            "enterGameRet": {
+              "type": "enterGameRet",
+              "id": 101
+            }
+          }
+        }
+      }
+    },
+    "common": {
+      "nested": {
+        "Error": {
+          "fields": {
+            "code": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "msg": {
+              "rule": "required",
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "UserInfo": {
+          "fields": {
+            "uid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "username": {
+              "rule": "required",
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "AreaInfo": {
+          "fields": {
+            "aid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "name": {
+              "rule": "required",
+              "type": "string",
+              "id": 2
+            },
+            "ismaintenance": {
+              "rule": "required",
+              "type": "int32",
+              "id": 3
+            }
+          }
+        },
+        "PlayerInfo": {
+          "fields": {
+            "pid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "uid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 2
+            },
+            "aid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 3
+            },
+            "rid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 4
+            },
+            "name": {
+              "rule": "required",
+              "type": "string",
+              "id": 5
+            },
+            "lv": {
+              "rule": "required",
+              "type": "int32",
+              "id": 6
+            },
+            "exp": {
+              "rule": "required",
+              "type": "int32",
+              "id": 7
+            },
+            "pos": {
+              "rule": "required",
+              "type": "Pos",
+              "id": 8
+            },
+            "phone": {
+              "type": "string",
+              "id": 9
+            },
+            "createTime": {
+              "rule": "required",
+              "type": "int32",
+              "id": 10
+            },
+            "loginTime": {
+              "type": "int32",
+              "id": 11
+            },
+            "logoutTime": {
+              "type": "int32",
+              "id": 12
+            },
+            "online": {
+              "rule": "required",
+              "type": "int32",
+              "id": 13
+            }
+          }
+        },
+        "Pos": {
+          "fields": {
+            "mid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "x": {
+              "rule": "required",
+              "type": "int32",
+              "id": 2
+            },
+            "y": {
+              "rule": "required",
+              "type": "int32",
+              "id": 3
             }
           }
         }

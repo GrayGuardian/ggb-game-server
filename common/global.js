@@ -28,6 +28,8 @@ global.genErrorMsg = ERROR_INFO.genErrorMsg;
 
 global.REGULAR_CODE = require('./const/REGULAR_CODE');
 
+global.rpc_mgr = require('./rpc/rpc_mgr')();
+
 //Model
 global.Player = require('./model/player');
 global.PlayerCurrency = require('./model/player_currency');

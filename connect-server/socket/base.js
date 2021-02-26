@@ -30,11 +30,15 @@ module.exports = function (prototype) {
     prototype.disconnect = async function (ctx) {
         //console.log("disconnect");
         socket_channel.delAllSocket(ctx.socket);
+        redis.del(`pid=${ctx.socket.pid}`)
     }
     prototype.c2s = async function (ctx) {
         let router = ctx.data.router;
         let data = ctx.data[router]
-
+        if (data == null) {
+            ctx.method.genError(ERROR_CODE.CONNECT_ERROR_DATA)
+            return;
+        }
         console.log(`socket.c2s router:${router} body:`, data)
 
         let action = socket_mgr[router];
@@ -46,7 +50,15 @@ module.exports = function (prototype) {
         }
         else {
             //转发至game-server
-            console.log("转发至game-server>>>", server_config.getGameServerConfigByAID(1), ctx.data);
+            let uid = ctx.socket.uid;
+            let aid = ctx.socket.aid;
+            let pid = ctx.socket.pid;
+
+            let config = server_config.getGameServerConfigByAID(aid);
+            console.log(uid, aid, pid)
+            console.log("转发至game-server>>>", config, ctx.data);
+
+            center_mgr.rpc(config.name, 'socketRpc', { uid: uid, aid: aid, pid: pid, data: ctx.data })
         }
 
     }

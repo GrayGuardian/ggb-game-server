@@ -1,6 +1,8 @@
 syntax = "proto2";
 package server;
 
+import "socket.proto";
+
 message conn {
     required string name = 1;
     required string type = 2;
@@ -10,12 +12,26 @@ message connRet {
     required int32 code = 1;
 }
 
-message ttt {
-    required string msg = 1;
-    optional bytes json = 2;
+message socketRpc{
+    required int32 uid = 1;
+    required int32 aid = 2;
+    required int32 pid = 3;
+    required socket.c2s data = 4;
 }
-message tttRet{ 
-    required string msg = 1;
+message socketRpcRet{
+
+}
+message getPlayer{
+    required int32 pid = 1;
+}
+message getPlayerRet{
+    required bytes json = 1;
+}
+message setPlayer{
+    required bytes json = 1;
+}
+message setPlayerRet{
+    required int32 code = 1;
 }
 
 message rpc {
@@ -26,7 +42,9 @@ message rpc {
 
     optional conn conn = 50;
 
-    optional ttt ttt = 100;
+    optional socketRpc socketRpc = 100;
+    optional getPlayer getPlayer = 101;
+    optional setPlayer setPlayer = 102;
 }
 message rpcRet {
     required int32 code = 1;
@@ -36,5 +54,7 @@ message rpcRet {
 
     optional connRet connRet = 50;
 
-    optional tttRet tttRet = 100;
+    optional socketRpcRet socketRpcRet = 100;
+    optional getPlayerRet getPlayerRet = 101;
+    optional setPlayerRet setPlayerRet = 102;
 }

@@ -10,11 +10,14 @@ message conn {
 }
 message connRet { }
 
+message enterGame { }
+message enterGameRet { }
 
 message c2s {
     required string router = 1;
 
     optional conn conn = 100;
+    optional enterGame enterGame = 101;
 }
 
 message s2c {
@@ -24,6 +27,6 @@ message s2c {
     optional kick kick = 51;
 
     optional connRet connRet = 100;
-
+    optional enterGameRet enterGameRet = 101;
 }
 

@@ -121,6 +121,17 @@ SocketChannel.prototype.genError = function (key, code) {
     }
     return result;
 }
+SocketChannel.prototype.kick = function (key, code) {
+    let result = 0;
+    if (typeof (key) == "string") {
+        result += this._kickOneChannel(key, code);
+    } else if (Array.isArray(key)) {
+        key.forEach(k => {
+            result += this._kickOneChannel(k, code);
+        });
+    }
+    return result;
+}
 SocketChannel.prototype.clearChannel = function (key) {
     if (typeof (key) == "string") {
         this._clearOneChannel(key)
@@ -178,6 +189,15 @@ SocketChannel.prototype._genErrorOneChannel = function (key, code) {
     if (!this.channel.get(key)) return result;
     this.channel.get(key).forEach((socket, id) => {
         socket.genError(code);
+        result += 1;
+    });
+    return result;
+}
+SocketChannel.prototype._kickOneChannel = function (key, code) {
+    let result = 0;
+    if (!this.channel.get(key)) return result;
+    this.channel.get(key).forEach((socket, id) => {
+        socket.kick(code);
         result += 1;
     });
     return result;

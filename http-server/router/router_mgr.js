@@ -1,7 +1,7 @@
 
-var Router = function () { };
+var RouterMgr = function () { };
 
-Router.prototype.login = async function (ctx, next) {
+RouterMgr.prototype.login = async function (ctx, next) {
 
     // let player = await Player.create(1, 1);
     // player.arr = [`我是player在${SERVER_NAME}中修改的arr1`, `我是player在${SERVER_NAME}中修改的arr2`]
@@ -56,7 +56,7 @@ Router.prototype.login = async function (ctx, next) {
     await next();
 }
 
-Router.prototype.register = async function (ctx, next) {
+RouterMgr.prototype.register = async function (ctx, next) {
     let param = ctx.request.body;
     let username = param.username;
     let password = param.password;
@@ -74,7 +74,7 @@ Router.prototype.register = async function (ctx, next) {
     ctx.response.body = { info: result, token: token }
     await next();
 }
-Router.prototype.nextArea = async function (ctx, next) {
+RouterMgr.prototype.nextArea = async function (ctx, next) {
     let param = ctx.request.body;
     let aid = param.aid;
     let areaInfo = await logic_mgr.getAreaInfo(aid);
@@ -104,7 +104,7 @@ Router.prototype.nextArea = async function (ctx, next) {
     ctx.response.body = { token: token, players: players };
     await next();
 }
-Router.prototype.enterGame = async function (ctx, next) {
+RouterMgr.prototype.enterGame = async function (ctx, next) {
     let param = ctx.request.body;
     let pid = param.pid;
     let aid = ctx.user.aid;
@@ -120,4 +120,4 @@ Router.prototype.enterGame = async function (ctx, next) {
     await next();
 }
 
-module.exports = function () { return new Router(); };
+module.exports = function () { return new RouterMgr(); };
