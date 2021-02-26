@@ -14,5 +14,6 @@ module.exports = async (ctx, next) => {
     }
     ctx.user.uid = token.uid;
     ctx.user.aid = token.aid;
+    ctx.user.pid = token.pid;
     await next();
 };

@@ -105,6 +105,8 @@ Router.prototype.nextArea = async function (ctx, next) {
     await next();
 }
 Router.prototype.enterGame = async function (ctx, next) {
+    let param = ctx.request.body;
+    let pid = param.pid;
     let aid = ctx.user.aid;
     if (aid == null) {
         ctx.method.genError(ERROR_CODE.TOKEN_ERROR);
@@ -112,7 +114,9 @@ Router.prototype.enterGame = async function (ctx, next) {
     }
     let config = server_config.getConnectServerConfigByAID(ctx.user.aid);
 
-    ctx.response.body = { url: `${config.ip}:${config.port}` };
+    let token = util.token.encrypt({ uid: ctx.user.uid, aid: aid, pid: pid });
+
+    ctx.response.body = { token: token, url: `${config.ip}:${config.port}` };
     await next();
 }
 

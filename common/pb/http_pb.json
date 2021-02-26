@@ -97,18 +97,29 @@
           }
         },
         "enterGame": {
-          "fields": {}
-        },
-        "enterGameRet": {
           "fields": {
-            "url": {
+            "pid": {
               "rule": "required",
-              "type": "string",
+              "type": "int32",
               "id": 1
             }
           }
         },
-        "c2s": {
+        "enterGameRet": {
+          "fields": {
+            "token": {
+              "rule": "required",
+              "type": "string",
+              "id": 1
+            },
+            "url": {
+              "rule": "required",
+              "type": "string",
+              "id": 2
+            }
+          }
+        },
+        "http_c2s": {
           "fields": {
             "router": {
               "rule": "required",
@@ -133,7 +144,7 @@
             }
           }
         },
-        "s2c": {
+        "http_s2c": {
           "fields": {
             "router": {
               "rule": "required",

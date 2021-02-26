@@ -40,12 +40,12 @@ module.exports = async (ctx, next) => {
         let body = {};
         body.router = router;
         body[router] = data;
-        let bytes = pb.encode(`http_pb.s2c`, body);
+        let bytes = pb.encode(`http_pb.http_s2c`, body);
         if (bytes == null) {
             ctx.method.genError(ERROR_CODE.HTTP_ERROR_RETURN);
             return;
         }
-        console.log(`http.s2c router:${router} body:`, pb.decode("http_pb.s2c", bytes))
+        console.log(`http.s2c router:${router} body:`, pb.decode("http_pb.http_s2c", bytes))
         ctx.body = bytes;
     }
     //路由判断
@@ -55,7 +55,7 @@ module.exports = async (ctx, next) => {
     // }
 
     //获取内容
-    let body = pb.decode("http_pb.c2s", await getPostData(ctx));
+    let body = pb.decode("http_pb.http_c2s", await getPostData(ctx));
     if (body == null) {
         ctx.method.genError(ERROR_CODE.HTTP_ERROR_DATA);
         return;

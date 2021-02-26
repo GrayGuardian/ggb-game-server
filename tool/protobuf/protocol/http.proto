@@ -29,11 +29,14 @@ message nextAreaRet {
     required string token = 1;
     repeated common.PlayerInfo players = 2;
 }
-message enterGame { }
-message enterGameRet { 
-    required string url = 1;
+message enterGame { 
+    required int32 pid = 1;
 }
-message c2s {
+message enterGameRet { 
+    required string token = 1;
+    required string url = 2;
+}
+message http_c2s {
     required string router = 1;
 
     optional login login = 100;
@@ -42,7 +45,7 @@ message c2s {
     optional enterGame enterGame = 103;
 }
 
-message s2c {
+message http_s2c {
     required string router = 1;
 
     optional common.Error error = 50;

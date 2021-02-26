@@ -8,27 +8,10 @@
               "rule": "required",
               "type": "string",
               "id": 1
-            },
-            "pid": {
-              "rule": "required",
-              "type": "int32",
-              "id": 2
             }
           }
         },
         "connRet": {
-          "fields": {}
-        },
-        "moveTo": {
-          "fields": {
-            "pos": {
-              "rule": "required",
-              "type": "common.Pos",
-              "id": 1
-            }
-          }
-        },
-        "moveToRet": {
           "fields": {}
         },
         "c2s": {
@@ -41,10 +24,6 @@
             "conn": {
               "type": "conn",
               "id": 100
-            },
-            "moveTo": {
-              "type": "moveTo",
-              "id": 101
             }
           }
         },
@@ -62,10 +41,6 @@
             "connRet": {
               "type": "connRet",
               "id": 100
-            },
-            "moveToRet": {
-              "type": "moveToRet",
-              "id": 101
             }
           }
         }

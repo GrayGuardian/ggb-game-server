@@ -1,7 +1,12 @@
 
 module.exports = function (prototype) {
     prototype.conn = async function (ctx) {
-        console.log('c2s>>>conn', ctx.router, ctx.data);
+        let token = util.token.decrypt(ctx.data.token);
+        if (token == null || token.uid == null || token.aid == null || token.pid == null) {
+            ctx.method.genError(ERROR_CODE.TOKEN_ERROR);
+            return;
+        }
+
         ctx.method.callback({});
         // socket_channel.send("ssa", "error", { codvasdfasdfe: 539, msvsdafg: "fdsalvjsdlf" })
         // socket_channel.genError("ssa", 202)
