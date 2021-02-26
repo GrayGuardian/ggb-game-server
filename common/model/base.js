@@ -48,7 +48,6 @@ Base.prototype.upDBToData = async function (refresh) {
             value = JSON.parse(value.toString("utf8"));
         }
         data[field] = value;
-
         //console.log(field, value)
     });
 
@@ -65,12 +64,22 @@ Base.prototype.upDataToDB = async function (refresh) {
     let arr = [];
     this.db_fields.forEach(field => {
         let value = this[`get_${field}`]();
-        if (typeof (value) == "object") {
+        if (value == null) {
+            value = null;
+        }
+        else if (typeof (value) == "object") {
             value = JSON.stringify(value);
         }
-        arr.push(`${field}='${value}'`);
+        console.log("up>>", field, value, value == null, typeof (value));
+        if (value == null) {
+            arr.push(`${field}=NULL`);
+        }
+        else {
+            arr.push(`${field}='${value}'`);
+        }
     });
     let sql = `UPDATE ${this.db_table} SET ${arr.toString()} WHERE ${this.db_idxField}=?;`;
+    console.log(sql, this.idx);
     //操作数据库
     let rows = await mysql.queryAsync(sql, [this.idx]);
 

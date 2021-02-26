@@ -13,5 +13,6 @@ module.exports = async (ctx, next) => {
         return;
     }
     ctx.user.uid = token.uid;
+    ctx.user.aid = token.aid;
     await next();
 };

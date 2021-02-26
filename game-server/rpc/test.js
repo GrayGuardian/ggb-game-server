@@ -17,6 +17,7 @@ module.exports = function (prototype) {
         // console.log(player.currency.get_pid())
         // player.set_lv(999);
         // console.log(player.baseInfo)
+        // console.log(player.get_phone(), player.get_phone() == null, typeof (player.get_phone()))
         // player.upDataToDB()
 
         callback({ msg: `我是${SERVER_NAME}回过来的tttRet数据` })

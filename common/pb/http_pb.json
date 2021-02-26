@@ -61,14 +61,14 @@
         },
         "registerRet": {
           "fields": {
-            "info": {
-              "rule": "required",
-              "type": "common.UserInfo",
-              "id": 1
-            },
             "token": {
               "rule": "required",
               "type": "string",
+              "id": 1
+            },
+            "info": {
+              "rule": "required",
+              "type": "common.UserInfo",
               "id": 2
             }
           }
@@ -83,7 +83,30 @@
           }
         },
         "nextAreaRet": {
+          "fields": {
+            "token": {
+              "rule": "required",
+              "type": "string",
+              "id": 1
+            },
+            "players": {
+              "rule": "repeated",
+              "type": "common.PlayerInfo",
+              "id": 2
+            }
+          }
+        },
+        "enterGame": {
           "fields": {}
+        },
+        "enterGameRet": {
+          "fields": {
+            "url": {
+              "rule": "required",
+              "type": "string",
+              "id": 1
+            }
+          }
         },
         "c2s": {
           "fields": {
@@ -103,6 +126,10 @@
             "nextArea": {
               "type": "nextArea",
               "id": 102
+            },
+            "enterGame": {
+              "type": "enterGame",
+              "id": 103
             }
           }
         },
@@ -128,6 +155,10 @@
             "nextAreaRet": {
               "type": "nextAreaRet",
               "id": 102
+            },
+            "enterGameRet": {
+              "type": "enterGameRet",
+              "id": 103
             }
           }
         }
@@ -179,6 +210,72 @@
               "rule": "required",
               "type": "int32",
               "id": 3
+            }
+          }
+        },
+        "PlayerInfo": {
+          "fields": {
+            "pid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "uid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 2
+            },
+            "aid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 3
+            },
+            "rid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 4
+            },
+            "name": {
+              "rule": "required",
+              "type": "string",
+              "id": 5
+            },
+            "lv": {
+              "rule": "required",
+              "type": "int32",
+              "id": 6
+            },
+            "exp": {
+              "rule": "required",
+              "type": "int32",
+              "id": 7
+            },
+            "pos": {
+              "rule": "required",
+              "type": "Pos",
+              "id": 8
+            },
+            "phone": {
+              "type": "string",
+              "id": 9
+            },
+            "createTime": {
+              "rule": "required",
+              "type": "int32",
+              "id": 10
+            },
+            "loginTime": {
+              "type": "int32",
+              "id": 11
+            },
+            "logoutTime": {
+              "type": "int32",
+              "id": 12
+            },
+            "online": {
+              "rule": "required",
+              "type": "int32",
+              "id": 13
             }
           }
         },

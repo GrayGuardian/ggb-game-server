@@ -19,19 +19,27 @@ message register {
     required string password1 = 3;
 }
 message registerRet {
-    required common.UserInfo info = 1;
-    required string token = 2;
+    required string token = 1;
+    required common.UserInfo info = 2;
 }
 message nextArea {
     required int32 aid = 1;
 }
-message nextAreaRet { }
+message nextAreaRet { 
+    required string token = 1;
+    repeated common.PlayerInfo players = 2;
+}
+message enterGame { }
+message enterGameRet { 
+    required string url = 1;
+}
 message c2s {
     required string router = 1;
 
     optional login login = 100;
     optional register register = 101;
     optional nextArea nextArea = 102;
+    optional enterGame enterGame = 103;
 }
 
 message s2c {
@@ -42,4 +50,5 @@ message s2c {
     optional loginRet loginRet = 100;
     optional registerRet registerRet = 101;
     optional nextAreaRet nextAreaRet = 102;
+    optional enterGameRet enterGameRet = 103;
 }

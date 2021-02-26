@@ -49,6 +49,72 @@
             }
           }
         },
+        "PlayerInfo": {
+          "fields": {
+            "pid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "uid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 2
+            },
+            "aid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 3
+            },
+            "rid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 4
+            },
+            "name": {
+              "rule": "required",
+              "type": "string",
+              "id": 5
+            },
+            "lv": {
+              "rule": "required",
+              "type": "int32",
+              "id": 6
+            },
+            "exp": {
+              "rule": "required",
+              "type": "int32",
+              "id": 7
+            },
+            "pos": {
+              "rule": "required",
+              "type": "Pos",
+              "id": 8
+            },
+            "phone": {
+              "type": "string",
+              "id": 9
+            },
+            "createTime": {
+              "rule": "required",
+              "type": "int32",
+              "id": 10
+            },
+            "loginTime": {
+              "type": "int32",
+              "id": 11
+            },
+            "logoutTime": {
+              "type": "int32",
+              "id": 12
+            },
+            "online": {
+              "rule": "required",
+              "type": "int32",
+              "id": 13
+            }
+          }
+        },
         "Pos": {
           "fields": {
             "mid": {
