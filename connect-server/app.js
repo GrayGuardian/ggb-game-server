@@ -20,7 +20,7 @@ io.use(async (ctx, next) => {
     //返回函数
     ctx.method.callback = function (data) {
         let router = `${ctx.router}Ret`;
-        console.log(`socket.s2c router:${router} data:`, data)
+        //console.log(`socket.s2c router:${router} data:`, data)
         ctx.socket.send(router, data)
     }
     await next();
@@ -34,6 +34,7 @@ global.center_mgr = require('../common/socket/center_mgr')();
 global.rpc_router = require('./rpc/rpc_router')();
 global.logic_mgr = require('./logic/logic_mgr')();
 
+global.heatbeat_mgr = require("./heatbeat_mgr")();
 global.socket_mgr = require("./socket/socket_mgr")();
 global.socket = require("../common/socket/socket")(io, {
     type: "socket",

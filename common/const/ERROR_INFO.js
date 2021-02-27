@@ -21,6 +21,7 @@ const ERROR_CODE = {
     CONNECT_ERROR_ROUTER: genSystemCode(),
     CONNECT_ERROR_DATA: genSystemCode(),
     CONNECT_ERROR_RETURN: genSystemCode(),
+    USER_REPEATED_LOGIN: genSystemCode(),
 
     PASSWORD_NOTSAME: genLogicCode(),
     USERNAME_EXIST: genLogicCode(),
@@ -43,6 +44,7 @@ const ERROR_MSG = {
     [ERROR_CODE.CONNECT_ERROR_ROUTER]: '非法路径',
     [ERROR_CODE.CONNECT_ERROR_DATA]: '非法数据',
     [ERROR_CODE.CONNECT_ERROR_RETURN]: '未知错误', //返回数据出错
+    [ERROR_CODE.USER_REPEATED_LOGIN]: '账号在别地登录',
 
     [ERROR_CODE.PASSWORD_NOTSAME]: '两次密码不相同',
     [ERROR_CODE.USERNAME_EXIST]: '用户名已存在',

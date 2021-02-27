@@ -117,6 +117,7 @@ RouterMgr.prototype.enterGame = async function (ctx, next) {
     let token = util.token.encrypt({ uid: ctx.user.uid, aid: aid, pid: pid });
 
     ctx.response.body = { token: token, url: `192.168.0.104:${config.port}` };
+    //ctx.response.body = { token: token, url: `${config.ip}:${config.port}` };
     await next();
 }
 

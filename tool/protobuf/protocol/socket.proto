@@ -15,15 +15,24 @@ message heartBeatRet {
     required int32 now = 1;
 }
 
+message upPlayerData {
+    required common.PlayerInfo baseInfo = 1;
+}
+
+
 message enterGame { }
 message enterGameRet { }
+
+
+
 
 message c2s {
     required string router = 1;
 
     optional conn conn = 100;
     optional heartBeat heartBeat = 101;
-    optional enterGame enterGame = 102;
+
+    optional enterGame enterGame = 200;
 }
 
 message s2c {
@@ -32,8 +41,11 @@ message s2c {
     optional common.Error error = 50;
     optional kick kick = 51;
 
+    optional upPlayerData upPlayerData = 60;
+
     optional connRet connRet = 100;
     optional heartBeatRet heartBeatRet = 101;
-    optional enterGameRet enterGameRet = 102;
+
+    optional enterGameRet enterGameRet = 200;
 }
 

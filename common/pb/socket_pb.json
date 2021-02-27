@@ -35,6 +35,15 @@
             }
           }
         },
+        "upPlayerData": {
+          "fields": {
+            "baseInfo": {
+              "rule": "required",
+              "type": "common.PlayerInfo",
+              "id": 1
+            }
+          }
+        },
         "enterGame": {
           "fields": {}
         },
@@ -58,7 +67,7 @@
             },
             "enterGame": {
               "type": "enterGame",
-              "id": 102
+              "id": 200
             }
           }
         },
@@ -77,6 +86,10 @@
               "type": "kick",
               "id": 51
             },
+            "upPlayerData": {
+              "type": "upPlayerData",
+              "id": 60
+            },
             "connRet": {
               "type": "connRet",
               "id": 100
@@ -87,7 +100,7 @@
             },
             "enterGameRet": {
               "type": "enterGameRet",
-              "id": 102
+              "id": 200
             }
           }
         }

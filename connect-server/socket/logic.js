@@ -6,11 +6,14 @@ module.exports = function (prototype) {
             ctx.method.kick(ERROR_CODE.TOKEN_ERROR);
             return;
         }
-        let s = socket.io.connections.get(ctx.socket.id);
-
         let uid = token.uid;
         let aid = token.aid;
         let pid = token.pid;
+
+        await rpc_mgr.socketChannelOperToAllServer('kick', [`uid=${uid}`, ERROR_CODE.USER_REPEATED_LOGIN])
+
+        let s = socket.io.connections.get(ctx.socket.id);
+
         let socketid = ctx.socket.id;
 
         s.uid = uid;
@@ -24,11 +27,10 @@ module.exports = function (prototype) {
 
         redis.set(`pid=${pid}`, { uid: uid, aid: aid, pid: pid, socketid: socketid })
 
-
         ctx.method.callback({});
     }
     prototype.heartBeat = async function (ctx) {
-        console.log("接收到心跳包>>>", ctx.socket.uid, ctx.socket.aid, ctx.socket.pid, ctx.data);
+        heatbeat_mgr.heatBeat(ctx.socket.id)
 
         ctx.method.callback({ now: Date.unix() })
     }

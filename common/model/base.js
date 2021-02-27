@@ -24,7 +24,9 @@ Base.prototype.toJson = function () {
 }
 Base.prototype.init = async function (idx) {
     this.idx = idx;
-    console.log(`[Model]${this.clsName} Init pid:${this.pid} idx:${this.idx}`)
+    this.aid = await rpc_mgr.getAidByPID(this.pid);
+
+    console.log(`[Model]${this.clsName} Init aid:${this.aid} idx:${this.idx}`)
     await this.loadData();
     await this.inited();
 }
@@ -55,7 +57,7 @@ Base.prototype.upDBToData = async function (refresh) {
     await this.loadData(data, true);
 
     if (refresh) {
-        this.upClientData();
+        await this.upClientData();
     }
 }
 //从缓存更新数据库数据
@@ -70,7 +72,7 @@ Base.prototype.upDataToDB = async function (refresh) {
         else if (typeof (value) == "object") {
             value = JSON.stringify(value);
         }
-        console.log("up>>", field, value, value == null, typeof (value));
+        //console.log("up>>", field, value, value == null, typeof (value));
         if (value == null) {
             arr.push(`${field}=NULL`);
         }
@@ -79,7 +81,7 @@ Base.prototype.upDataToDB = async function (refresh) {
         }
     });
     let sql = `UPDATE ${this.db_table} SET ${arr.toString()} WHERE ${this.db_idxField}=?;`;
-    console.log(sql, this.idx);
+    //console.log(sql, this.idx);
     //操作数据库
     let rows = await mysql.queryAsync(sql, [this.idx]);
 
@@ -93,11 +95,15 @@ Base.prototype.upDataToDB = async function (refresh) {
     return true;
 }
 //更新数据到客户端
-Base.prototype.upClientData = function () {
-    let route = `up${Base.clsName}Data`;
-    console.log(`[Model]${this.clsName} 更新数据到客户端 route:`, route, "data:", this.baseInfo);
-    //向客户端发送数据
+Base.prototype.upClientData = async function () {
+    let router = `up${this.clsName}Data`;
+    console.log(`[Model]${this.clsName} 更新数据到客户端 router:`, router, "data:", this.baseInfo);
 
+    //向客户端发送数据
+    let config = server_config.getConnectServerConfigByAID(this.aid);
+    console.log(config.name, `pid=${this.pid}`, router, this.baseInfo)
+    await rpc_mgr.socketChannelOper(config.name, "send", [`pid=${this.pid}`, router, { baseInfo: this.baseInfo }]);
+    // await rpc_mgr.
 }
 //初始化数据
 Base.prototype.loadData = async function (data, flag) {

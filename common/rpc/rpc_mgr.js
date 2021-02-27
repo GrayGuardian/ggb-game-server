@@ -1,22 +1,38 @@
-const { rpc } = require("protobufjs");
 
 var RpcMgr = function () { };
 
-RpcMgr.prototype.getAid = async function (pid) {
+RpcMgr.prototype.getAidByPID = async function (pid) {
     let data = await redis.get(`pid=${pid}`);
     if (data == null)
         return null;
     return data.aid;
 }
-RpcMgr.prototype.getUid = async function (pid) {
+RpcMgr.prototype.getUidByPID = async function (pid) {
     let data = await redis.get(`pid=${pid}`);
     if (data == null)
         return null;
     return data.uid;
 }
 
+RpcMgr.prototype.delModelByPID = async function (pid) {
+    let aid = await this.getAidByPID(pid);
+    if (aid == null) {
+        return null;
+    }
+    let player = null;
+    let config = server_config.getGameServerConfigByAID(pid);
+    if (SERVER_NAME == config.name) {
+        //本服操作
+        player = await model_mgr.delModelByPID(pid);
+    }
+    else {
+        //跨服操作
+        await center_mgr.rpcAsync(config.name, 'delModelByPID', { pid: pid })
+    }
+    return player;
+}
 RpcMgr.prototype.getPlayer = async function (pid) {
-    let aid = await this.getAid(pid);
+    let aid = await this.getAidByPID(pid);
     if (aid == null) {
         return null;
     }
@@ -36,7 +52,7 @@ RpcMgr.prototype.getPlayer = async function (pid) {
 }
 RpcMgr.prototype.setPlayer = async function (player) {
     let pid = player.pid;
-    let aid = await this.getAid(pid);
+    let aid = await this.getAidByPID(pid);
     if (aid == null) {
         return false;
     }
@@ -49,8 +65,33 @@ RpcMgr.prototype.setPlayer = async function (player) {
         return ((await center_mgr.rpcAsync(config.name, 'setPlayer', { json: Buffer.from(player.toJson()) })) == SUCCESS_CODE);
     }
 }
+RpcMgr.prototype.delPlayer = async function (pid) {
+    let aid = await this.getAidByPID(pid);
+    if (aid == null) {
+        return null;
+    }
+    let player = null;
+    let config = server_config.getGameServerConfigByAID(pid);
+    if (SERVER_NAME == config.name) {
+        //本服操作
+        player = await model_mgr.delPlayer(pid);
+    }
+    else {
+        //跨服操作
+        await center_mgr.rpcAsync(config.name, 'delPlayer', { pid: pid })
+    }
+    return player;
+}
 
 
+RpcMgr.prototype.socketChannelOperToAllServer = async function (name, param) {
+    let arr = [];
+    server_config.getServerList("connect-server").forEach(config => {
+        console.log(config.name);
+        arr.push(config.name);
+    });
+    return await this.socketChannelOper(arr, name, param);
+}
 
 RpcMgr.prototype.socketChannelOper = async function (server, name, param) {
     let result = null;
@@ -58,12 +99,14 @@ RpcMgr.prototype.socketChannelOper = async function (server, name, param) {
         result += await this._socketChannelOper(server, name, param);
     }
     else {
-        server.forEach(async function (s) {
+        server.forEach(async (s) => {
             result += await this._socketChannelOper(s, name, param);
         });
     }
     return result;
 }
+
+
 
 
 RpcMgr.prototype._socketChannelOper = async function (server, name, param) {

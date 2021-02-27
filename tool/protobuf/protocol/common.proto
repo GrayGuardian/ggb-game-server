@@ -6,6 +6,8 @@ message Error {
     required int32 code = 1;
     required string msg = 2;
 }
+
+
 message UserInfo {
     required int32 uid = 1;
     required string username = 2;

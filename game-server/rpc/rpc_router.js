@@ -23,11 +23,17 @@ RpcRouter.prototype.socketRpc = async function (data) {
     }
     ctx.method.callback = async function (body) {
         let config = server_config.getConnectServerConfigByAID(data.aid);
+
+        console.log(`socket.s2c server:${config.name} pid:${data.pid} router:${`${router}Ret`} body:`, body)
         return await rpc_mgr.socketChannelOper(config.name, "send", [data.socketid, `${router}Ret`, body]);
     }
 
     action(ctx, player, data.data[router]);
 
+}
+RpcRouter.prototype.delModelByPID = async function (data, callback) {
+    await model_mgr.delModelByPID(data.pid);
+    callback({});
 }
 RpcRouter.prototype.getPlayer = async function (data, callback) {
     let player = await model_mgr.getPlayer(data.pid);
@@ -38,6 +44,10 @@ RpcRouter.prototype.setPlayer = async function (data, callback) {
     let player = await Player.jsonParse(json);
     let code = await model_mgr.setPlayer(player) ? SUCCESS_CODE : ERROR_CODE.UNKNOWN_ERROR;
     callback({ code: code });
+}
+RpcRouter.prototype.delPlayer = async function (data, callback) {
+    await model_mgr.delPlayer(data.pid);
+    callback({});
 }
 
 module.exports = function () { return new RpcRouter(); };

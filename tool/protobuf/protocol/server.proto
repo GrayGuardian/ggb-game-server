@@ -22,6 +22,11 @@ message socketRpc{
 message socketRpcRet{
 
 }
+
+message delModelByPID{
+    required int32 pid = 1;
+}
+message delModelByPIDRet{ }
 message getPlayer{
     required int32 pid = 1;
 }
@@ -34,6 +39,10 @@ message setPlayer{
 message setPlayerRet{
     required int32 code = 1;
 }
+message delPlayer{
+    required int32 pid = 1;
+}
+message delPlayerRet{ }
 
 message socketChannelOper{
     required string name = 1;
@@ -51,11 +60,13 @@ message rpc {
 
     optional conn conn = 50;
 
-    optional socketRpc socketRpc = 100;
-    optional getPlayer getPlayer = 101;
-    optional setPlayer setPlayer = 102;
+    optional delModelByPID delModelByPID = 100;
+    optional socketRpc socketRpc = 101;
+    optional getPlayer getPlayer = 102;
+    optional setPlayer setPlayer = 103;
+    optional delPlayer delPlayer = 104;
 
-    optional socketChannelOper socketChannelOper = 103;
+    optional socketChannelOper socketChannelOper = 200;
 }
 message rpcRet {
     required int32 code = 1;
@@ -65,9 +76,11 @@ message rpcRet {
 
     optional connRet connRet = 50;
 
-    optional socketRpcRet socketRpcRet = 100;
-    optional getPlayerRet getPlayerRet = 101;
-    optional setPlayerRet setPlayerRet = 102;
+    optional delModelByPIDRet delModelByPIDRet = 100;
+    optional socketRpcRet socketRpcRet = 101;
+    optional getPlayerRet getPlayerRet = 102;
+    optional setPlayerRet setPlayerRet = 103;
+    optional delPlayerRet delPlayerRet = 104;
 
-    optional socketChannelOperRet socketChannelOperRet = 103;
+    optional socketChannelOperRet socketChannelOperRet = 200;
 }

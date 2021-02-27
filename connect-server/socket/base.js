@@ -30,8 +30,21 @@ module.exports = function (prototype) {
     }
     prototype.disconnect = async function (ctx) {
         //console.log("disconnect");
+
+        let player = await rpc_mgr.getPlayer(ctx.socket.pid);
+
+        player.set_online(0)
+        await player.upDataToDB(true);
+
+        await rpc_mgr.setPlayer(player);
+
+        await rpc_mgr.delModelByPID(ctx.socket.pid);
+
         socket_channel.delAllSocket(ctx.socket);
         redis.del(`pid=${ctx.socket.pid}`)
+
+
+
     }
     prototype.c2s = async function (ctx) {
         let router = ctx.data.router;
@@ -40,7 +53,7 @@ module.exports = function (prototype) {
             ctx.method.genError(ERROR_CODE.CONNECT_ERROR_DATA)
             return;
         }
-        console.log(`socket.c2s router:${router} body:`, data)
+        // console.log(`socket.c2s router:${router} body:`, data)
 
         let action = socket_mgr[router];
         if (action != null) {
@@ -56,7 +69,8 @@ module.exports = function (prototype) {
             let pid = ctx.socket.pid;
 
             let config = server_config.getGameServerConfigByAID(aid);
-            console.log("转发至game-server>>>", config, ctx.data, ctx.socket.id);
+
+            console.log(`socket.c2s server:${config.name} pid:${pid} router:${router} body:`, data)
 
             center_mgr.rpc(config.name, 'socketRpc', { uid: uid, aid: aid, pid: pid, socketid: ctx.socket.id, data: ctx.data })
         }

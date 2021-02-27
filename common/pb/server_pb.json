@@ -62,6 +62,18 @@
         "socketRpcRet": {
           "fields": {}
         },
+        "delModelByPID": {
+          "fields": {
+            "pid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            }
+          }
+        },
+        "delModelByPIDRet": {
+          "fields": {}
+        },
         "getPlayer": {
           "fields": {
             "pid": {
@@ -97,6 +109,18 @@
               "id": 1
             }
           }
+        },
+        "delPlayer": {
+          "fields": {
+            "pid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            }
+          }
+        },
+        "delPlayerRet": {
+          "fields": {}
         },
         "socketChannelOper": {
           "fields": {
@@ -147,21 +171,29 @@
               "type": "conn",
               "id": 50
             },
+            "delModelByPID": {
+              "type": "delModelByPID",
+              "id": 100
+            },
             "socketRpc": {
               "type": "socketRpc",
-              "id": 100
+              "id": 101
             },
             "getPlayer": {
               "type": "getPlayer",
-              "id": 101
+              "id": 102
             },
             "setPlayer": {
               "type": "setPlayer",
-              "id": 102
+              "id": 103
+            },
+            "delPlayer": {
+              "type": "delPlayer",
+              "id": 104
             },
             "socketChannelOper": {
               "type": "socketChannelOper",
-              "id": 103
+              "id": 200
             }
           }
         },
@@ -191,21 +223,29 @@
               "type": "connRet",
               "id": 50
             },
+            "delModelByPIDRet": {
+              "type": "delModelByPIDRet",
+              "id": 100
+            },
             "socketRpcRet": {
               "type": "socketRpcRet",
-              "id": 100
+              "id": 101
             },
             "getPlayerRet": {
               "type": "getPlayerRet",
-              "id": 101
+              "id": 102
             },
             "setPlayerRet": {
               "type": "setPlayerRet",
-              "id": 102
+              "id": 103
+            },
+            "delPlayerRet": {
+              "type": "delPlayerRet",
+              "id": 104
             },
             "socketChannelOperRet": {
               "type": "socketChannelOperRet",
-              "id": 103
+              "id": 200
             }
           }
         }
@@ -246,6 +286,15 @@
             }
           }
         },
+        "upPlayerData": {
+          "fields": {
+            "baseInfo": {
+              "rule": "required",
+              "type": "common.PlayerInfo",
+              "id": 1
+            }
+          }
+        },
         "enterGame": {
           "fields": {}
         },
@@ -269,7 +318,7 @@
             },
             "enterGame": {
               "type": "enterGame",
-              "id": 102
+              "id": 200
             }
           }
         },
@@ -288,6 +337,10 @@
               "type": "kick",
               "id": 51
             },
+            "upPlayerData": {
+              "type": "upPlayerData",
+              "id": 60
+            },
             "connRet": {
               "type": "connRet",
               "id": 100
@@ -298,7 +351,7 @@
             },
             "enterGameRet": {
               "type": "enterGameRet",
-              "id": 102
+              "id": 200
             }
           }
         }
