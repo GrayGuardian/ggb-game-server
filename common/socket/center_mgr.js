@@ -32,7 +32,7 @@ var CenterMgr = function () {
         }
 
         if (rpc.router != "conn") {
-            console.log('收到来自Center-Server的消息', rpc);
+            //console.log('收到来自Center-Server的消息', rpc);
         }
 
         let callback = (data) => { this.rpcRet(rpc.code, rpc.from, `${rpc.router}Ret`, data) };
@@ -68,7 +68,7 @@ CenterMgr.prototype.rpc = function (to, router, data, cb) {
         if (rpc.code != code) return;
 
         if (rpc.router != "connRet") {
-            console.log('收到来自Center-Server的回调消息', rpc);
+            //console.log('收到来自Center-Server的回调消息', rpc);
         }
         if (cb != null) cb(rpc[rpc.router]);
         this.socket.off('rpcRet', retCb);

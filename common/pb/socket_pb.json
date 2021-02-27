@@ -23,6 +23,18 @@
         "connRet": {
           "fields": {}
         },
+        "heartBeat": {
+          "fields": {}
+        },
+        "heartBeatRet": {
+          "fields": {
+            "now": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            }
+          }
+        },
         "enterGame": {
           "fields": {}
         },
@@ -40,9 +52,13 @@
               "type": "conn",
               "id": 100
             },
+            "heartBeat": {
+              "type": "heartBeat",
+              "id": 101
+            },
             "enterGame": {
               "type": "enterGame",
-              "id": 101
+              "id": 102
             }
           }
         },
@@ -65,9 +81,13 @@
               "type": "connRet",
               "id": 100
             },
+            "heartBeatRet": {
+              "type": "heartBeatRet",
+              "id": 101
+            },
             "enterGameRet": {
               "type": "enterGameRet",
-              "id": 101
+              "id": 102
             }
           }
         }

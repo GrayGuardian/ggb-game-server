@@ -16,7 +16,8 @@ message socketRpc{
     required int32 uid = 1;
     required int32 aid = 2;
     required int32 pid = 3;
-    required socket.c2s data = 4;
+    required string socketid = 4;
+    required socket.c2s data = 5;
 }
 message socketRpcRet{
 
@@ -34,6 +35,14 @@ message setPlayerRet{
     required int32 code = 1;
 }
 
+message socketChannelOper{
+    required string name = 1;
+    required bytes param = 2;
+}
+message socketChannelOperRet{
+    required bytes result = 1;
+}
+
 message rpc {
     required int32 code = 1;
     required string from = 2;
@@ -45,6 +54,8 @@ message rpc {
     optional socketRpc socketRpc = 100;
     optional getPlayer getPlayer = 101;
     optional setPlayer setPlayer = 102;
+
+    optional socketChannelOper socketChannelOper = 103;
 }
 message rpcRet {
     required int32 code = 1;
@@ -57,4 +68,6 @@ message rpcRet {
     optional socketRpcRet socketRpcRet = 100;
     optional getPlayerRet getPlayerRet = 101;
     optional setPlayerRet setPlayerRet = 102;
+
+    optional socketChannelOperRet socketChannelOperRet = 103;
 }

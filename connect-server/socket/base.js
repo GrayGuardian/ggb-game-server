@@ -1,10 +1,11 @@
-const IOClient = require('socket.io-client');
+
 module.exports = function (prototype) {
     prototype.connection = async function (ctx) {
         let id = ctx.socket.id;
         let s = socket.io.connections.get(id);
 
         s.kick = function (code) {
+            code = code == null ? ERROR_CODE.CONNECT_ERROR_KICK : code;
             let router = "kick";
             let data = { error: genErrorMsg(code) };
             s.send(router, data);
@@ -55,10 +56,9 @@ module.exports = function (prototype) {
             let pid = ctx.socket.pid;
 
             let config = server_config.getGameServerConfigByAID(aid);
-            console.log(uid, aid, pid)
-            console.log("转发至game-server>>>", config, ctx.data);
+            console.log("转发至game-server>>>", config, ctx.data, ctx.socket.id);
 
-            center_mgr.rpc(config.name, 'socketRpc', { uid: uid, aid: aid, pid: pid, data: ctx.data })
+            center_mgr.rpc(config.name, 'socketRpc', { uid: uid, aid: aid, pid: pid, socketid: ctx.socket.id, data: ctx.data })
         }
 
     }

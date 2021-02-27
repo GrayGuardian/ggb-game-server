@@ -9,19 +9,21 @@ RpcRouter.prototype.socketRpc = async function (data) {
         console.log("未找到Socket路由", router);
         return;
     }
-
     let player = await rpc_mgr.getPlayer(data.pid);
     let ctx = {};
     ctx.data = data;
     ctx.method = {};
     ctx.method.kick = async function (code) {
-        console.log('踢出玩家', "router:", `kick`, 'code:', code, ' pid:', data.pid);
+        let config = server_config.getConnectServerConfigByAID(data.aid);
+        return await rpc_mgr.socketChannelOper(config.name, "kick", [data.socketid, code]);
     }
     ctx.method.genError = async function (code) {
-        console.log('出现逻辑错误', "router:", `error`, 'code:', code, ' pid:', data.pid);
+        let config = server_config.getConnectServerConfigByAID(data.aid);
+        return await rpc_mgr.socketChannelOper(config.name, "genError", [data.socketid, code]);
     }
     ctx.method.callback = async function (body) {
-        console.log('回发数据', "router:", `${router}Ret`, 'data:', body, ' pid:', data.pid);
+        let config = server_config.getConnectServerConfigByAID(data.aid);
+        return await rpc_mgr.socketChannelOper(config.name, "send", [data.socketid, `${router}Ret`, body]);
     }
 
     action(ctx, player, data.data[router]);

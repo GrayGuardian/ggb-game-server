@@ -1,3 +1,5 @@
+const { rpc } = require("protobufjs");
+
 var RpcMgr = function () { };
 
 RpcMgr.prototype.getAid = async function (pid) {
@@ -25,7 +27,7 @@ RpcMgr.prototype.getPlayer = async function (pid) {
         player = await model_mgr.getPlayer(pid);
     }
     else {
-        跨服操作
+        //跨服操作
         let data = await center_mgr.rpcAsync(config.name, 'getPlayer', { pid: pid })
         let json = data.json.toString("utf8");
         player = await Player.jsonParse(json);
@@ -45,6 +47,56 @@ RpcMgr.prototype.setPlayer = async function (player) {
     }
     else {
         return ((await center_mgr.rpcAsync(config.name, 'setPlayer', { json: Buffer.from(player.toJson()) })) == SUCCESS_CODE);
+    }
+}
+
+
+
+RpcMgr.prototype.socketChannelOper = async function (server, name, param) {
+    let result = null;
+    if (!Array.isArray(server)) {
+        result += await this._socketChannelOper(server, name, param);
+    }
+    else {
+        server.forEach(async function (s) {
+            result += await this._socketChannelOper(s, name, param);
+        });
+    }
+    return result;
+}
+
+
+RpcMgr.prototype._socketChannelOper = async function (server, name, param) {
+    let result = null;
+    if (SERVER_NAME == server) {
+        //本服操作
+        let len = param != null ? param.length : 0;
+        if (len == 0) {
+            result = await socket_channel[name]()
+        }
+        else if (len == 1) {
+            result = await socket_channel[name](param[0])
+        }
+        else if (len == 2) {
+            result = await socket_channel[name](param[0], param[1])
+        }
+        else if (len == 3) {
+            result = await socket_channel[name](param[0], param[1], param[2])
+        }
+        return result
+    }
+    else {
+        //跨服操作
+        result = await center_mgr.rpcAsync(server, "socketChannelOper", { name: name, param: Buffer.from(JSON.stringify(param)) })
+        result = result.result;
+        result = result.toString('utf8');
+        if (result == "") {
+            result = null
+        }
+        else {
+            result = JSON.parse(result);
+        }
+        return result;
     }
 }
 

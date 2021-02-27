@@ -43,3 +43,4 @@ global.socket = require("../common/socket/socket")(io, {
         ctx.method.genError(code);
     }
 });
+

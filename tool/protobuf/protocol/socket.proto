@@ -10,6 +10,11 @@ message conn {
 }
 message connRet { }
 
+message heartBeat { }
+message heartBeatRet { 
+    required int32 now = 1;
+}
+
 message enterGame { }
 message enterGameRet { }
 
@@ -17,7 +22,8 @@ message c2s {
     required string router = 1;
 
     optional conn conn = 100;
-    optional enterGame enterGame = 101;
+    optional heartBeat heartBeat = 101;
+    optional enterGame enterGame = 102;
 }
 
 message s2c {
@@ -27,6 +33,7 @@ message s2c {
     optional kick kick = 51;
 
     optional connRet connRet = 100;
-    optional enterGameRet enterGameRet = 101;
+    optional heartBeatRet heartBeatRet = 101;
+    optional enterGameRet enterGameRet = 102;
 }
 

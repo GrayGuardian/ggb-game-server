@@ -11,6 +11,7 @@ module.exports = function (prototype) {
         let uid = token.uid;
         let aid = token.aid;
         let pid = token.pid;
+        let socketid = ctx.socket.id;
 
         s.uid = uid;
         s.aid = aid;
@@ -19,14 +20,16 @@ module.exports = function (prototype) {
         socket_channel.add(`uid=${uid}`, s);
         socket_channel.add(`aid=${aid}`, s);
         socket_channel.add(`pid=${pid}`, s);
+        socket_channel.add(socketid, s);
 
-        redis.set(`pid=${pid}`, { uid: uid, aid: aid, pid: pid })
+        redis.set(`pid=${pid}`, { uid: uid, aid: aid, pid: pid, socketid: socketid })
+
 
         ctx.method.callback({});
-        // socket_channel.send("ssa", "error", { codvasdfasdfe: 539, msvsdafg: "fdsalvjsdlf" })
-        // socket_channel.genError("ssa", 202)
-        //ctx.socket.disconnect();
-        //ctx.method.genError(ERROR_CODE.PASSWORD_NOTSAME)
     }
+    prototype.heartBeat = async function (ctx) {
+        console.log("接收到心跳包>>>", ctx.socket.uid, ctx.socket.aid, ctx.socket.pid, ctx.data);
 
+        ctx.method.callback({ now: Date.unix() })
+    }
 };

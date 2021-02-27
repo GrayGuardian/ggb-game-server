@@ -47,10 +47,15 @@
               "type": "int32",
               "id": 3
             },
+            "socketid": {
+              "rule": "required",
+              "type": "string",
+              "id": 4
+            },
             "data": {
               "rule": "required",
               "type": "socket.c2s",
-              "id": 4
+              "id": 5
             }
           }
         },
@@ -93,6 +98,29 @@
             }
           }
         },
+        "socketChannelOper": {
+          "fields": {
+            "name": {
+              "rule": "required",
+              "type": "string",
+              "id": 1
+            },
+            "param": {
+              "rule": "required",
+              "type": "bytes",
+              "id": 2
+            }
+          }
+        },
+        "socketChannelOperRet": {
+          "fields": {
+            "result": {
+              "rule": "required",
+              "type": "bytes",
+              "id": 1
+            }
+          }
+        },
         "rpc": {
           "fields": {
             "code": {
@@ -130,6 +158,10 @@
             "setPlayer": {
               "type": "setPlayer",
               "id": 102
+            },
+            "socketChannelOper": {
+              "type": "socketChannelOper",
+              "id": 103
             }
           }
         },
@@ -170,6 +202,10 @@
             "setPlayerRet": {
               "type": "setPlayerRet",
               "id": 102
+            },
+            "socketChannelOperRet": {
+              "type": "socketChannelOperRet",
+              "id": 103
             }
           }
         }
@@ -198,6 +234,18 @@
         "connRet": {
           "fields": {}
         },
+        "heartBeat": {
+          "fields": {}
+        },
+        "heartBeatRet": {
+          "fields": {
+            "now": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            }
+          }
+        },
         "enterGame": {
           "fields": {}
         },
@@ -215,9 +263,13 @@
               "type": "conn",
               "id": 100
             },
+            "heartBeat": {
+              "type": "heartBeat",
+              "id": 101
+            },
             "enterGame": {
               "type": "enterGame",
-              "id": 101
+              "id": 102
             }
           }
         },
@@ -240,9 +292,13 @@
               "type": "connRet",
               "id": 100
             },
+            "heartBeatRet": {
+              "type": "heartBeatRet",
+              "id": 101
+            },
             "enterGameRet": {
               "type": "enterGameRet",
-              "id": 101
+              "id": 102
             }
           }
         }
