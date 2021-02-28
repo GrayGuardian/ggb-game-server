@@ -290,6 +290,30 @@
             }
           }
         },
+        "PlayerCurrencyInfo": {
+          "fields": {
+            "pid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "gold1": {
+              "rule": "required",
+              "type": "int32",
+              "id": 2
+            },
+            "gold2": {
+              "rule": "required",
+              "type": "int32",
+              "id": 3
+            },
+            "gold3": {
+              "rule": "required",
+              "type": "int32",
+              "id": 4
+            }
+          }
+        },
         "Pos": {
           "fields": {
             "mid": {

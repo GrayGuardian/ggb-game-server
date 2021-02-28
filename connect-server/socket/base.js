@@ -25,6 +25,11 @@ module.exports = function (prototype) {
                 s.genError(ERROR_CODE.CONNECT_ERROR_RETURN);
                 return;
             }
+
+            if ('heartBeatRet|upModelData|'.indexOf(`${router}|`) == -1) {
+                console.log(`socket.s2c uid:${s.uid} aid:${s.aid} pid:${s.pid} router:${router} body:`, body)
+            }
+
             s.emit("s2c", bytes);
         }
     }
@@ -47,13 +52,21 @@ module.exports = function (prototype) {
 
     }
     prototype.c2s = async function (ctx) {
+        let uid = ctx.socket.uid;
+        let aid = ctx.socket.aid;
+        let pid = ctx.socket.pid;
+
         let router = ctx.data.router;
         let data = ctx.data[router]
         if (data == null) {
             ctx.method.genError(ERROR_CODE.CONNECT_ERROR_DATA)
             return;
         }
-        // console.log(`socket.c2s router:${router} body:`, data)
+
+        if ('heartBeat|'.indexOf(`${router}|`) == -1) {
+            console.log(`socket.c2s uid:${uid} aid:${aid} pid:${pid} router:${router} body:`, data)
+        }
+
 
         let action = socket_mgr[router];
         if (action != null) {
@@ -64,13 +77,8 @@ module.exports = function (prototype) {
         }
         else {
             //转发至game-server
-            let uid = ctx.socket.uid;
-            let aid = ctx.socket.aid;
-            let pid = ctx.socket.pid;
-
             let config = server_config.getGameServerConfigByAID(aid);
 
-            console.log(`socket.c2s server:${config.name} pid:${pid} router:${router} body:`, data)
 
             center_mgr.rpc(config.name, 'socketRpc', { uid: uid, aid: aid, pid: pid, socketid: ctx.socket.id, data: ctx.data })
         }

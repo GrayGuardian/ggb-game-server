@@ -5,7 +5,10 @@ RouterMgr.prototype.enterGame = async function (ctx, player, data) {
     console.log("enterGame", data, player.baseInfo, ctx.data.pid);
 
     player.set_online(1)
-    await player.upDataToDB(true);
+    await player.upDataToDB();
+
+    player.upClientData();
+    player.currency.upClientData();
 
     ctx.method.callback({});
 }

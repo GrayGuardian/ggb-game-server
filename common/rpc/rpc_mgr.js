@@ -87,7 +87,6 @@ RpcMgr.prototype.delPlayer = async function (pid) {
 RpcMgr.prototype.socketChannelOperToAllServer = async function (name, param) {
     let arr = [];
     server_config.getServerList("connect-server").forEach(config => {
-        console.log(config.name);
         arr.push(config.name);
     });
     return await this.socketChannelOper(arr, name, param);

@@ -23,8 +23,6 @@ RpcRouter.prototype.socketRpc = async function (data) {
     }
     ctx.method.callback = async function (body) {
         let config = server_config.getConnectServerConfigByAID(data.aid);
-
-        console.log(`socket.s2c server:${config.name} pid:${data.pid} router:${`${router}Ret`} body:`, body)
         return await rpc_mgr.socketChannelOper(config.name, "send", [data.socketid, `${router}Ret`, body]);
     }
 

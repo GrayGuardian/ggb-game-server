@@ -32,6 +32,12 @@ message PlayerInfo {
     optional int32 logout_time = 12;
     required int32 online = 13;
 }
+message PlayerCurrencyInfo {
+    required int32 pid = 1;
+    required int32 gold1 = 2;
+    required int32 gold2 = 3;
+    required int32 gold3 = 4; 
+}
 message Pos {
     required int32 mid = 1;
     required int32 x = 2;

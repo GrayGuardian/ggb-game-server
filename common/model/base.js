@@ -26,13 +26,13 @@ Base.prototype.init = async function (idx) {
     this.idx = idx;
     this.aid = await rpc_mgr.getAidByPID(this.pid);
 
-    console.log(`[Model]${this.clsName} Init aid:${this.aid} idx:${this.idx}`)
+    //console.log(`[Model]${this.clsName} Init aid:${this.aid} idx:${this.idx}`)
     await this.loadData();
     await this.inited();
 }
 //从数据库更新缓存数据
 Base.prototype.upDBToData = async function (refresh) {
-    console.log(`[Model]${this.clsName} 从数据库更新缓存数据`)
+    //console.log(`[Model]${this.clsName} 从数据库更新缓存数据`)
     let sql = `SELECT ${this.db_fields.toString()} FROM ${this.db_table} WHERE ${this.db_idxField}=?;`
     //console.log(sql, this.idx)
     //操作数据库
@@ -62,7 +62,7 @@ Base.prototype.upDBToData = async function (refresh) {
 }
 //从缓存更新数据库数据
 Base.prototype.upDataToDB = async function (refresh) {
-    console.log(`[Model]${this.clsName} 从缓存更新数据库数据`)
+    //console.log(`[Model]${this.clsName} 从缓存更新数据库数据`)
     let arr = [];
     this.db_fields.forEach(field => {
         let value = this[`get_${field}`]();
@@ -96,14 +96,16 @@ Base.prototype.upDataToDB = async function (refresh) {
 }
 //更新数据到客户端
 Base.prototype.upClientData = async function () {
-    let router = `up${this.clsName}Data`;
-    console.log(`[Model]${this.clsName} 更新数据到客户端 router:`, router, "data:", this.baseInfo);
 
-    //向客户端发送数据
+    let router = `upModelData`;
     let config = server_config.getConnectServerConfigByAID(this.aid);
-    console.log(config.name, `pid=${this.pid}`, router, this.baseInfo)
-    await rpc_mgr.socketChannelOper(config.name, "send", [`pid=${this.pid}`, router, { baseInfo: this.baseInfo }]);
-    // await rpc_mgr.
+    let data = {};
+    data.name = this.clsName;
+    data[this.clsName] = this.baseInfo;
+
+    //console.log(`[Model]${this.clsName} 更新数据到客户端 router:`, router, "data:", data);
+
+    await rpc_mgr.socketChannelOper(config.name, "send", [`pid=${this.pid}`, router, data]);
 }
 //初始化数据
 Base.prototype.loadData = async function (data, flag) {

@@ -15,8 +15,11 @@ message heartBeatRet {
     required int32 now = 1;
 }
 
-message upPlayerData {
-    required common.PlayerInfo baseInfo = 1;
+message upModelData {
+    required string name = 1;
+
+    optional common.PlayerInfo Player = 10;
+    optional common.PlayerCurrencyInfo PlayerCurrency = 11;
 }
 
 
@@ -40,8 +43,7 @@ message s2c {
 
     optional common.Error error = 50;
     optional kick kick = 51;
-
-    optional upPlayerData upPlayerData = 60;
+    optional upModelData upModelData = 52;
 
     optional connRet connRet = 100;
     optional heartBeatRet heartBeatRet = 101;

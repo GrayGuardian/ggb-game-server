@@ -286,12 +286,20 @@
             }
           }
         },
-        "upPlayerData": {
+        "upModelData": {
           "fields": {
-            "baseInfo": {
+            "name": {
               "rule": "required",
-              "type": "common.PlayerInfo",
+              "type": "string",
               "id": 1
+            },
+            "Player": {
+              "type": "common.PlayerInfo",
+              "id": 10
+            },
+            "PlayerCurrency": {
+              "type": "common.PlayerCurrencyInfo",
+              "id": 11
             }
           }
         },
@@ -337,9 +345,9 @@
               "type": "kick",
               "id": 51
             },
-            "upPlayerData": {
-              "type": "upPlayerData",
-              "id": 60
+            "upModelData": {
+              "type": "upModelData",
+              "id": 52
             },
             "connRet": {
               "type": "connRet",
@@ -469,6 +477,30 @@
               "rule": "required",
               "type": "int32",
               "id": 13
+            }
+          }
+        },
+        "PlayerCurrencyInfo": {
+          "fields": {
+            "pid": {
+              "rule": "required",
+              "type": "int32",
+              "id": 1
+            },
+            "gold1": {
+              "rule": "required",
+              "type": "int32",
+              "id": 2
+            },
+            "gold2": {
+              "rule": "required",
+              "type": "int32",
+              "id": 3
+            },
+            "gold3": {
+              "rule": "required",
+              "type": "int32",
+              "id": 4
             }
           }
         },
