@@ -4,7 +4,7 @@
 该项目是一个基于Node.js平台中koa框架开发完成的分布式游戏服务器框架,对应有一个U3D客户端框架[koa-game-client](https://github.com/GrayGuardian/ggb-game-client)
 ### 架构设计
 #### 架构图
-![](./res/koa-game-server2021-03-01_12-02-07.png)
+![](./res/image1.png)
 #### 基础服务器
 - web-server - Web服务器
   - 游戏前后台网站放置
