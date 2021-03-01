@@ -1,11 +1,9 @@
 # ggb-game-server
-## 项目介绍
-### 简介 
 该项目是一个基于Node.js平台中koa框架开发完成的分布式游戏服务器框架,对应有一个U3D客户端框架[koa-game-client](https://github.com/GrayGuardian/ggb-game-client)
-### 架构设计
-#### 架构图
+## 项目说明
+### 架构图
 ![](./res/image1.png)
-#### 基础服务器
+### 基础服务器
 - web-server - Web服务器
   - 游戏前后台网站放置
   - 游戏在线更新资源下载
@@ -18,7 +16,7 @@
   - 管理游戏客户端建立的socket连接
 - game-server - 游戏逻辑服务器
   - 管理具体的游戏逻辑
-#### 工作流
+### 工作流
 - 客户端进入游戏前的登录、选择角色等HTTP请求，发送至`http-server`实现通信  
 - 进入游戏时将发送Token值至`connect-server`进行验证，验证成功将建立socket连接  
 - 游戏业务逻辑将请求至`connect-server`，然后通过`center-server`转发至`game-server`,在`game-server`处理具体逻辑或者再次转发至战斗、聊天等更细分的游戏服务器，再通过`center-server`回发至`connect-server`，最后发送至客户端完成通信。
