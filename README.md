@@ -37,7 +37,7 @@
 ### 安装
  
 1. 通过github下载项目  
-`https://github.com/GrayGuardian/koa-game-client.git`
+`https://github.com/GrayGuardian/ggb-game-server.git`
 2. 进入项目文件夹，命令行安装依赖库
 `npm i`
 3. mysql数据库运行`./db.sql`数据库语句创建表结构及数据
