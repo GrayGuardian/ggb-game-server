@@ -1,5 +1,5 @@
 # ggb-game-server
-该项目是一个基于Node.js平台中koa框架开发完成的分布式游戏服务器框架,对应有一个U3D客户端框架[koa-game-client](https://github.com/GrayGuardian/ggb-game-client)
+该项目是一个基于Node.js平台中koa框架开发完成的分布式游戏服务器框架,对应有一个U3D客户端框架[ggb-game-client](https://github.com/GrayGuardian/ggb-game-client)
 ## 项目说明
 ### 架构图
 ![](./res/image1.png)
