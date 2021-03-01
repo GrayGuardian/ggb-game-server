@@ -8,7 +8,7 @@ sys.setdefaultencoding('utf-8')
 import xlrd
 
 jsRoot = "../../common/template/"
-luaRoot = "../../../koa-game-client/Assets/Resources/AB/lua/template/"
+luaRoot = "../../../ggb-game-client/Assets/Resources/AB/lua/template/"
 xlsfile = os.getcwd()+"\\template.xlsx" # 打开指定路径中的xls文件
 book = xlrd.open_workbook(xlsfile)#得到Excel文件的book对象，实例化对象
 
