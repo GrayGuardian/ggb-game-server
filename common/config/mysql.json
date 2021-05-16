@@ -1,7 +1,7 @@
 {
-    "host": "rm-bp1vx095wt77a964q5o.mysql.rds.aliyuncs.com",
-    "user": "game",
-    "password": "*game123456",
+    "host": "",
+    "user": "",
+    "password": "",
     "port": 3306,
-    "database": "game"
+    "database": ""
 }

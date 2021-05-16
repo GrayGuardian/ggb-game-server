@@ -41,7 +41,7 @@
 `https://github.com/GrayGuardian/ggb-game-server.git`
 2. 进入项目文件夹，命令行安装依赖库
 `npm i`
-3. mysql数据库运行`./db.sql`数据库语句创建表结构及数据
+3. mysql数据库运行`./tool/db/db.sql`数据库语句创建表结构及数据
 4. 安装protobuf-python
   - 命令行进入 `./tool/protobuf/plugins/protobuf-python`
   - 输入命令 `python setup.py build` `python setup.py install`
@@ -57,12 +57,12 @@
 ## 运行测试
  
 ###快速启动
-
+- 保证 redis 与 mysql 数据库成功启动连接
 - 双击 `./start.bat` 批处理程序
 
 ###单个启动
 
-- 命令行输入 `node ./[server-name]/app [server-order]`  
+- 命令行输入 `node ./[server-name]/app [*server-order]`  
  - 例如：`node ./web-server/app`、`node ./game-server/app 0`
 
 此处仅展示如何快速启动项目测试，具体配置方式请看下方项目部署
