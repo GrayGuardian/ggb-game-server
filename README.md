@@ -1,4 +1,4 @@
-（该框架后续开发手游中，逐步发现一些BUG，等手游项目开发完毕，将开源统一更新并删除这行文字）
+    目前用这个框架完成了一个手游项目示例，修复了一些关于底层框架的问题，可以直接前往[查看项目](https://github.com/GrayGuardian/card-server)
 # ggb-game-server
 该项目是一个基于Node.js平台中koa框架开发完成的分布式游戏服务器框架,对应有一个U3D客户端框架[ggb-game-client](https://github.com/GrayGuardian/ggb-game-client)
 ## 项目说明
